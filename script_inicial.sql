@@ -12,6 +12,8 @@ GO
 CREATE SCHEMA SIEGFRIED;
 GO
 
+----------------------------------- PROCEDIMIENTOS --------------------------------------------------------------------
+
 CREATE PROCEDURE SIEGFRIED.CREATE_TABLES_AND_FILL
 AS
 BEGIN
@@ -110,7 +112,7 @@ BEGIN
 		hora_hasta numeric(18,0) not null,
 		primary key(id_profesional,dia_semana),
 		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional)
-	)
+	);
 
 	CREATE TABLE SIEGFRIED.TURNOS(
 		id_turno numeric(18,0) primary key,
@@ -118,15 +120,50 @@ BEGIN
 		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		fecha datetime,
 		--numero_turno numeric(18,0) -- ????
-	)
+	);
 
-	CREATE TABLE SIEGFRIED.CONSULTAS()
+	CREATE TABLE SIEGFRIED.CONSULTAS(
+		id_consulta numeric(18,0) not null identity(1,1) primary key
+		hora_llegada datetime,
+		hora_atencion datetime,
+		sintomas varchar(255),
+		diagnostico varchar(255),
+		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
+	);
 
-	CREATE TABLE SIEGFRIED.BONOS()
+	CREATE TABLE SIEGFRIED.BONOS( -- FALTA AGREGAR CONSTRAINTS!!
+		id_bono numeric(18,0) primary key,
+		id_plan numeric(18,0) foreign key references SIEGFRIED.PLANES(id_plan),
+		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
+		id_consulta numeric(18,0) foreign key references SIEGFRIED.CONSULTAS(id_consulta),
+		fecha_compra datetime
+	);
 
-	CREATE TABLE SIEGFRIED.CANCELACION()
+	CREATE TABLE SIEGFRIED.CANCELACION(
+		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno),
+		id_tipo_cancelacion numeric(18,0) foreign key references SIEGFRIED.TIPO_CANCELACION(id_tipo),
+		primary key(id_turno, id_tipo_cancelacion)
+	);
 
-	CREATE TABLE SIEGFRIED.TIPOS_CANCELACION()
+	CREATE TABLE SIEGFRIED.TIPOS_CANCELACION(
+		id_tipo numeric(18,0) not null identity(1,1) primary key,
+		descripcion varchar(255)
+	);
     
 END
 GO
+
+
+---------------------------------------------------- MAIN EXECUTION ---------------------------------------------------
+BEGIN TRY
+	BEGIN TRANSACTION MAIN_T
+	--	HACER TODA LA NORMALIZACION DE LA TABLA MAESTRA ACA!!!
+	COMMIT TRANSACTION MAIN_T
+END TRY
+BEGIN CATCH
+	IF (@@TRANCOUNT > 0)
+	BEGIN
+		ROLLBACK TRANSACTION MAIN_T
+	END
+END CATCH
+
