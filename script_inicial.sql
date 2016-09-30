@@ -25,7 +25,7 @@ BEGIN
 	);
 
 	CREATE TABLE SIEGFRIED.USUARIOS (
-		id_usuario numeric(18,0) IDENTITY(1,1) NOT NULL,
+		id_usuario numeric(18,0) NOT NULL,
 		username NVARCHAR(255),
 		contrasenia binary(32),
 		habilitado				numeric(18,0) DEFAULT 1,
@@ -168,46 +168,33 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE SIEGFRIED.LOAD_ROLES_Y_FUNCIONALIDADES
+AS
+BEGIN
+	INSERT INTO SIEGFRIED.ROLES (Nombre, Habilitado) VALUES
+		('Administrador',1),('Afiliado',1), ('Profesional',1);
 
----------------------------------------------------- MAIN EXECUTION ---------------------------------------------------
-BEGIN TRY
-	BEGIN TRANSACTION MAIN_T
-		INSERT INTO SIEGFRIED.USUARIOS
+	--FALTA INSERTAR FUNCIONALIDADES
+END 
+GO
+
+CREATE PROCEDURE SIEGFRIED.LOAD_PLANES
+AS
+BEGIN
+		INSERT INTO SIEGFRIED.PLANES
 		SELECT DISTINCT
-			Paciente_Nombre+Paciente_Apellido,   --username NVARCHAR(255),
-			'1234', --contrasenia binary(32),
-			1,	--habilitado		numeric(18,0) DEFAULT 1,
-			0,--cantlog			numeric(18,0) DEFAULT 0,
-			Paciente_Nombre, --nombre nvarchar(255),
-			Paciente_Apellido,
-			Paciente_Direccion, --direccion nvarchar(255),
-			'dni', --tipo_dni nvarchar(255),
-			Paciente_Dni, --nro_dni numeric(18,0),
-			Paciente_Telefono, --telefono numeric(18,0),
-			Paciente_Mail, --mail nvarchar(255),
-			Paciente_Fecha_Nac, --fecha_nacimiento datetime,
-			NULL
-		FROM gd_esquema.Maestra 
-		WHERE Paciente_Nombre IS NOT NULL;
-		
-		INSERT INTO SIEGFRIED.USUARIOS
-		SELECT DISTINCT
-			Medico_Nombre+Medico_Apellido,   --username NVARCHAR(255),
-			'1234', --contrasenia binary(32),
-			1,	--habilitado		numeric(18,0) DEFAULT 1,
-			0,--cantlog			numeric(18,0) DEFAULT 0,
-			Medico_Nombre, --nombre nvarchar(255),
-			Medico_Apellido,
-			Medico_Direccion, --direccion nvarchar(255),
-			'dni', --tipo_dni nvarchar(255),
-			Medico_Dni, --nro_dni numeric(18,0),
-			Medico_Telefono, --telefono numeric(18,0),
-			Medico_Mail, --mail nvarchar(255),
-			Medico_Fecha_Nac, --fecha_nacimiento datetime,
-			NULL
-		FROM gd_esquema.Maestra 
-		WHERE Paciente_Nombre IS NOT NULL;
-		
+			Plan_Med_Codigo,
+			Plan_Med_Descripcion,
+			Plan_Med_Precio_Bono_Consulta
+		FROM gd_esquema.Maestra
+		WHERE Plan_Med_Codigo IS NOT NULL
+
+END 
+GO
+
+CREATE PROCEDURE SIEGFRIED.LOAD_ESPECIALIDADES
+AS
+BEGIN
 		INSERT INTO SIEGFRIED.ESPECIALIDADES
 		SELECT DISTINCT
 			Especialidad_Codigo,
@@ -221,8 +208,85 @@ BEGIN TRY
 			Tipo_Especialidad_Descripcion
 		FROM gd_esquema.Maestra 
 		WHERE Tipo_Especialidad_Codigo IS NOT NULL;
+END 
+GO
 
-	--	HACER TODA LA NORMALIZACION DE LA TABLA MAESTRA ACA!!!
+--Este procedure comprende:
+-- 1) CARGAR TODOS LOS USUARIOS DE LA MAESTRA
+-- 2) ASIGNAR LOS ROLES
+-- 2) ASIGNARLE ESPECIALIDADES A LOS MEDICOS
+-- 3) ASIGNARLE PLANES A LOS AFILIADOS
+CREATE PROCEDURE SIEGFRIED.LOAD_USERS
+AS
+BEGIN
+	SELECT DISTINCT
+			Paciente_Nombre+Paciente_Apellido,   --username NVARCHAR(255),
+			'1234' as contrasenia, --contrasenia binary(32),
+			1 as habilitado,	--habilitado		numeric(18,0) DEFAULT 1,
+			0 as cantlog,--cantlog			numeric(18,0) DEFAULT 0,
+			Paciente_Nombre , --nombre nvarchar(255),
+			Paciente_Apellido,
+			Paciente_Direccion, --direccion nvarchar(255),
+			'dni' as tipodni, --tipo_dni nvarchar(255),
+			Paciente_Dni, --nro_dni numeric(18,0),
+			Paciente_Telefono, --telefono numeric(18,0),
+			Paciente_Mail, --mail nvarchar(255),
+			Paciente_Fecha_Nac, --fecha_nacimiento datetime,
+			NULL as id_plan -- id_plan?
+		INTO #TempAfiliados
+		FROM gd_esquema.Maestra
+		WHERE Paciente_Nombre IS NOT NULL;
+
+		INSERT INTO SIEGFRIED.AFILIADOS
+		SELECT
+			(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + 1,
+			*
+		FROM #TempAfiliados
+
+		INSERT INTO SIEGFRIED.USUARIOS
+		SELECT
+			(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + 1,
+			*
+		FROM #TempAfiliados
+
+		DECLARE @CantidadAfiliados numeric(18,0)
+		SELECT @CantidadAfiliados = COUNT(*) FROM #TempAfiliados
+
+		SELECT DISTINCT
+			Medico_Nombre+Medico_Apellido as username,   --username NVARCHAR(255),
+			'1234' as contrasenia, --contrasenia binary(32),
+			1 as habilitado,	--habilitado		numeric(18,0) DEFAULT 1,
+			0 as cantlog,--cantlog			numeric(18,0) DEFAULT 0,
+			Medico_Nombre, --nombre nvarchar(255),
+			Medico_Apellido,
+			Medico_Direccion, --direccion nvarchar(255),
+			'dni' as tipodni, --tipo_dni nvarchar(255),
+			Medico_Dni, --nro_dni numeric(18,0),
+			Medico_Telefono, --telefono numeric(18,0),
+			Medico_Mail, --mail nvarchar(255),
+			Medico_Fecha_Nac, --fecha_nacimiento datetime,
+			NULL
+		INTO #TempMedicos
+		FROM gd_esquema.Maestra
+		WHERE Medico_Nombre IS NOT NULL
+
+		INSERT INTO SIEGFRIED.PROFESIONALES
+		SELECT
+			(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados
+		FROM #TempMedicos
+END
+GO
+
+
+---------------------------------------------------- MAIN EXECUTION ---------------------------------------------------
+BEGIN TRY
+	BEGIN TRANSACTION MAIN_T
+		EXEC SIEGFRIED.CREATE_TABLES_AND_FILL
+		EXEC SIEGFRIED.LOAD_ROLES_Y_FUNCIONALIDADES
+		EXEC SIEGFRIED.LOAD_PLANES
+		EXEC SIEGFRIED.LOAD_ESPECIALIDADES
+		EXEC SIEGFRIED.LOAD_USERS
+
 	COMMIT TRANSACTION MAIN_T
 END TRY
 BEGIN CATCH
