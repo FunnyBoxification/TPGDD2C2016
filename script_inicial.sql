@@ -78,7 +78,7 @@ BEGIN
 		FOREIGN KEY(Id_Funcionalidad) REFERENCES SIEGFRIED.FUNCIONALIDADES(Id_Funcionalidad)
 	);
 
-	CREATE TABLE SIEGFRIED.PLANES(
+	CREATE TABLE SIEGFRIED.PLANES (
 		id_plan numeric(18,0) PRIMARY KEY,
 		descripcion varchar(255),
 		precio_bono_consulta numeric(18,0)
@@ -91,8 +91,7 @@ BEGIN
 		id_plan numeric(18,0) foreign key references SIEGFRIED.PLANES(id_plan),
 		PRIMARY KEY(id_afiliado)
 	);
-
-		|				   
+			   
 	CREATE TABLE SIEGFRIED.PROFESIONALES ( 
 		id_profesional numeric(18,0) NOT NULL PRIMARY KEY,
 		matricula varchar(255)--ppor las dudas dejo esto -- cuenta como matricula?
@@ -136,7 +135,7 @@ BEGIN
 	);
 
 	CREATE TABLE SIEGFRIED.CONSULTAS(
-		id_consulta numeric(18,0) not null identity(1,1) primary key
+		id_consulta numeric(18,0) not null identity(1,1) primary key,
 		hora_llegada datetime,
 		hora_atencion datetime,
 		sintomas varchar(255),
@@ -175,6 +174,21 @@ BEGIN
 		('Administrador',1),('Afiliado',1), ('Profesional',1);
 
 	--FALTA INSERTAR FUNCIONALIDADES
+	INSERT INTO SIEGFRIED.FUNCIONALIDADES (Nombre) VALUES ('ABMRol'),
+													('RegistroUsuario'),
+													('ABMAfiliado'),
+													('ABMProfesional'),
+													('ABMEspecialidadesMedicas'),
+													('ABMPlanes'),
+													('RegistrarAgendaDelMedico'),
+													('CompraBonos'),
+													('PedirTurno'),
+													('RegistroLLegadaAtencionMedica'),
+													('RegistroResultadoAtencionMedica'),
+													('ModificacionVisibilidad'),
+													('CancelarAtencionMedicaAfiliado'),
+													('CancelarAtencionMedicaMedico'),
+													('ListadoEstadistico');
 END 
 GO
 
@@ -211,6 +225,13 @@ BEGIN
 END 
 GO
 
+CREATE PROCEDURE SIEGFRIED.LOAD_ESTADOS_CIVILES
+AS
+BEGIN
+		INSERT INTO SIEGFRIED.ESTADOS_CIVILES (Descripcion)  VALUES ('Soltero/a'), ('Casado/a'), ('Viudo/a'), ('Divorciado/a'), ('Concubinato')
+END 
+GO
+
 --Este procedure comprende:
 -- 1) CARGAR TODOS LOS USUARIOS DE LA MAESTRA
 -- 2) ASIGNAR LOS ROLES
@@ -220,7 +241,7 @@ CREATE PROCEDURE SIEGFRIED.LOAD_USERS
 AS
 BEGIN
 	SELECT DISTINCT
-			Paciente_Nombre+Paciente_Apellido,   --username NVARCHAR(255),
+			Paciente_Nombre+Paciente_Apellido as username,   --username NVARCHAR(255),
 			'1234' as contrasenia, --contrasenia binary(32),
 			1 as habilitado,	--habilitado		numeric(18,0) DEFAULT 1,
 			0 as cantlog,--cantlog			numeric(18,0) DEFAULT 0,
@@ -233,47 +254,56 @@ BEGIN
 			Paciente_Mail, --mail nvarchar(255),
 			Paciente_Fecha_Nac, --fecha_nacimiento datetime,
 			NULL as id_plan -- id_plan?
-		INTO #TempAfiliados
-		FROM gd_esquema.Maestra
-		WHERE Paciente_Nombre IS NOT NULL;
+	INTO #TempAfiliados
+	FROM gd_esquema.Maestra
+	WHERE Paciente_Nombre IS NOT NULL;
 
-		INSERT INTO SIEGFRIED.AFILIADOS
-		SELECT
-			(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + 1,
-			*
-		FROM #TempAfiliados
+	INSERT INTO SIEGFRIED.AFILIADOS
+	SELECT
+		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + 1,
+		1, -- Estado civil Soltero para todos los de la maestra
+		0, -- Sin familiares
+		(SELECT TOP 1 Plan_Med_Codigo FROM gd_esquema.Maestra WHERE Paciente_Dni = Temp.Paciente_Dni ) --Obtengo el plan directamente de la mestra
+	FROM #TempAfiliados Temp
 
-		INSERT INTO SIEGFRIED.USUARIOS
-		SELECT
-			(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + 1,
-			*
-		FROM #TempAfiliados
+	INSERT INTO SIEGFRIED.USUARIOS
+	SELECT
+		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + 1,
+		*
+	FROM #TempAfiliados
 
-		DECLARE @CantidadAfiliados numeric(18,0)
-		SELECT @CantidadAfiliados = COUNT(*) FROM #TempAfiliados
+	DECLARE @CantidadAfiliados numeric(18,0)
+	SELECT @CantidadAfiliados = COUNT(*) FROM #TempAfiliados
 
-		SELECT DISTINCT
-			Medico_Nombre+Medico_Apellido as username,   --username NVARCHAR(255),
-			'1234' as contrasenia, --contrasenia binary(32),
-			1 as habilitado,	--habilitado		numeric(18,0) DEFAULT 1,
-			0 as cantlog,--cantlog			numeric(18,0) DEFAULT 0,
-			Medico_Nombre, --nombre nvarchar(255),
-			Medico_Apellido,
-			Medico_Direccion, --direccion nvarchar(255),
-			'dni' as tipodni, --tipo_dni nvarchar(255),
-			Medico_Dni, --nro_dni numeric(18,0),
-			Medico_Telefono, --telefono numeric(18,0),
-			Medico_Mail, --mail nvarchar(255),
-			Medico_Fecha_Nac, --fecha_nacimiento datetime,
-			NULL
-		INTO #TempMedicos
-		FROM gd_esquema.Maestra
-		WHERE Medico_Nombre IS NOT NULL
+	SELECT DISTINCT
+		Medico_Nombre+Medico_Apellido as username,   --username NVARCHAR(255),
+		'1234' as contrasenia, --contrasenia binary(32),
+		1 as habilitado,	--habilitado		numeric(18,0) DEFAULT 1,
+		0 as cantlog,--cantlog			numeric(18,0) DEFAULT 0,
+		Medico_Nombre, --nombre nvarchar(255),
+		Medico_Apellido,
+		Medico_Direccion, --direccion nvarchar(255),
+		'dni' as tipodni, --tipo_dni nvarchar(255),
+		Medico_Dni, --nro_dni numeric(18,0),
+		Medico_Telefono, --telefono numeric(18,0),
+		Medico_Mail, --mail nvarchar(255),
+		Medico_Fecha_Nac, --fecha_nacimiento datetime,
+		NULL
+	INTO #TempMedicos
+	FROM gd_esquema.Maestra
+	WHERE Medico_Nombre IS NOT NULL
 
-		INSERT INTO SIEGFRIED.PROFESIONALES
-		SELECT
-			(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados
-		FROM #TempMedicos
+	INSERT INTO SIEGFRIED.PROFESIONALES
+	SELECT
+		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados,
+		NULL -- Por ahora matricula null
+	FROM #TempMedicos
+
+	INSERT INTO SIEGFRIED.USUARIOS
+	SELECT
+		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados,
+		*
+	FROM #TempMedicos
 END
 GO
 
@@ -282,6 +312,7 @@ GO
 BEGIN TRY
 	BEGIN TRANSACTION MAIN_T
 		EXEC SIEGFRIED.CREATE_TABLES_AND_FILL
+		EXEC SIEGFRIED.LOAD_ESTADOS_CIVILES
 		EXEC SIEGFRIED.LOAD_ROLES_Y_FUNCIONALIDADES
 		EXEC SIEGFRIED.LOAD_PLANES
 		EXEC SIEGFRIED.LOAD_ESPECIALIDADES
