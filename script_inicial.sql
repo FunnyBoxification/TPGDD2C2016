@@ -321,9 +321,18 @@ BEGIN TRY
 	COMMIT TRANSACTION MAIN_T
 END TRY
 BEGIN CATCH
-	DECLARE @error nvarchar(255)
-	SELECT @error = ERROR_MESSAGE();
-	PRINT @error  
+
+	DECLARE  @error_num numeric, @error_sev nvarchar(255), @error_st int, @error_proc nvarchar(255), @error_mess nvarchar(255)
+	
+	SELECT  
+        @error_num = ERROR_NUMBER() 
+        ,@error_sev = ERROR_SEVERITY() 
+        ,@error_st = ERROR_STATE() 
+        ,@error_proc = ERROR_PROCEDURE() 
+        ,@error_mess = ERROR_MESSAGE() ;  
+	PRINT @error_num
+	PRINT @error_proc
+	PRINT @error_mess
 	IF (@@TRANCOUNT > 0)
 	BEGIN
 		ROLLBACK TRANSACTION MAIN_T
