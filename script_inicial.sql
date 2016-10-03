@@ -103,7 +103,7 @@ BEGIN
 	);
 
 	CREATE TABLE SIEGFRIED.ESPECIALIDADES (
-		id_especialidad numeric(18,0) NOT NULL PRIMARY KEY,
+		id_especialidad numeric(18,0) PRIMARY KEY,
 		descripcion varchar(255),
 		id_tipo_especialidad numeric(18,0) foreign key references SIEGFRIED.TIPOS_ESPECIALIDADES(id_tipo)
 	);
@@ -209,20 +209,21 @@ GO
 CREATE PROCEDURE SIEGFRIED.LOAD_ESPECIALIDADES
 AS
 BEGIN
-		INSERT INTO SIEGFRIED.ESPECIALIDADES
-		SELECT DISTINCT
-			Especialidad_Codigo,
-			Especialidad_Descripcion
-		FROM gd_esquema.Maestra 
-		WHERE Especialidad_Codigo IS NOT NULL;
 
 		INSERT INTO SIEGFRIED.TIPOS_ESPECIALIDADES
 		SELECT DISTINCT
 			Tipo_Especialidad_Codigo,
-			Tipo_Especialidad_Descripcion,
-			Especialidad_Codigo
+			Tipo_Especialidad_Descripcion
 		FROM gd_esquema.Maestra 
 		WHERE Tipo_Especialidad_Codigo IS NOT NULL;
+
+		INSERT INTO SIEGFRIED.ESPECIALIDADES
+		SELECT DISTINCT
+			Especialidad_Codigo,
+			Especialidad_Descripcion,
+			Tipo_Especialidad_Codigo
+		FROM gd_esquema.Maestra 
+		WHERE Especialidad_Codigo IS NOT NULL;
 END 
 GO
 
