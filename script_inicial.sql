@@ -219,7 +219,8 @@ BEGIN
 		INSERT INTO SIEGFRIED.TIPOS_ESPECIALIDADES
 		SELECT DISTINCT
 			Tipo_Especialidad_Codigo,
-			Tipo_Especialidad_Descripcion
+			Tipo_Especialidad_Descripcion,
+			Especialidad_Codigo
 		FROM gd_esquema.Maestra 
 		WHERE Tipo_Especialidad_Codigo IS NOT NULL;
 END 
