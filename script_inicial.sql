@@ -276,7 +276,7 @@ BEGIN
 	SELECT @CantidadAfiliados = COUNT(*) FROM #TempAfiliados
 
 	SELECT DISTINCT
-		Medico_Nombre+Medico_Apellido as username,   --username NVARCHAR(255),
+		Medico_Nombre+Medico_Apellido as username,   --username NVARCHAR(255),		
 		'1234' as contrasenia, --contrasenia binary(32),
 		1 as habilitado,	--habilitado		numeric(18,0) DEFAULT 1,
 		0 as cantlog,--cantlog			numeric(18,0) DEFAULT 0,
@@ -288,7 +288,7 @@ BEGIN
 		Medico_Telefono, --telefono numeric(18,0),
 		Medico_Mail, --mail nvarchar(255),
 		Medico_Fecha_Nac, --fecha_nacimiento datetime,
-		NULL
+		NULL as sexo
 	INTO #TempMedicos
 	FROM gd_esquema.Maestra
 	WHERE Medico_Nombre IS NOT NULL
