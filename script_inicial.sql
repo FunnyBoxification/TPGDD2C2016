@@ -274,6 +274,11 @@ BEGIN
 		*
 	FROM #TempAfiliados
 
+	INSERT INTO SIEGFRIED.ROLES_USUARIOS
+	SELECT 2, id_afiliado FROM SIEGFRIED.AFILIADOS
+
+
+
 	DECLARE @CantidadAfiliados numeric(18,0)
 	SELECT @CantidadAfiliados = COUNT(*) FROM #TempAfiliados
 
@@ -306,6 +311,9 @@ BEGIN
 		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados,
 		*
 	FROM #TempMedicos
+
+	INSERT INTO SIEGFRIED.ROLES_USUARIOS
+	SELECT 3, id_profesional FROM SIEGFRIED.PROFESIONALES
 END
 GO
 
