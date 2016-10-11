@@ -328,12 +328,12 @@ BEGIN
 		INSERT INTO SIEGFRIED.TURNOS
 		SELECT DISTINCT
 			[Turno_Numero],       
-			(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
-			(select u.id_usuario from SIEGFRIED.PROFESIONALES p, SIEGFRIED.USUARIOS u where Medico_Dni = u.nro_dni and u.id_usuario = p.id_profesional),
-			[Turno_Fecha], --fecha datetime,
+			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
+			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
+			[Turno_Fecha] --fecha datetime,
 			--numero_turno numeric(18,0) -- ????
 		FROM gd_esquema.Maestra 
-		WHERE Bono_Consulta_Numero IS NOT NULL;
+		WHERE [Turno_Numero] IS NOT NULL;
 	
 
 
@@ -345,7 +345,7 @@ BEGIN
 			Consulta_Enfermedades,
 			[Turno_Numero] --id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
 		FROM gd_esquema.Maestra 
-		WHERE Bono_Consulta_Numero IS NOT NULL;
+		WHERE Turno_Numero IS NOT NULL AND Consulta_Sintomas IS NOT NULL ;
 END 
 GO
 
@@ -357,11 +357,11 @@ BEGIN
 			Bono_Consulta_Numero,
 			Plan_Med_Codigo,
 			(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
-			NULL,
-			[Compra_Bono_Fecha],
+			(select id_consulta from siegfried.consultas where id_turno = Turno_Numero ),
+			Bono_Consulta_Fecha_Impresion,
 			Bono_Consulta_Fecha_Impresion
 		FROM gd_esquema.Maestra 
-		WHERE Bono_Consulta_Numero IS NOT NULL;
+		WHERE Bono_Consulta_Numero IS NOT NULL AND Compra_Bono_Fecha IS NULL;
 			
 END 
 GO
@@ -376,6 +376,8 @@ BEGIN TRY
 		EXEC SIEGFRIED.LOAD_PLANES
 		EXEC SIEGFRIED.LOAD_ESPECIALIDADES
 		EXEC SIEGFRIED.LOAD_USERS
+		EXEC SIEGFRIED.LOAD_CONSULTAS_TURNOS
+		EXEC SIEGFRIED.LOAD_BONOS
 
 	COMMIT TRANSACTION MAIN_T
 END TRY
