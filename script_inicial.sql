@@ -148,7 +148,8 @@ BEGIN
 		id_plan numeric(18,0) foreign key references SIEGFRIED.PLANES(id_plan),
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		id_consulta numeric(18,0) foreign key references SIEGFRIED.CONSULTAS(id_consulta),
-		fecha_compra datetime
+		fecha_compra datetime,
+		consulta_fecha_impresion datetime
 	);
 
 	CREATE TABLE SIEGFRIED.TIPOS_CANCELACION(
@@ -315,6 +316,54 @@ BEGIN
 	INSERT INTO SIEGFRIED.ROLES_USUARIOS
 	SELECT 3, id_profesional FROM SIEGFRIED.PROFESIONALES
 END
+GO
+
+
+
+CREATE PROCEDURE SIEGFRIED.LOAD_CONSULTAS_TURNOS
+AS
+BEGIN
+
+
+		INSERT INTO SIEGFRIED.TURNOS
+		SELECT DISTINCT
+			[Turno_Numero],       
+			(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
+			(select u.id_usuario from SIEGFRIED.PROFESIONALES p, SIEGFRIED.USUARIOS u where Medico_Dni = u.nro_dni and u.id_usuario = p.id_profesional),
+			[Turno_Fecha], --fecha datetime,
+			--numero_turno numeric(18,0) -- ????
+		FROM gd_esquema.Maestra 
+		WHERE Bono_Consulta_Numero IS NOT NULL;
+	
+
+
+		INSERT INTO SIEGFRIED.CONSULTAS
+		SELECT DISTINCT
+			NULL, --hora_llegada datetime,
+			NULL, --hora_atencion datetime,
+			Consulta_Sintomas,
+			Consulta_Enfermedades,
+			[Turno_Numero] --id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
+		FROM gd_esquema.Maestra 
+		WHERE Bono_Consulta_Numero IS NOT NULL;
+END 
+GO
+
+CREATE PROCEDURE SIEGFRIED.LOAD_BONOS
+AS
+BEGIN
+		INSERT INTO SIEGFRIED.BONOS
+		SELECT DISTINCT
+			Bono_Consulta_Numero,
+			Plan_Med_Codigo,
+			(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
+			NULL,
+			[Compra_Bono_Fecha],
+			Bono_Consulta_Fecha_Impresion
+		FROM gd_esquema.Maestra 
+		WHERE Bono_Consulta_Numero IS NOT NULL;
+			
+END 
 GO
 
 
