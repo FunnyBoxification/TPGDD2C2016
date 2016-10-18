@@ -117,22 +117,30 @@ BEGIN
 	);	
 
 
-	CREATE TABLE SIEGFRIED.AGENDA (
-		id_profesional numeric(18,0) not null,
-		dia_semana numeric(18,0) not null,
-		hora_desde numeric(18,0) not null,
-		hora_hasta numeric(18,0) not null,
-		primary key(id_profesional,dia_semana),
-		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional)
-	);
-
 	CREATE TABLE SIEGFRIED.TURNOS(
 		id_turno numeric(18,0) primary key,
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		fecha datetime,
+		id_agenda numeric(18,0)
+		foreign key(id_agenda) references SIEGFRIED.AGENDA(id_agenda),
 		--numero_turno numeric(18,0) -- ????
 	);
+
+	CREATE TABLE SIEGFRIED.AGENDA (
+		id_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
+		id_profesional numeric(18,0) not null,
+		dia_semana numeric(18,0) not null,
+		hora_desde numeric(18,0) not null,
+		hora_hasta numeric(18,0) not null,
+		id_especialidad numeric(18,0) not null,
+		habilitado  numeric(1,0) not null,
+		primary key(id_agenda),
+		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional),
+		foreign key(id_especialidad) references SIEGFRIED.PROFESIONAL_ESPECIALIDAD(id_especialidad)
+	);
+
+
 
 	CREATE TABLE SIEGFRIED.CONSULTAS(
 		id_consulta numeric(18,0) not null identity(1,1) primary key,
@@ -323,14 +331,25 @@ GO
 CREATE PROCEDURE SIEGFRIED.LOAD_CONSULTAS_TURNOS
 AS
 BEGIN
-
+	
+		INSERT INTO SIEGFRIED.AGENDA
+		SELECT DISTINCT
+			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
+			SELECT DATEPART(dw,[Turno_Fecha]),
+			[Turno_Fecha],
+			(select dateadd(HOUR, 1, [Turno_Fecha]),
+			Especialidad_Codigo,
+			1,
+			FROM gd_esquema.Maestra 
+		WHERE [Turno_Numero] IS NOT NULL;
 
 		INSERT INTO SIEGFRIED.TURNOS
 		SELECT DISTINCT
 			[Turno_Numero],       
 			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
-			[Turno_Fecha] --fecha datetime,
+			[Turno_Fecha], --fecha datetime,
+			(select id_agenda from SIEGFRIED.AGENDA where [Turno_Fecha] = hora_desde)
 			--numero_turno numeric(18,0) -- ????
 		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
