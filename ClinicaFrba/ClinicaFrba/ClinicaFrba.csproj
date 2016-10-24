@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abm Afiliado\AltaModificacionAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\AltaModificacionAfiliado.Designer.cs">
+      <DependentUpon>AltaModificacionAfiliado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Afiliado\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,7 +145,13 @@
     <Compile Include="SelectRolForm.Designer.cs">
       <DependentUpon>SelectRolForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Afiliado\AltaModificacionAfiliado.resx">
+      <DependentUpon>AltaModificacionAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Especialidades Medicas\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">

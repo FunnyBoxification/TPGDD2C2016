@@ -123,6 +123,7 @@ BEGIN
 		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		fecha datetime,
 		id_agenda numeric(18,0)
+		id_especialidad numeric(18,0) foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad)
 		foreign key(id_agenda) references SIEGFRIED.AGENDA(id_agenda),
 		--numero_turno numeric(18,0) -- ????
 	);
@@ -349,8 +350,8 @@ BEGIN
 			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
 			[Turno_Fecha], --fecha datetime,
-			(select id_agenda from SIEGFRIED.AGENDA where [Turno_Fecha] = hora_desde)
-			--numero_turno numeric(18,0) -- ????
+			(select id_agenda from SIEGFRIED.AGENDA where [Turno_Fecha] = hora_desde),
+			Especialidad_Codigo
 		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 	
