@@ -168,6 +168,14 @@ BEGIN
 		consulta_fecha_impresion datetime
 	);
 
+	CREATE TABLE SIEGFRIED.COMPRA_BONO(
+		id_compra numeric(18,0) primary key identity(1,1),
+		id_afiliado numeric(18,0) foreign key references SIEGFRIED.PLANES(id_plan),
+		fecha_compra datetime,
+		cantidad numeric(18,0),
+		monto numeric(18,0)
+	);
+
 	CREATE TABLE SIEGFRIED.TIPOS_CANCELACION(
 		id_tipo numeric(18,0) not null identity(1,1) primary key,
 		descripcion varchar(255)
@@ -379,6 +387,16 @@ GO
 CREATE PROCEDURE SIEGFRIED.LOAD_BONOS
 AS
 BEGIN
+
+		INSERT INTO SIEGFRIED.COMPRA_BONOS	
+		SELECT DISTINCT 
+		(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
+		Compra_Bono_Fecha,
+		1,
+		Plan_Med_Precio_Bono_Consulta
+		FROM gd_esquema.Maestra
+		WHERE Bono_Consulta_Numero IS NOT NULL AND Compra_Bono_Fecha IS NOT NULL;
+
 		INSERT INTO SIEGFRIED.BONOS
 		SELECT DISTINCT
 			Bono_Consulta_Numero,
