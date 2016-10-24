@@ -114,7 +114,14 @@ BEGIN
 		PRIMARY KEY(Id_profesional,Id_especialidad),
 		FOREIGN KEY(Id_profesional) REFERENCES SIEGFRIED.PROFESIONALES(Id_profesional),
 		FOREIGN KEY(Id_especialidad) REFERENCES SIEGFRIED.ESPECIALIDADES(Id_especialidad)
-	);	
+	);
+	
+	CREATE TABLE SIEGFRIED.HISTORIAL_USUARIOS_PLANES (
+		id_afiliado numeric(18,0) foreign key references siegfried.afiliados(id_afiliado),
+		id_plan_viejo numeric(18,0) foreign key references siegfried.planes(id_plan),
+		id_plan_nuevo numeric(18,0) foreign key references siegfried.planes(id_plan),
+		motivo_cambio varchar(255)
+	)	
 
 
 	CREATE TABLE SIEGFRIED.TURNOS(
@@ -122,8 +129,8 @@ BEGIN
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		fecha datetime,
-		id_agenda numeric(18,0)
-		id_especialidad numeric(18,0) foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad)
+		id_agenda numeric(18,0),
+		id_especialidad numeric(18,0) foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
 		foreign key(id_agenda) references SIEGFRIED.AGENDA(id_agenda),
 		--numero_turno numeric(18,0) -- ????
 	);
