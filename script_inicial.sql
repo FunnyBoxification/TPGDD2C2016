@@ -123,26 +123,22 @@ BEGIN
 		motivo_cambio varchar(255)
 	)	
 
-
-	CREATE TABLE SIEGFRIED.AGENDA (
-		id_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
-		id_profesional numeric(18,0) not null,
-		dia_hora datetime DEFAULT NULL,
-		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
-		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno),
-		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional)
-	);
-
 		CREATE TABLE SIEGFRIED.TURNOS(
 		id_turno numeric(18,0) primary key,
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		fecha datetime,
-		id_agenda numeric(18,0) foreign key references SIEGFRIED.AGENDA(id_agenda),
 		id_especialidad numeric(18,0) foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
 		--numero_turno numeric(18,0) -- ????
 	);
 
+		CREATE TABLE SIEGFRIED.AGENDA(
+		id_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
+		id_profesional numeric(18,0) not null foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
+		dia_hora datetime,
+		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
+		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
+	);
 
 
 	CREATE TABLE SIEGFRIED.CONSULTAS(
@@ -343,7 +339,16 @@ GO
 CREATE PROCEDURE SIEGFRIED.LOAD_CONSULTAS_TURNOS
 AS
 BEGIN
-	
+		INSERT INTO SIEGFRIED.TURNOS
+		SELECT DISTINCT
+			[Turno_Numero],       
+			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
+			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
+			[Turno_Fecha], --fecha datetime,
+			Especialidad_Codigo
+		FROM gd_esquema.Maestra 
+		WHERE [Turno_Numero] IS NOT NULL;
+
 		INSERT INTO SIEGFRIED.AGENDA
 		SELECT DISTINCT
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
@@ -351,17 +356,6 @@ BEGIN
 			Especialidad_Codigo,
 			Turno_Numero
 			FROM gd_esquema.Maestra 
-		WHERE [Turno_Numero] IS NOT NULL;
-
-		INSERT INTO SIEGFRIED.TURNOS
-		SELECT DISTINCT
-			[Turno_Numero],       
-			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
-			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
-			[Turno_Fecha], --fecha datetime,
-			(select id_agenda from SIEGFRIED.AGENDA where id_profesional = (select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni)),
-			Especialidad_Codigo
-		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 
 		INSERT INTO SIEGFRIED.CONSULTAS
@@ -403,7 +397,6 @@ BEGIN
 			
 END 
 GO
-
 
 ---------------------------------------------------- MAIN EXECUTION ---------------------------------------------------
 BEGIN TRY
