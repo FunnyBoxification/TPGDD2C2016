@@ -124,28 +124,32 @@ BEGIN
 	)	
 
 
-	CREATE TABLE SIEGFRIED.TURNOS(
+	CREATE TABLE SIEGFRIED.AGENDA (
+		id_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
+		id_profesional numeric(18,0) not null,
+		habilitado  numeric(1,0) not null,
+		fecha_trabaja_desde datetime DEFAULT NULL,
+		fecha_trabaja_hasta datetime DEFAULT NULL,
+		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional)
+	);
+
+	CREATE TABLE SIEGFRIED.ITEM_AGENDA (
+		id_item_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
+		id_agenda numeric(18,0) foreign key references SIEGFRIED.AGENDA(id_agenda),
+		dia_semana numeric(18,0) not null,
+		hora_desde datetime not null,
+		hora_hasta datetime not null,
+		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad)
+	);
+
+		CREATE TABLE SIEGFRIED.TURNOS(
 		id_turno numeric(18,0) primary key,
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		fecha datetime,
-		id_agenda numeric(18,0),
+		id_agenda numeric(18,0) foreign key references SIEGFRIED.AGENDA(id_agenda),
 		id_especialidad numeric(18,0) foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
-		foreign key(id_agenda) references SIEGFRIED.AGENDA(id_agenda),
 		--numero_turno numeric(18,0) -- ????
-	);
-
-	CREATE TABLE SIEGFRIED.AGENDA (
-		id_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
-		id_profesional numeric(18,0) not null,
-		dia_semana numeric(18,0) not null,
-		hora_desde numeric(18,0) not null,
-		hora_hasta numeric(18,0) not null,
-		id_especialidad numeric(18,0) not null,
-		habilitado  numeric(1,0) not null,
-		primary key(id_agenda),
-		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional),
-		foreign key(id_especialidad) references SIEGFRIED.PROFESIONAL_ESPECIALIDAD(id_especialidad)
 	);
 
 
@@ -351,11 +355,17 @@ BEGIN
 		INSERT INTO SIEGFRIED.AGENDA
 		SELECT DISTINCT
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
-			SELECT DATEPART(dw,[Turno_Fecha]),
+			1
+			FROM gd_esquema.Maestra 
+		WHERE [Turno_Numero] IS NOT NULL;
+
+		INSERT INTO SIEGFRIED.ITEM_AGENDA
+		SELECT DISTINCT
+			(select id_agenda from SIEGFRIED.AGENDA where id_profesional = (select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni)),
+			DATEPART(dw,[Turno_Fecha]),
 			[Turno_Fecha],
-			(select dateadd(HOUR, 1, [Turno_Fecha]),
-			Especialidad_Codigo,
-			1,
+			dateadd(HOUR, 1, [Turno_Fecha]),
+			Especialidad_Codigo
 			FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 

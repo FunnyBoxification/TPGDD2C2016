@@ -49,4 +49,8 @@ GROUP BY 1,2
 ) vista
 left join siegfried.especialidades especialidad on especialidad.id_especialidad = vista.id_especialidad
 
+--------------------------------------------------------------------------------------------
+--Top 5 de los profesionales con menos horas trabajadas filtrando por Plan y
+--Especialidad
+
 
