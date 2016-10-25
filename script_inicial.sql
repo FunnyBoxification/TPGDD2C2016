@@ -136,7 +136,7 @@ BEGIN
 	CREATE TABLE SIEGFRIED.ITEM_AGENDA (
 		id_item_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
 		id_agenda numeric(18,0) foreign key references SIEGFRIED.AGENDA(id_agenda),
-		dia_semana numeric(18,0) not null,
+		dia_semana int not null,
 		hora_desde datetime not null,
 		hora_hasta datetime not null,
 		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad)
@@ -172,12 +172,13 @@ BEGIN
 		consulta_fecha_impresion datetime
 	);
 
-	CREATE TABLE SIEGFRIED.COMPRA_BONO(
+	CREATE TABLE SIEGFRIED.COMPRA_BONOS(
 		id_compra numeric(18,0) primary key identity(1,1),
-		id_afiliado numeric(18,0) foreign key references SIEGFRIED.PLANES(id_plan),
+		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		fecha_compra datetime,
 		cantidad numeric(18,0),
-		monto numeric(18,0)
+		monto numeric(18,0),
+		id_plan numeric(18,0) foreign key references SIEGFRIED.PLANES(id_plan)
 	);
 
 	CREATE TABLE SIEGFRIED.TIPOS_CANCELACION(
@@ -355,7 +356,9 @@ BEGIN
 		INSERT INTO SIEGFRIED.AGENDA
 		SELECT DISTINCT
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
-			1
+			1,
+			NULL,
+			NULL
 			FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 
@@ -375,7 +378,7 @@ BEGIN
 			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
 			[Turno_Fecha], --fecha datetime,
-			(select id_agenda from SIEGFRIED.AGENDA where [Turno_Fecha] = hora_desde),
+			(select id_agenda from SIEGFRIED.AGENDA where id_profesional = (select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni)),
 			Especialidad_Codigo
 		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
@@ -403,7 +406,8 @@ BEGIN
 		(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
 		Compra_Bono_Fecha,
 		1,
-		Plan_Med_Precio_Bono_Consulta
+		Plan_Med_Precio_Bono_Consulta,
+		Plan_Med_Codigo
 		FROM gd_esquema.Maestra
 		WHERE Bono_Consulta_Numero IS NOT NULL AND Compra_Bono_Fecha IS NOT NULL;
 
