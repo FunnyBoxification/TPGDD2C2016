@@ -127,19 +127,10 @@ BEGIN
 	CREATE TABLE SIEGFRIED.AGENDA (
 		id_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
 		id_profesional numeric(18,0) not null,
-		habilitado  numeric(1,0) not null,
-		fecha_trabaja_desde datetime DEFAULT NULL,
-		fecha_trabaja_hasta datetime DEFAULT NULL,
+		dia_hora datetime DEFAULT NULL,
+		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
+		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno),
 		foreign key(id_profesional) references SIEGFRIED.PROFESIONALES(id_profesional)
-	);
-
-	CREATE TABLE SIEGFRIED.ITEM_AGENDA (
-		id_item_agenda numeric(18,0) identity(1,1) NOT NULL PRIMARY KEY,
-		id_agenda numeric(18,0) foreign key references SIEGFRIED.AGENDA(id_agenda),
-		dia_semana int not null,
-		hora_desde datetime not null,
-		hora_hasta datetime not null,
-		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad)
 	);
 
 		CREATE TABLE SIEGFRIED.TURNOS(
@@ -356,19 +347,9 @@ BEGIN
 		INSERT INTO SIEGFRIED.AGENDA
 		SELECT DISTINCT
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
-			1,
-			NULL,
-			NULL
-			FROM gd_esquema.Maestra 
-		WHERE [Turno_Numero] IS NOT NULL;
-
-		INSERT INTO SIEGFRIED.ITEM_AGENDA
-		SELECT DISTINCT
-			(select id_agenda from SIEGFRIED.AGENDA where id_profesional = (select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni)),
-			DATEPART(dw,[Turno_Fecha]),
-			[Turno_Fecha],
-			dateadd(HOUR, 1, [Turno_Fecha]),
-			Especialidad_Codigo
+			Turno_Fecha,
+			Especialidad_Codigo,
+			Turno_Numero
 			FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 
@@ -382,13 +363,11 @@ BEGIN
 			Especialidad_Codigo
 		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
-	
-
 
 		INSERT INTO SIEGFRIED.CONSULTAS
 		SELECT DISTINCT
-			NULL, --hora_llegada datetime,
-			NULL, --hora_atencion datetime,
+			Turno_Fecha, --hora_llegada datetime,
+			Bono_Consulta_Fecha_Impresion, --hora_atencion datetime,
 			Consulta_Sintomas,
 			Consulta_Enfermedades,
 			[Turno_Numero] --id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
