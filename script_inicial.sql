@@ -190,7 +190,7 @@ BEGIN
 	INSERT INTO SIEGFRIED.ROLES (Nombre, Habilitado) VALUES
 		('Administrador',1),('Afiliado',1), ('Profesional',1);
 
-	--FALTA INSERTAR FUNCIONALIDADES
+	--FALTA INSERTAR FUNCIONALIDADES_ROLES!!!
 	INSERT INTO SIEGFRIED.FUNCIONALIDADES (Nombre) VALUES ('ABMRol'),
 													('RegistroUsuario'),
 													('ABMAfiliado'),
@@ -202,10 +202,27 @@ BEGIN
 													('PedirTurno'),
 													('RegistroLLegadaAtencionMedica'),
 													('RegistroResultadoAtencionMedica'),
-													('ModificacionVisibilidad'),
 													('CancelarAtencionMedicaAfiliado'),
 													('CancelarAtencionMedicaMedico'),
 													('ListadoEstadistico');
+	INSERT INTO SIEGFRIED.FUNCIONALIDES_ROLES (Id_Funcionalidad,Id_Rol) VALUES
+		(1,1),
+		(2,1),
+		(3,1),
+		(4,1),
+		(5,1),
+		(6,1),
+		(7,1),
+		(8,1),
+		(8,2),
+		(9,1),
+		(10,1),
+		(11,3),
+		(12,2),
+		(13,3),
+		(14,1);
+
+
 END 
 GO
 
@@ -334,6 +351,14 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE SIEGFRIED.SET_ADMIN
+AS
+BEGIN
+	INSERT INTO SIEGFRIED.USUARIOS VALUES (0,admin,HASHBYTES('SHA2_256','w23e'),1,0,'Administrador','General',null,null,null,null,null,null,null)
+	INSERT INTO SIEGFRIED.ROLES_USUARIOS VALUES (1, 0)
+END
+GO
+
 
 
 CREATE PROCEDURE SIEGFRIED.LOAD_CONSULTAS_TURNOS
@@ -409,7 +434,7 @@ BEGIN TRY
 		EXEC SIEGFRIED.LOAD_USERS
 		EXEC SIEGFRIED.LOAD_CONSULTAS_TURNOS
 		EXEC SIEGFRIED.LOAD_BONOS
-
+		EXEC SIEGFRIED.SET_ADMIN
 	COMMIT TRANSACTION MAIN_T
 END TRY
 BEGIN CATCH
