@@ -156,7 +156,8 @@ BEGIN
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
 		id_consulta numeric(18,0) foreign key references SIEGFRIED.CONSULTAS(id_consulta),
 		fecha_compra datetime,
-		consulta_fecha_impresion datetime
+		consulta_fecha_impresion datetime,
+		nro_consulta_medica numeric(18,0) default null
 	);
 
 	CREATE TABLE SIEGFRIED.COMPRA_BONOS(
@@ -354,7 +355,7 @@ GO
 CREATE PROCEDURE SIEGFRIED.SET_ADMIN
 AS
 BEGIN
-	INSERT INTO SIEGFRIED.USUARIOS VALUES (0,admin,HASHBYTES('SHA2_256','w23e'),1,0,'Administrador','General',null,null,null,null,null,null,null)
+	INSERT INTO SIEGFRIED.USUARIOS VALUES (0,'admin',HASHBYTES('SHA2_256','w23e'),1,0,'Administrador','General',null,null,null,null,null,null,null)
 	INSERT INTO SIEGFRIED.ROLES_USUARIOS VALUES (1, 0)
 END
 GO
@@ -411,14 +412,16 @@ BEGIN
 
 		INSERT INTO SIEGFRIED.BONOS
 		SELECT DISTINCT
-			Bono_Consulta_Numero,
-			Plan_Med_Codigo,
-			(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
-			(select id_consulta from siegfried.consultas where id_turno = Turno_Numero ),
-			Bono_Consulta_Fecha_Impresion,
-			Bono_Consulta_Fecha_Impresion
-		FROM gd_esquema.Maestra 
-		WHERE Bono_Consulta_Numero IS NOT NULL AND Compra_Bono_Fecha IS NULL;
+			m.Bono_Consulta_Numero,
+			m.Plan_Med_Codigo,
+			(select u.id_usuario from SIEGFRIED.AFILIADOS a, SIEGFRIED.USUARIOS u where m.Paciente_Dni = u.nro_dni and u.id_usuario = a.id_afiliado),
+			(select id_consulta from siegfried.consultas where id_turno = m.Turno_Numero ),
+			m.Bono_Consulta_Fecha_Impresion,
+			m.Bono_Consulta_Fecha_Impresion,
+			(SELECT COUNT(DISTINCT m2.Bono_Consulta_Numero)+1 FROM gd_esquema.Maestra m2 WHERE m2.Bono_Consulta_Fecha_Impresion is not null and m2.Turno_Fecha is not null and m2.Turno_Fecha < m.Turno_Fecha and m2.Paciente_Dni = m.Paciente_Dni )
+		FROM gd_esquema.Maestra m
+		WHERE m.Bono_Consulta_Numero IS NOT NULL AND m.Compra_Bono_Fecha IS NULL AND m.Turno_Fecha is not null;
+
 			
 END 
 GO
