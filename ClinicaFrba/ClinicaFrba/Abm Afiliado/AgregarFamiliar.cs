@@ -7,27 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClinicaNegocio;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
-    public partial class Form1 : Form
+    public partial class AgregarFamiliar : Form
     {
-
-        public UsuariosNegocio usuNegocio { get; set; }
-        public SqlServerDBConnection instance { get; set; }
-
-        public Form1()
+        public AgregarFamiliar()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void AgregarFamiliar_Load(object sender, EventArgs e)
         {
 
         }
