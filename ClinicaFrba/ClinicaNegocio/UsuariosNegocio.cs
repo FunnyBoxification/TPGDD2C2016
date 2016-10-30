@@ -20,27 +20,23 @@ namespace ClinicaNegocio
         }
 
 
-        /*public DataTable BuscarEmpresas(string razonSocial, string cuit, string email)
+        public DataTable BuscarProfesionales(string nombre, string especialidad, string email)
         {
             try
             {
                 var dt = new DataTable();
                 DBConn.openConnection();
-                String sqlRequest;                                                                                                                 // Id_Empresa			
-                sqlRequest = "SELECT  u.Habilitado, u.Id_Usuario as \"Código Usuario\", u.User_Nombre as \"Nombre Usuario\", ";                   // Cuit_Empresa		
-                sqlRequest += "e.RAzonSocial as \"Razon Social\", e.Cuit_Empresa as \"CUIT\", e.Mail, e.DomCalle as \"Calle\", ";              // RazonSocial			
-                sqlRequest += "e.NroCalle as \"Nro\", e.Piso, e.Depto, ";                                                                                // Mail				
-                sqlRequest += "e.CodigoPostal as \"Cod Postal\", e.Ciudad ,  e.Telefono, e.NombreContacto as \"Contacto\", ";                                                     // DomCalle			
-                sqlRequest += "(select r.Descripcion FROM PMS.RUBROS r where r.Id_Rubro = e.Id_Rubro) as \"Rubro\" , u.FechaCreacion as \"Fecha Creación\" ";                              // NroCalle			
-                sqlRequest += " FROM PMS.USUARIOS u, PMS.EMPRESAS e";                                                                              // Piso				
-                sqlRequest += " WHERE u.Id_Usuario = e.Id_Empresa ";                                                                               // Depto				
-                if (razonSocial != null && razonSocial != "") sqlRequest += " and e.RazonSocial = @razonSocial";                                   // CodigoPostal		
-                if (cuit != null && cuit != "") sqlRequest += " and e.Cuit_Empresa = @cuit";                                                       // Ciudad				
-                if (email != null && email != "") sqlRequest += " and e.Mail = @email";                                                            // NombreContacto		
-                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);                                                                // Telefono			
-                if (razonSocial != null && razonSocial != "") command.Parameters.Add("@razonSocial", SqlDbType.NVarChar).Value = razonSocial;      // Id_Rubro			
-                if (cuit != null && cuit != "") command.Parameters.Add("@cuit", SqlDbType.NVarChar).Value = cuit;
-                if (email != null && email != "") command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+                String sqlRequest;
+                sqlRequest = "SELECT u.habilitado, u.id_usuario, u.nombre + ' ' + u.apellido, u.fecha_nacimiento, u.mail";
+                sqlRequest += "FROM SIEGFRIED.USUARIOS u, SIEGRIED.AFILIADOS a";
+                sqlRequest += "WHERE u.id_usuario = a.id_afiliado";
+                if (nombre != null && nombre != "") sqlRequest += " and u.nombre + ' ' + u.apellido LIKE  @nombre";                                                        			                                               //DomCalle		
+                //if (plan != null && plan != 0) sqlRequest += " and u.id_plan = @id_plan";
+                //if (estadoCivil != null && estadoCivil != 0) sqlRequest += " and u.estado_civil = @estado_civil";
+                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
+                if (nombre != null && nombre != "") command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = "%" + nombre + "%";
+                //if (plan != null && plan != 0) command.Parameters.Add("@id_plan", SqlDbType.Int).Value = plan;
+                //if (estadoCivil != null && estadoCivil != 0) command.Parameters.Add("@estado_civil", SqlDbType.Int).Value = estadoCivil;
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
@@ -56,9 +52,35 @@ namespace ClinicaNegocio
             catch (Exception ex)
             {
                 DBConn.closeConnection();
-                throw (new Exception("Error en la Busqueda de empresas: " + ex.Message));
-            }
-        }*/
+                throw (new Exception("Error en la busqueda de afiliados" + ex.Message));
+            }   
+        }
+
+        public DataTable getEstadosCiviles()
+        {
+            string Sql = "select * from SIEGFRIED.ESTADOS_CIVILES";
+            DBConn.openConnection();
+            SqlCommand cmd = new SqlCommand(Sql, DBConn.Connection);
+            cmd.CommandType = CommandType.Text;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            DBConn.closeConnection();
+            return ds.Tables[0];
+        }
+
+        public DataTable getPlanes()
+        {
+            string Sql = "select * from SIEGFRIED.PLANES";
+            DBConn.openConnection();
+            SqlCommand cmd = new SqlCommand(Sql, DBConn.Connection);
+            cmd.CommandType = CommandType.Text;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            DBConn.closeConnection();
+            return ds.Tables[0];
+        }
 
         public DataTable BuscarAfiliados(String nombre, Int32 plan, Int32 estadoCivil)
         {

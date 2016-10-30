@@ -16,5 +16,45 @@ namespace ClinicaFrba.Principal
         {
             InitializeComponent();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rolesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void afiliadosBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void turnosBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelacionesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void agendaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void regLlegadaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void regConsultaBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

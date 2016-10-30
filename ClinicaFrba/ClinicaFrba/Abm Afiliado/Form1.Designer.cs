@@ -29,27 +29,28 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbxEstadoCivil = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbxPlan = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.tbxNombre = new System.Windows.Forms.TextBox();
+            this.dgvAfiliados = new System.Windows.Forms.DataGridView();
+            this.btnCrear = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAfiliados)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.cbxEstadoCivil);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cbxPlan);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.tbxNombre);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(483, 78);
@@ -57,13 +58,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
-            // comboBox2
+            // cbxEstadoCivil
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(402, 35);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(74, 21);
-            this.comboBox2.TabIndex = 5;
+            this.cbxEstadoCivil.FormattingEnabled = true;
+            this.cbxEstadoCivil.Location = new System.Drawing.Point(402, 35);
+            this.cbxEstadoCivil.Name = "cbxEstadoCivil";
+            this.cbxEstadoCivil.Size = new System.Drawing.Size(74, 21);
+            this.cbxEstadoCivil.TabIndex = 5;
             // 
             // label3
             // 
@@ -74,13 +75,13 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Estado Civil";
             // 
-            // comboBox1
+            // cbxPlan
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(197, 35);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 3;
+            this.cbxPlan.FormattingEnabled = true;
+            this.cbxPlan.Location = new System.Drawing.Point(197, 35);
+            this.cbxPlan.Name = "cbxPlan";
+            this.cbxPlan.Size = new System.Drawing.Size(121, 21);
+            this.cbxPlan.TabIndex = 3;
             // 
             // label2
             // 
@@ -101,54 +102,66 @@
             this.label1.Text = "Nombre";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // tbxNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(48, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 0;
+            this.tbxNombre.Location = new System.Drawing.Point(48, 32);
+            this.tbxNombre.Name = "tbxNombre";
+            this.tbxNombre.Size = new System.Drawing.Size(100, 20);
+            this.tbxNombre.TabIndex = 0;
             // 
-            // dataGridView1
+            // dgvAfiliados
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 107);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(484, 235);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvAfiliados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAfiliados.Location = new System.Drawing.Point(12, 130);
+            this.dgvAfiliados.Name = "dgvAfiliados";
+            this.dgvAfiliados.Size = new System.Drawing.Size(484, 235);
+            this.dgvAfiliados.TabIndex = 1;
             // 
-            // button1
+            // btnCrear
             // 
-            this.button1.Location = new System.Drawing.Point(413, 351);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Crear";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCrear.Location = new System.Drawing.Point(415, 371);
+            this.btnCrear.Name = "btnCrear";
+            this.btnCrear.Size = new System.Drawing.Size(75, 23);
+            this.btnCrear.TabIndex = 2;
+            this.btnCrear.Text = "Crear";
+            this.btnCrear.UseVisualStyleBackColor = true;
+            this.btnCrear.Click += new System.EventHandler(this.btnCrear_Click);
             // 
-            // button2
+            // btnLimpiar
             // 
-            this.button2.Location = new System.Drawing.Point(13, 351);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Limpiar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Location = new System.Drawing.Point(12, 371);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 3;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(413, 101);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 4;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(508, 386);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(508, 406);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.btnCrear);
+            this.Controls.Add(this.dgvAfiliados);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAfiliados)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -157,13 +170,14 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox tbxNombre;
+        private System.Windows.Forms.ComboBox cbxPlan;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbxEstadoCivil;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dgvAfiliados;
+        private System.Windows.Forms.Button btnCrear;
+        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

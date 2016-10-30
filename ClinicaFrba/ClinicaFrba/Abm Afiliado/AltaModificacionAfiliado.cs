@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaNegocio;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
@@ -16,5 +17,11 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             InitializeComponent();
         }
+
+        public AltaModificacionAfiliado(UsuariosNegocio negocio, DataGridViewRow selectedUser)
+        {
+
+        }
+
     }
 }

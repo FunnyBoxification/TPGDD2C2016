@@ -29,7 +29,66 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            usuNegocio = new UsuariosNegocio(instance = new SqlServerDBConnection());
 
+            //Cargo Estados Civiles
+            cbxEstadoCivil.DataSource = usuNegocio.getEstadosCiviles();
+            cbxEstadoCivil.DisplayMember = "descripcion";
+            cbxEstadoCivil.ValueMember = "id_estado";
+
+            //Cargo Planes
+            cbxPlan.DataSource = usuNegocio.getPlanes();
+            cbxEstadoCivil.DisplayMember = "descripcion";
+            cbxEstadoCivil.ValueMember = "id_plan";
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            usuNegocio = new UsuariosNegocio(instance = new SqlServerDBConnection());
+            var frm = new AltaModificacionAfiliado(usuNegocio, null);
+            frm.Show();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                usuNegocio = new UsuariosNegocio(instance = new SqlServerDBConnection());
+                Int32 plan = 0;
+                if (cbxPlan.SelectedValue != null)
+                {
+                    //Int32 plan1;
+                    Int32.TryParse(cbxPlan.SelectedValue.ToString(),out plan);
+                }
+                Int32 estadoCivil = 0;
+                if (cbxEstadoCivil.SelectedValue != null)
+                {
+                    //Int32 plan1;
+                    Int32.TryParse(cbxPlan.SelectedValue.ToString(), out estadoCivil);
+                }
+                dgvAfiliados.DataSource = usuNegocio.BuscarAfiliados(tbxNombre.Text, plan, estadoCivil);
+
+
+                dgvAfiliados.Columns[0].Width = 60;
+                dgvAfiliados.Columns[0].HeaderText = "Hab";
+
+                foreach (DataGridViewRow row in dgvAfiliados.Rows)
+                {
+                    if (Convert.ToDecimal(row.Cells[0].Value) == 1)
+                    {
+                        row.Cells[0].Style.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        row.Cells[0].Style.BackColor = Color.Green;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
