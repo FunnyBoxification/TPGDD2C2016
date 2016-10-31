@@ -42,10 +42,14 @@ namespace ClinicaFrba.Abm_Afiliado
             cbxEstadoCivil.ValueMember = "id_plan";
         }
 
+        private void dgvAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        { 
+        }
+
         private void btnCrear_Click(object sender, EventArgs e)
         {
             usuNegocio = new UsuariosNegocio(instance = new SqlServerDBConnection());
-            var frm = new AltaModificacionAfiliado(usuNegocio, null);
+            var frm = new AltaModificacionAfiliado(usuNegocio);
             frm.Show();
         }
 
@@ -89,6 +93,20 @@ namespace ClinicaFrba.Abm_Afiliado
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            cbxEstadoCivil.SelectedIndex = -1;
+            cbxPlan.SelectedIndex = -1;
+            tbxNombre.Text = "";
+        }
+
+        private void dgvAfiliados_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            usuNegocio = new UsuariosNegocio(instance = new SqlServerDBConnection());
+            var frm = new AltaModificacionAfiliado(usuNegocio,dgvAfiliados.Rows[e.RowIndex]);
+            frm.Show();
         }
     }
 }

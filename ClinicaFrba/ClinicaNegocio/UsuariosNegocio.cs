@@ -89,9 +89,9 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT u.habilitado, u.id_usuario, u.nombre + ' ' + u.apellido, u.fecha_nacimiento, u.mail";
-                sqlRequest += "FROM SIEGFRIED.USUARIOS u, SIEGRIED.AFILIADOS a";
-                sqlRequest += "WHERE u.id_usuario = a.id_afiliado";
+                sqlRequest = "SELECT u.habilitado, u.id_usuario, u.nombre, u.apellido, u.fecha_nacimiento, u.mail, a.cantidad_familiares, u.direccion, u.dni, u.telefono";
+                sqlRequest += " FROM SIEGFRIED.USUARIOS u, SIEGRIED.AFILIADOS a";
+                sqlRequest += " WHERE u.id_usuario = a.id_afiliado";
                 if (nombre != null && nombre != "") sqlRequest += " and u.nombre + ' ' + u.apellido LIKE  @nombre";                                                        			                                               //DomCalle		
                 if (plan != null && plan != 0) sqlRequest += " and u.id_plan = @id_plan";                                                             		
                 if (estadoCivil != null && estadoCivil != 0) sqlRequest += " and u.estado_civil = @estado_civil";                                                             			

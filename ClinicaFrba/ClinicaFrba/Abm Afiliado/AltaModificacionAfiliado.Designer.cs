@@ -39,20 +39,20 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.tbxNombre = new System.Windows.Forms.TextBox();
+            this.tbxApellido = new System.Windows.Forms.TextBox();
+            this.tbxDni = new System.Windows.Forms.TextBox();
+            this.tbxDireccion = new System.Windows.Forms.TextBox();
+            this.tbxTelefono = new System.Windows.Forms.TextBox();
+            this.tbxMail = new System.Windows.Forms.TextBox();
+            this.dtpFechaNac = new System.Windows.Forms.DateTimePicker();
+            this.cbxSexo = new System.Windows.Forms.ComboBox();
+            this.cbxEstadoCivil = new System.Windows.Forms.ComboBox();
+            this.tbxCantFamiliares = new System.Windows.Forms.TextBox();
+            this.cbxPlanMedico = new System.Windows.Forms.ComboBox();
+            this.btnHistorial = new System.Windows.Forms.Button();
+            this.btnListo = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -154,132 +154,132 @@
             this.label11.TabIndex = 10;
             this.label11.Text = "Plan Medico";
             // 
-            // textBox1
+            // tbxNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(127, 10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(193, 20);
-            this.textBox1.TabIndex = 11;
+            this.tbxNombre.Location = new System.Drawing.Point(127, 10);
+            this.tbxNombre.Name = "tbxNombre";
+            this.tbxNombre.Size = new System.Drawing.Size(193, 20);
+            this.tbxNombre.TabIndex = 11;
             // 
-            // textBox2
+            // tbxApellido
             // 
-            this.textBox2.Location = new System.Drawing.Point(127, 41);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(193, 20);
-            this.textBox2.TabIndex = 12;
+            this.tbxApellido.Location = new System.Drawing.Point(127, 41);
+            this.tbxApellido.Name = "tbxApellido";
+            this.tbxApellido.Size = new System.Drawing.Size(193, 20);
+            this.tbxApellido.TabIndex = 12;
             // 
-            // textBox3
+            // tbxDni
             // 
-            this.textBox3.Location = new System.Drawing.Point(127, 72);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(193, 20);
-            this.textBox3.TabIndex = 13;
+            this.tbxDni.Location = new System.Drawing.Point(127, 72);
+            this.tbxDni.Name = "tbxDni";
+            this.tbxDni.Size = new System.Drawing.Size(193, 20);
+            this.tbxDni.TabIndex = 13;
             // 
-            // textBox4
+            // tbxDireccion
             // 
-            this.textBox4.Location = new System.Drawing.Point(127, 100);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(193, 20);
-            this.textBox4.TabIndex = 14;
+            this.tbxDireccion.Location = new System.Drawing.Point(127, 100);
+            this.tbxDireccion.Name = "tbxDireccion";
+            this.tbxDireccion.Size = new System.Drawing.Size(193, 20);
+            this.tbxDireccion.TabIndex = 14;
             // 
-            // textBox5
+            // tbxTelefono
             // 
-            this.textBox5.Location = new System.Drawing.Point(127, 138);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(193, 20);
-            this.textBox5.TabIndex = 15;
+            this.tbxTelefono.Location = new System.Drawing.Point(127, 138);
+            this.tbxTelefono.Name = "tbxTelefono";
+            this.tbxTelefono.Size = new System.Drawing.Size(193, 20);
+            this.tbxTelefono.TabIndex = 15;
             // 
-            // textBox6
+            // tbxMail
             // 
-            this.textBox6.Location = new System.Drawing.Point(127, 172);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(193, 20);
-            this.textBox6.TabIndex = 16;
+            this.tbxMail.Location = new System.Drawing.Point(127, 172);
+            this.tbxMail.Name = "tbxMail";
+            this.tbxMail.Size = new System.Drawing.Size(193, 20);
+            this.tbxMail.TabIndex = 16;
             // 
-            // dateTimePicker1
+            // dtpFechaNac
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(127, 203);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(193, 20);
-            this.dateTimePicker1.TabIndex = 17;
+            this.dtpFechaNac.Location = new System.Drawing.Point(127, 203);
+            this.dtpFechaNac.Name = "dtpFechaNac";
+            this.dtpFechaNac.Size = new System.Drawing.Size(193, 20);
+            this.dtpFechaNac.TabIndex = 17;
             // 
-            // comboBox1
+            // cbxSexo
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(127, 233);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(193, 21);
-            this.comboBox1.TabIndex = 18;
+            this.cbxSexo.FormattingEnabled = true;
+            this.cbxSexo.Location = new System.Drawing.Point(127, 233);
+            this.cbxSexo.Name = "cbxSexo";
+            this.cbxSexo.Size = new System.Drawing.Size(193, 21);
+            this.cbxSexo.TabIndex = 18;
             // 
-            // comboBox2
+            // cbxEstadoCivil
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(127, 261);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(193, 21);
-            this.comboBox2.TabIndex = 19;
+            this.cbxEstadoCivil.FormattingEnabled = true;
+            this.cbxEstadoCivil.Location = new System.Drawing.Point(127, 261);
+            this.cbxEstadoCivil.Name = "cbxEstadoCivil";
+            this.cbxEstadoCivil.Size = new System.Drawing.Size(193, 21);
+            this.cbxEstadoCivil.TabIndex = 19;
             // 
-            // textBox7
+            // tbxCantFamiliares
             // 
-            this.textBox7.Location = new System.Drawing.Point(153, 306);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(167, 20);
-            this.textBox7.TabIndex = 20;
+            this.tbxCantFamiliares.Location = new System.Drawing.Point(153, 306);
+            this.tbxCantFamiliares.Name = "tbxCantFamiliares";
+            this.tbxCantFamiliares.Size = new System.Drawing.Size(167, 20);
+            this.tbxCantFamiliares.TabIndex = 20;
             // 
-            // comboBox3
+            // cbxPlanMedico
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(127, 339);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 21;
+            this.cbxPlanMedico.FormattingEnabled = true;
+            this.cbxPlanMedico.Location = new System.Drawing.Point(127, 339);
+            this.cbxPlanMedico.Name = "cbxPlanMedico";
+            this.cbxPlanMedico.Size = new System.Drawing.Size(121, 21);
+            this.cbxPlanMedico.TabIndex = 21;
             // 
-            // button1
+            // btnHistorial
             // 
-            this.button1.Location = new System.Drawing.Point(254, 337);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Ver historial ";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnHistorial.Location = new System.Drawing.Point(254, 337);
+            this.btnHistorial.Name = "btnHistorial";
+            this.btnHistorial.Size = new System.Drawing.Size(75, 23);
+            this.btnHistorial.TabIndex = 22;
+            this.btnHistorial.Text = "Ver historial ";
+            this.btnHistorial.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnListo
             // 
-            this.button2.Location = new System.Drawing.Point(254, 402);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Listo";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnListo.Location = new System.Drawing.Point(254, 402);
+            this.btnListo.Name = "btnListo";
+            this.btnListo.Size = new System.Drawing.Size(75, 23);
+            this.btnListo.TabIndex = 23;
+            this.btnListo.Text = "Listo";
+            this.btnListo.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnLimpiar
             // 
-            this.button3.Location = new System.Drawing.Point(13, 402);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 24;
-            this.button3.Text = "Limpiar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Location = new System.Drawing.Point(13, 402);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 24;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
             // AltaModificacionAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 437);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnLimpiar);
+            this.Controls.Add(this.btnListo);
+            this.Controls.Add(this.btnHistorial);
+            this.Controls.Add(this.cbxPlanMedico);
+            this.Controls.Add(this.tbxCantFamiliares);
+            this.Controls.Add(this.cbxEstadoCivil);
+            this.Controls.Add(this.cbxSexo);
+            this.Controls.Add(this.dtpFechaNac);
+            this.Controls.Add(this.tbxMail);
+            this.Controls.Add(this.tbxTelefono);
+            this.Controls.Add(this.tbxDireccion);
+            this.Controls.Add(this.tbxDni);
+            this.Controls.Add(this.tbxApellido);
+            this.Controls.Add(this.tbxNombre);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -293,6 +293,7 @@
             this.Controls.Add(this.label1);
             this.Name = "AltaModificacionAfiliado";
             this.Text = "AltaModificacionAfiliado";
+            this.Load += new System.EventHandler(this.AltaModificacionAfiliado_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,19 +312,19 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox tbxNombre;
+        private System.Windows.Forms.TextBox tbxApellido;
+        private System.Windows.Forms.TextBox tbxDni;
+        private System.Windows.Forms.TextBox tbxDireccion;
+        private System.Windows.Forms.TextBox tbxTelefono;
+        private System.Windows.Forms.TextBox tbxMail;
+        private System.Windows.Forms.DateTimePicker dtpFechaNac;
+        private System.Windows.Forms.ComboBox cbxSexo;
+        private System.Windows.Forms.ComboBox cbxEstadoCivil;
+        private System.Windows.Forms.TextBox tbxCantFamiliares;
+        private System.Windows.Forms.ComboBox cbxPlanMedico;
+        private System.Windows.Forms.Button btnHistorial;
+        private System.Windows.Forms.Button btnListo;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

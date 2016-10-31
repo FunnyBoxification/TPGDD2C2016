@@ -116,6 +116,7 @@
             this.dgvAfiliados.Name = "dgvAfiliados";
             this.dgvAfiliados.Size = new System.Drawing.Size(484, 235);
             this.dgvAfiliados.TabIndex = 1;
+            this.dgvAfiliados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAfiliados_CellContentClick_1);
             // 
             // btnCrear
             // 
@@ -135,6 +136,7 @@
             this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnBuscar
             // 
