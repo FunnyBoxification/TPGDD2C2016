@@ -118,6 +118,14 @@ namespace ClinicaNegocio
             }
         }
 
+        public void agregarAfiliadoTitular()
+        {
+        }
+
+        public void agregarAfiliadoFamiliar()
+        {
+        }
+
         /*public void ProcedureCliente(int tipo, int modo, int IdCod, string username, string password, string nombreRazon, string ApellidCui,
                                 string Doccto, string tiporub, string fechaCiud, string mail, string telef, string direcc,
                                 string nro, string piso, string dpto, string local, DateTime fechacreac)

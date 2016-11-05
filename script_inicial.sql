@@ -459,3 +459,82 @@ BEGIN CATCH
 	END
 END CATCH
 
+-------------------------------------------------- PROCEDURES DE LA APLICACION ---------------------------------------------
+CREATE FUNCTION [SIEGFRIED].[getUser] (@userName nvarchar(255), @password varchar(255))
+returns integer
+AS
+BEGIN
+DECLARE @resultExistence integer
+DECLARE @resultLogin integer
+
+	SET @resultExistence = (SELECT  USUARIOS.Id_Usuario FROM SIEGFRIED.USUARIOS where username like @userName)
+	
+
+	if @resultExistence >= 0 
+	BEGIN
+	SET @resultLogin = ( SELECT USUARIOS.Id_Usuario FROM SIEGFRIED.USUARIOS where contrasenia = HASHBYTES('SHA2_256',@password) AND username like @userName);
+	if @resultLogin IS NULL 
+	SET @resultLogin = -1
+	END
+	else if @resultExistence IS NULL
+	SET @resultLogin = -2;
+
+	return @resultLogin
+
+END
+GO
+	-- /GETUSER
+
+
+--AumentarIntentos
+CREATE PROCEDURE [SIEGFRIED].[AumentarIntentosFallidos] @userName nvarchar(255)
+
+AS
+BEGIN
+
+DECLARE @intentosActuales integer
+
+SET @intentosActuales = (SELECT Intentos_Login FROM SIEGFRIED.USUARIOS WHERE username like @userName) 
+
+
+UPDATE SIEGFRIED.USUARIOS SET Intentos_Login = (@intentosActuales + 1) WHERE username like @userName
+END 
+GO
+
+--/AumentarIntentos
+
+
+--LimpiarIntentos
+CREATE PROCEDURE SIEGFRIED.LimpiarIntentos @userName varchar(255)
+
+AS
+
+BEGIN
+UPDATE SIEGFRIED.USUARIOS SET Intentos_login = 0 WHERE nombre LIKE @userName
+
+END
+GO
+--/LimpiarIntentos
+
+
+--Trigger Intentos Fallidos
+CREATE TRIGGER SIEGFRIED.TriggerIntentosFallidos
+ON SIEGFRIED.USUARIOS
+AFTER UPDATE
+AS
+
+
+BEGIN
+DECLARE @intentos numeric(18,0)
+DECLARE @userId numeric(18,0)
+
+SELECT @intentos = (SELECT Intentos_Login FROM inserted)
+SELECT @userId = (SELECT Id_Usuario FROM inserted)
+
+if @intentos = 3 
+UPDATE SIEGFRIED.USUARIOS SET Habilitado = 0 WHERE Id_Usuario = @userId
+
+
+END
+GO
+
