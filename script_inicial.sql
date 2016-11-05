@@ -470,6 +470,7 @@ BEGIN CATCH
 		ROLLBACK TRANSACTION MAIN_T
 	END
 END CATCH
+GO
 
 -------------------------------------------------- PROCEDURES DE LA APLICACION ---------------------------------------------
 CREATE FUNCTION [SIEGFRIED].[getUser] (@userName nvarchar(255), @password varchar(255))
