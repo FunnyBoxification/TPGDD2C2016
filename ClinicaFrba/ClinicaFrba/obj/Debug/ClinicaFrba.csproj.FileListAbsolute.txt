@@ -6,28 +6,3 @@ C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\Cl
 C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.AgregarFamiliar.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaModificacionAfiliado.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Especialidades_Medicas.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.AltaRol.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.ModificacionRol.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.ComprarBonos.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Principal.PaginaPrincipal.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.Form1.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.SelectRolForm.resources
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.pdb
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaNegocio.dll
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaNegocio.pdb
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
-C:\Users\Pablo\Desktop\TP CLINICA FRBA 1.0 - 2C 2016\REPO\TPGDD2C2016\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb

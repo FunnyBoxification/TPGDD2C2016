@@ -73,6 +73,12 @@ namespace ClinicaFrba.Principal
             Form.Show();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var Form = new Compra_Bono.Form1();
+            Form.Show();
+        }
+
         private void afiliadosBtn_Click(object sender, EventArgs e)
         {
             var Form = new Abm_Afiliado.Form1();
