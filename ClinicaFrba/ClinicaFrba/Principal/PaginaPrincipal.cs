@@ -67,45 +67,46 @@ namespace ClinicaFrba.Principal
             InitializeComponent();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void rolesBtn_Click(object sender, EventArgs e)
         {
             var Form = new AbmRol.Form1();
             Form.Show();
         }
 
-        private void rolesBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void afiliadosBtn_Click(object sender, EventArgs e)
         {
-
+            var Form = new Abm_Afiliado.Form1();
+            Form.Show();
         }
 
         private void turnosBtn_Click(object sender, EventArgs e)
         {
-
+            var Form = new Pedir_Turno.Form1();
+            Form.Show();
         }
 
         private void cancelacionesBtn_Click(object sender, EventArgs e)
         {
-
+            var Form = new Cancelar_Atencion.Form1();
+            Form.Show();
         }
 
         private void agendaBtn_Click(object sender, EventArgs e)
         {
-
+            var Form = new Registrar_Agenta_Medico.RegistrarAgenda();
+            Form.Show();
         }
 
         private void regLlegadaBtn_Click(object sender, EventArgs e)
         {
-
+            var Form = new Registro_Llegada.Form1();
+            Form.Show();
         }
 
         private void regConsultaBtn_Click(object sender, EventArgs e)
         {
-
+            var Form = new Registro_Resultado.Form1();
+            Form.Show();
         }
 
         private void PaginaPrincipal_Load(object sender, EventArgs e)
