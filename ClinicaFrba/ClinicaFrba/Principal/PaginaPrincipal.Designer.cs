@@ -36,6 +36,7 @@
             this.agendaBtn = new System.Windows.Forms.Button();
             this.regLlegadaBtn = new System.Windows.Forms.Button();
             this.regConsultaBtn = new System.Windows.Forms.Button();
+            this.listadoBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rolesBtn
@@ -118,11 +119,21 @@
             this.regConsultaBtn.UseVisualStyleBackColor = true;
             this.regConsultaBtn.Click += new System.EventHandler(this.regConsultaBtn_Click);
             // 
+            // listadoBtn
+            // 
+            this.listadoBtn.Location = new System.Drawing.Point(61, 245);
+            this.listadoBtn.Name = "listadoBtn";
+            this.listadoBtn.Size = new System.Drawing.Size(98, 23);
+            this.listadoBtn.TabIndex = 8;
+            this.listadoBtn.Text = "Listado Est.";
+            this.listadoBtn.UseVisualStyleBackColor = true;
+            // 
             // PaginaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(216, 252);
+            this.ClientSize = new System.Drawing.Size(216, 280);
+            this.Controls.Add(this.listadoBtn);
             this.Controls.Add(this.regConsultaBtn);
             this.Controls.Add(this.regLlegadaBtn);
             this.Controls.Add(this.agendaBtn);
@@ -133,6 +144,7 @@
             this.Controls.Add(this.rolesBtn);
             this.Name = "PaginaPrincipal";
             this.Text = "PaginaPrincipal";
+            this.Load += new System.EventHandler(this.PaginaPrincipal_Load);
             this.ResumeLayout(false);
 
         }
@@ -147,5 +159,6 @@
         private System.Windows.Forms.Button agendaBtn;
         private System.Windows.Forms.Button regLlegadaBtn;
         private System.Windows.Forms.Button regConsultaBtn;
+        private System.Windows.Forms.Button listadoBtn;
     }
 }
