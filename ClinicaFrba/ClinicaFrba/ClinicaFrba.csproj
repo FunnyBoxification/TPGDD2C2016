@@ -66,6 +66,12 @@
     <Compile Include="Abm Afiliado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Afiliado\HistorialPlanes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Afiliado\HistorialPlanes.Designer.cs">
+      <DependentUpon>HistorialPlanes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Especialidades Medicas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

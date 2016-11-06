@@ -242,6 +242,7 @@
             this.btnHistorial.TabIndex = 22;
             this.btnHistorial.Text = "Ver historial ";
             this.btnHistorial.UseVisualStyleBackColor = true;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
             // btnListo
             // 
@@ -251,6 +252,7 @@
             this.btnListo.TabIndex = 23;
             this.btnListo.Text = "Listo";
             this.btnListo.UseVisualStyleBackColor = true;
+            this.btnListo.Click += new System.EventHandler(this.btnListo_Click);
             // 
             // btnLimpiar
             // 
@@ -260,6 +262,7 @@
             this.btnLimpiar.TabIndex = 24;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // AltaModificacionAfiliado
             // 

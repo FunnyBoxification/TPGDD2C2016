@@ -58,5 +58,36 @@ namespace ClinicaFrba.Abm_Afiliado
             }
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            tbxNombre.Text = "";
+            tbxApellido.Text = "";
+            tbxDni.Text = "";
+            tbxDireccion.Text = "";
+            tbxTelefono.Text = "";
+            tbxMail.Text = "";
+            dtpFechaNac.Value = DateTimePicker.MinimumDateTime;
+            cbxSexo.SelectedIndex = -1;
+            cbxEstadoCivil.SelectedIndex = -1;
+            tbxCantFamiliares.Text = "";
+            cbxPlanMedico.SelectedIndex = -1;
+        }
+
+        private void btnListo_Click(object sender, EventArgs e)
+        {
+            if (Tipo == 1) //ALTA
+            {
+            }
+            else//MODIFICACION
+            {
+            }
+        }
+
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            var Form = new HistorialPlanes();
+            Form.Show();
+        }
+
     }
 }
