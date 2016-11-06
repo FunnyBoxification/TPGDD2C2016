@@ -63,6 +63,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "Comprar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -155,7 +156,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(11, 348);
+            this.button3.Location = new System.Drawing.Point(12, 122);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 10;

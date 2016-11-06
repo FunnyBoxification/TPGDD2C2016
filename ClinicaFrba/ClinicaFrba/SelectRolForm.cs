@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClinicaNegocio;
 
 namespace ClinicaFrba
 {
@@ -42,7 +43,8 @@ namespace ClinicaFrba
             {
                 DataGridViewRow row = dgvRoles.SelectedRows[0];
                 rolSelected = row.Cells[0].Value.ToString();
-                Principal.PaginaPrincipal form = new Principal.PaginaPrincipal(/*rolSelected, userId*/);
+                UsuarioLogueado.Instance().rol = rolSelected;
+                Principal.PaginaPrincipal form = new Principal.PaginaPrincipal(rolSelected, userId);
                 this.Hide();
                 form.Show();
             }

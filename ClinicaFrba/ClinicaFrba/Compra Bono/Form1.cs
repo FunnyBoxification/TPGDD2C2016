@@ -74,5 +74,11 @@ namespace ClinicaFrba.Compra_Bono
                 dataGridView1.DataSource = bonosNegocio.buscarCompraBonos(nroAfiliado, cantidad, plan);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var Form = new ComprarBonos();
+            Form.Show();
+        } 
     }
 }

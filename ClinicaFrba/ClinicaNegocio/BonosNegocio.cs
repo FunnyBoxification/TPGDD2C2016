@@ -14,6 +14,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace ClinicaNegocio
 {
@@ -24,6 +26,34 @@ namespace ClinicaNegocio
         public BonosNegocio(SqlServerDBConnection instance)
         {
             DBConn = instance;
+        }
+
+        public void comprarBonos(String afiliado, int cantidad, DateTime fecha)
+        {
+            var dt = new DataTable();
+
+            try
+            {
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.ComprarBonos", DBConn.Connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("ifAfiliado", afiliado);
+                    cmd.Parameters.AddWithValue("cantidad", cantidad);
+                    cmd.Parameters.AddWithValue("fecha", fecha);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en Comprar Bonos" + ex.Message));
+            }
         }
 
         public DataTable getPlanes()
@@ -73,7 +103,8 @@ namespace ClinicaNegocio
                 {
                     sqlRequest += "AND cantidad = @cantidad ";
                 }
-                if (fecha != DateTime.) sqlRequest += " and fecha_compra = @fecha_compra ";
+                //FALTA CHEQUEAR QUE NO BUSQUE COMPRAS A FUTURO!!
+                if (fecha != null) sqlRequest += " and fecha_compra = @fecha_compra ";
 
                 if (plan != -1 ) sqlRequest += " and id_plan = @id_plan";
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);

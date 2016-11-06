@@ -583,3 +583,25 @@ RETURN
 	order by dia
 )
 GO
+
+CREATE PROCEDURE SIEGFRIED.ComprarBonos @afiliado numeric(18,0), @cantidad numeric(18,0), @fecha datetime
+as 
+begin
+	DECLARE @plan numeric(18,0)
+	set @plan = (SELECT id_plan FROM SIEGFRIED.AFILIADOS where id_afiliado = @afiliado)
+
+	DECLARE @monto numeric(18,0)
+	set @monto = (SELECT precio_bono_consulta FROM SIEGFRIED.PLANES where id_plan = @plan) * @cantidad
+
+	insert into siegfried.COMPRA_BONOS (id_afiliado,fecha_compra,cantidad,monto,id_plan) VALUES (@afiliado, @fecha, @cantidad, @monto, @plan)
+	
+	DECLARE @i numeric(18,0)
+	set @i = @cantidad
+
+	WHILE(@i > 0)
+	BEGIN
+		insert into siegfried.BONOS (id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@plan,@afiliado,null,@fecha,null)
+		set @i = @i - 1
+	END
+end
+go
