@@ -40,19 +40,39 @@ namespace ClinicaFrba.Compra_Bono
 
         private void button4_Click(object sender, EventArgs e)
         {
+            int nroAfiliado = -1;
+            int cantidad = -1;
+            int plan = -1;
+         
             if (tbxNroAfiliado.Text != "")
             {
+                if (!Int32.TryParse(tbxNroAfiliado.Text, out nroAfiliado))
+                {
+                    MessageBox.Show("El id del afiliado debe ser un numero");
+                    return;
+                }
             }
             if (tbxCantidad.Text != "")
             {
+                if (!Int32.TryParse(tbxNroAfiliado.Text, out cantidad))
+                {
+                    MessageBox.Show("La cantidad debe ser un numero");
+                    return;
+                }
             }
             if (cbxPlan.SelectedValue != null)
             {
+                plan = Int32.Parse(cbxPlan.SelectedValue.ToString());
             }
+
             if (dtpFecha.Value != DateTimePicker.MinimumDateTime)
             {
+                dataGridView1.DataSource = bonosNegocio.buscarCompraBonos(nroAfiliado, cantidad, dtpFecha.Value, plan);
             }
-            dataGridView1.DataSource = bonosNegocio.buscarCompraBonos(1, 1, DateTime.Today, 1);
+            else
+            {
+                dataGridView1.DataSource = bonosNegocio.buscarCompraBonos(nroAfiliado, cantidad, plan);
+            }
         }
     }
 }
