@@ -341,6 +341,12 @@ BEGIN
 		NULL -- Por ahora matricula null
 	FROM #TempMedicos
 
+	INSERT INTO SIEGFRIED.PROFESIONAL_ESPECIALIDAD
+	SELECT
+		(SELECT id_profesional FROM SIEGFRIED.PROFESIONALES where id_profesional = Medico_Dni),
+		Especialidad_Codigo
+	FROM ( SELECT DISTINCT Medico_Dni, Especialidad_Codigo FROM gd_esquema.Maestra) vista;
+
 	INSERT INTO SIEGFRIED.USUARIOS
 	SELECT
 		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados,
@@ -604,5 +610,49 @@ begin
 		insert into siegfried.BONOS (id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@plan,@afiliado,null,@fecha,null)
 		set @i = @i - 1
 	END
+end
+go
+
+create procedure SIEGFRIED.ALTA_AFILIADO_TITULAR 
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@nroDoc numeric(18,0),
+	@direccion varchar(255),
+	@telefono numeric(18,0),
+	@password varchar(255),
+	@mail varchar(255),
+	@fechaNac datetime,
+	@sexo numeric(18,0),
+	@estadoCivil numeric(18,0),
+	@cantFamiliares numeric(18,0),
+	@plan numeric(18,0),
+	@id numeric(18,0) output
+as begin
+	DECLARE @cantUsers numeric(18,0)
+	set @cantUsers = (SELECT COUNT(*) FROM SIEGFRIED.USUARIOS)
+
+	DECLARE @idUsuario numeric(18,0)
+	set @idUsuario = (@cantUsers * 100) + 1
+
+	INSERT INTO SIEGFRIED.AFILIADOS (id_afiliado, estado_civil, cantidad_familiares, id_plan) VALUES (@idUsuario,@estadoCivil,@cantFamiliares,@plan)
+	INSERT INTO SIEGFRIED.USUARIOS 
+		(
+			id_usuario,
+			username,
+			contrasenia,
+			habilitado,
+			intentos_login,
+			nombre,
+			apellido,
+			direccion,
+			tipo_dni,
+			nro_dni,
+			telefono,
+			mail,
+			fecha_nacimiento,
+			sexo
+		)
+		VALUES (@idUsuario,@nombre+@apellido,HASHBYTES('SHA2_256',@password),1,0,@nombre,@apellido,@direccion,'dni',@nroDoc, @telefono,@mail,@fechaNac,@sexo)
+		SET @id = @idUsuario
 end
 go
