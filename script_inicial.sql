@@ -559,38 +559,6 @@ END
 GO
 
 
-CREATE FUNCTION SIEGFRIED.OBTENERAGENDA
-(	
-	-- Add the parameters for the function here
-	@profesional_id int
-)
-RETURNS TABLE 
-AS
-RETURN 
-(
-	-- Add the SELECT statement with parameter references here
-	SELECT DISTINCT
-	CASE
-	WHEN datepart(dw,a.dia_hora)= 1 THEN 'Domingo'
-	WHEN datepart(dw,a.dia_hora)= 2 THEN 'Lunes'
-	WHEN datepart(dw,a.dia_hora)= 3 THEN 'Martes'
-	WHEN datepart(dw,a.dia_hora)= 4 THEN 'Miercoles'
-	WHEN datepart(dw,a.dia_hora)= 5 THEN 'Jueves'
-	WHEN datepart(dw,a.dia_hora)= 6 THEN 'Viernes'
-	WHEN datepart(dw,a.dia_hora)= 7 THEN 'Sabado'
-	END as diadelasemana,
-	convert (date ,dia_hora) as dia,
-	(select DATEPART(HOUR, MIN(b.dia_hora)) + DATEPART(MINUTE, MIN(b.dia_hora)) 
-	from SIEGFRIED.AGENDA b where DATEPART(DAY, a.dia_hora) = DATEPART(DAY, b.dia_hora)) as horadesde,
-	(select DATEPART(HOUR, MAX(c.dia_hora)) + DATEPART(MINUTE, MAX(c.dia_hora)) 
-	from SIEGFRIED.AGENDA c where DATEPART(DAY, a.dia_hora) = DATEPART(DAY, c.dia_hora)) as horahasta,
-	(select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad
-	FROM SIEGFRIED.AGENDA a
-	WHERE @profesional_id = A.id_profesional
-	order by dia
-)
-GO
-
 CREATE PROCEDURE SIEGFRIED.ComprarBonos @afiliado numeric(18,0), @cantidad numeric(18,0), @fecha datetime
 as 
 begin
@@ -656,3 +624,21 @@ as begin
 		SET @id = @idUsuario
 end
 go
+
+CREATE PROCEDURE CREARDIAAGENDA
+	-- Add the parameters for the stored procedure here
+	@desde DATETIME, 
+	@hasta datetime,
+	@idprofesional int,
+	@especialidad int
+AS
+BEGIN
+	DECLARE @fecha datetime  = @desde;
+	WHILE @desde <= @hasta
+	BEGIN
+		INSERT INTO SIEGFRIED.AGENDA VALUES(@idprofesional, @desde, @especialidad, null); 
+		SET @desde = DATEADD(minute,30,@desde);
+	END
+
+END
+GO
