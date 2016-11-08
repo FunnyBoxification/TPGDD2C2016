@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaNegocio;
+using System.Text.RegularExpressions;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
@@ -50,6 +51,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 tbxTelefono.Text = usuarioRow.Cells["telefono"].Value.ToString();
                 dtpFechaNac.Value = Convert.ToDateTime(usuarioRow.Cells["fecha_nacimiento"].Value.ToString());
                 dtpFechaNac.Enabled = false;
+                btnBaja.Enabled = false;
 
             }
             else
@@ -75,11 +77,79 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void btnListo_Click(object sender, EventArgs e)
         {
+            if (!tbxNombre.Text.All(Char.IsLetter)) {
+                MessageBox.Show("El nombre debe ser valido");
+                return;
+            }
+            if (!tbxApellido.Text.All(Char.IsLetter)) {
+                MessageBox.Show("El apellido debe ser valido");
+                return;
+            }
+            if (!tbxDni.Text.All(Char.IsDigit)) {
+                MessageBox.Show("El dni del afiliado debe ser un numero");
+                return;
+            }
+            if (!tbxTelefono.Text.All(Char.IsDigit)) {
+                MessageBox.Show("El telefono del afiliado debe ser un numero");
+                return;
+            }
+            if(cbxEstadoCivil.SelectedIndex < 0) {
+                MessageBox.Show("Seleccione el estado civil");
+                return;
+            }
+            if(cbxSexo.SelectedIndex < 0) {
+                MessageBox.Show("Seleccione el sexo");
+                return;
+            }
+            if(cbxPlanMedico.SelectedIndex < 0) {
+                MessageBox.Show("Seleccione un plan medico");
+                return;
+            }
+            if (!tbxCantFamiliares.Text.All(Char.IsDigit)) {
+                MessageBox.Show("La cantidad de familiares del afiliado debe ser un numero");
+                return;
+            }
+            if (tbxPassword.Text == "") {
+                MessageBox.Show("Ingrese una contraseña");
+                return;
+            }
+            String nombre;
+            String apellido;
+            String password;
+            String direccion;
+            Int32 documento;
+            Int32 telefono;
+            String mail;
+            DateTime fechaNac;
+            Int32 sexo;
+            Int32 estadoCivil;
+            Int32 cantFamiliares;
+            Int32 plan;
+
+            nombre = tbxNombre.Text;
+            apellido = tbxApellido.Text;
+            password = tbxPassword.Text;
+            direccion = tbxDireccion.Text;
+            documento = Int32.Parse(tbxDni.Text);
+            telefono = Int32.Parse(tbxTelefono.Text);
+            mail = tbxMail.Text;
+            fechaNac = dtpFechaNac.Value;
+            sexo = (int)cbxSexo.SelectedValue;
+            estadoCivil = (int)cbxEstadoCivil.SelectedValue;
+            plan = (int) cbxPlanMedico.SelectedValue;
+            cantFamiliares = Int32.Parse(tbxCantFamiliares.Text);
+
             if (Tipo == 1) //ALTA
             {
+                int id = usuariosNegocio.agregarAfiliadoTitular(nombre,apellido,password,direccion,documento,telefono,mail,fechaNac,sexo,estadoCivil,cantFamiliares,plan);
+                if(cantFamiliares > 0) {
+                    //Codigo para empezar a agregar familiares aca
+                }
             }
             else//MODIFICACION
             {
+                usuariosNegocio.agregarAfiliadoTitular(nombre,apellido,password,direccion,documento,telefono,mail,fechaNac,sexo,estadoCivil,cantFamiliares,plan);
+                this.Hide();
             }
         }
 
@@ -87,6 +157,12 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             var Form = new HistorialPlanes();
             Form.Show();
+        }
+
+        private void btnBaja_Click(object sender, EventArgs e)
+        {
+            usuariosNegocio.darDeBaja(usuarioRow.Cells["id_usuario"].Value.ToString());
+            this.Hide();
         }
 
     }

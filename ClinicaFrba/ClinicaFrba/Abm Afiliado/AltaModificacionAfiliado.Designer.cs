@@ -53,12 +53,15 @@
             this.btnHistorial = new System.Windows.Forms.Button();
             this.btnListo = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.tbxPassword = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnBaja = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(9, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 0;
@@ -67,7 +70,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 41);
+            this.label2.Location = new System.Drawing.Point(9, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 1;
@@ -76,7 +79,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 72);
+            this.label3.Location = new System.Drawing.Point(9, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 2;
@@ -85,7 +88,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 103);
+            this.label4.Location = new System.Drawing.Point(9, 103);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 3;
@@ -94,7 +97,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 141);
+            this.label5.Location = new System.Drawing.Point(9, 141);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 13);
             this.label5.TabIndex = 4;
@@ -103,7 +106,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 172);
+            this.label6.Location = new System.Drawing.Point(9, 179);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 13);
             this.label6.TabIndex = 5;
@@ -112,7 +115,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 203);
+            this.label7.Location = new System.Drawing.Point(9, 252);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(108, 13);
             this.label7.TabIndex = 6;
@@ -121,7 +124,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 236);
+            this.label8.Location = new System.Drawing.Point(9, 281);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 7;
@@ -130,7 +133,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 269);
+            this.label9.Location = new System.Drawing.Point(9, 322);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 13);
             this.label9.TabIndex = 8;
@@ -139,7 +142,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 306);
+            this.label10.Location = new System.Drawing.Point(9, 359);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(134, 13);
             this.label10.TabIndex = 9;
@@ -148,7 +151,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 339);
+            this.label11.Location = new System.Drawing.Point(9, 394);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(66, 13);
             this.label11.TabIndex = 10;
@@ -191,14 +194,14 @@
             // 
             // tbxMail
             // 
-            this.tbxMail.Location = new System.Drawing.Point(127, 172);
+            this.tbxMail.Location = new System.Drawing.Point(127, 176);
             this.tbxMail.Name = "tbxMail";
             this.tbxMail.Size = new System.Drawing.Size(193, 20);
             this.tbxMail.TabIndex = 16;
             // 
             // dtpFechaNac
             // 
-            this.dtpFechaNac.Location = new System.Drawing.Point(127, 203);
+            this.dtpFechaNac.Location = new System.Drawing.Point(127, 246);
             this.dtpFechaNac.Name = "dtpFechaNac";
             this.dtpFechaNac.Size = new System.Drawing.Size(193, 20);
             this.dtpFechaNac.TabIndex = 17;
@@ -206,7 +209,7 @@
             // cbxSexo
             // 
             this.cbxSexo.FormattingEnabled = true;
-            this.cbxSexo.Location = new System.Drawing.Point(127, 233);
+            this.cbxSexo.Location = new System.Drawing.Point(127, 278);
             this.cbxSexo.Name = "cbxSexo";
             this.cbxSexo.Size = new System.Drawing.Size(193, 21);
             this.cbxSexo.TabIndex = 18;
@@ -214,14 +217,14 @@
             // cbxEstadoCivil
             // 
             this.cbxEstadoCivil.FormattingEnabled = true;
-            this.cbxEstadoCivil.Location = new System.Drawing.Point(127, 261);
+            this.cbxEstadoCivil.Location = new System.Drawing.Point(127, 319);
             this.cbxEstadoCivil.Name = "cbxEstadoCivil";
             this.cbxEstadoCivil.Size = new System.Drawing.Size(193, 21);
             this.cbxEstadoCivil.TabIndex = 19;
             // 
             // tbxCantFamiliares
             // 
-            this.tbxCantFamiliares.Location = new System.Drawing.Point(153, 306);
+            this.tbxCantFamiliares.Location = new System.Drawing.Point(153, 356);
             this.tbxCantFamiliares.Name = "tbxCantFamiliares";
             this.tbxCantFamiliares.Size = new System.Drawing.Size(167, 20);
             this.tbxCantFamiliares.TabIndex = 20;
@@ -229,14 +232,14 @@
             // cbxPlanMedico
             // 
             this.cbxPlanMedico.FormattingEnabled = true;
-            this.cbxPlanMedico.Location = new System.Drawing.Point(127, 339);
+            this.cbxPlanMedico.Location = new System.Drawing.Point(130, 391);
             this.cbxPlanMedico.Name = "cbxPlanMedico";
             this.cbxPlanMedico.Size = new System.Drawing.Size(121, 21);
             this.cbxPlanMedico.TabIndex = 21;
             // 
             // btnHistorial
             // 
-            this.btnHistorial.Location = new System.Drawing.Point(254, 337);
+            this.btnHistorial.Location = new System.Drawing.Point(257, 389);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(75, 23);
             this.btnHistorial.TabIndex = 22;
@@ -246,7 +249,7 @@
             // 
             // btnListo
             // 
-            this.btnListo.Location = new System.Drawing.Point(254, 402);
+            this.btnListo.Location = new System.Drawing.Point(257, 440);
             this.btnListo.Name = "btnListo";
             this.btnListo.Size = new System.Drawing.Size(75, 23);
             this.btnListo.TabIndex = 23;
@@ -256,7 +259,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(13, 402);
+            this.btnLimpiar.Location = new System.Drawing.Point(12, 440);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 24;
@@ -264,11 +267,40 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // tbxPassword
+            // 
+            this.tbxPassword.AutoSize = true;
+            this.tbxPassword.Location = new System.Drawing.Point(9, 215);
+            this.tbxPassword.Name = "tbxPassword";
+            this.tbxPassword.Size = new System.Drawing.Size(53, 13);
+            this.tbxPassword.TabIndex = 25;
+            this.tbxPassword.Text = "Password";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(127, 212);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(193, 20);
+            this.textBox1.TabIndex = 26;
+            // 
+            // btnBaja
+            // 
+            this.btnBaja.Location = new System.Drawing.Point(94, 440);
+            this.btnBaja.Name = "btnBaja";
+            this.btnBaja.Size = new System.Drawing.Size(75, 23);
+            this.btnBaja.TabIndex = 27;
+            this.btnBaja.Text = "Baja";
+            this.btnBaja.UseVisualStyleBackColor = true;
+            this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
+            // 
             // AltaModificacionAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 437);
+            this.ClientSize = new System.Drawing.Size(344, 475);
+            this.Controls.Add(this.btnBaja);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbxPassword);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnListo);
             this.Controls.Add(this.btnHistorial);
@@ -329,5 +361,8 @@
         private System.Windows.Forms.Button btnHistorial;
         private System.Windows.Forms.Button btnListo;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Label tbxPassword;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnBaja;
     }
 }

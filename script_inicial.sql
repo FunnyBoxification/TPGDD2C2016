@@ -581,6 +581,15 @@ begin
 end
 go
 
+create procedure SIEGFRIED.BAJA_USUARIO 
+	@id numeric(18,0)
+as begin
+	UPDATE SIEGFRIED.USUARIOS SET 
+			habilitado = 0
+		WHERE id_usuario = @id
+end
+go
+
 create procedure SIEGFRIED.MODIFICAR_AFILIADO 
 	@nombre varchar(255),
 	@apellido varchar(255),

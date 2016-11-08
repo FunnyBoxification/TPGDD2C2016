@@ -118,82 +118,18 @@ namespace ClinicaNegocio
             }
         }
 
-        public void agregarAfiliadoTitular()
-        {
-        }
-
-        public void agregarAfiliadoFamiliar()
-        {
-        }
-
-        /*public void ProcedureCliente(int tipo, int modo, int IdCod, string username, string password, string nombreRazon, string ApellidCui,
-                                string Doccto, string tiporub, string fechaCiud, string mail, string telef, string direcc,
-                                string nro, string piso, string dpto, string local, DateTime fechacreac)
+        public void darDeBaja(String id)
         {
             try
             {
-
-                var proc = "PMS.";
-                if (modo == 0)
-                {
-                    proc += "ALTA_USUARIO_";
-                }
-                else
-                {
-                    proc += "MODIFICACION_USUARIO_";
-                }
-                if (tipo == 0)
-                {
-                    proc += "CLIENTE";
-                }
-                else
-                {
-                    proc += "EMPRESA";
-                }
+                String proc = "SIEGFRIED.BAJA_USUARIO";
                 DBConn.openConnection();
                 using (SqlCommand cmd = new SqlCommand(proc, DBConn.Connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    if (modo == 1)
-                    {
-                        cmd.Parameters.Add("@Id_Usuario", SqlDbType.Int).Value = IdCod;
-                    }
-                    else
-                    {
-                        cmd.Parameters.Add("@FechaCreacion", SqlDbType.DateTime).Value = fechacreac;
-                    }
-                    cmd.Parameters.Add("@User_Nombre", SqlDbType.VarChar).Value = username;
-                    cmd.Parameters.Add("@User_Password", SqlDbType.VarChar).Value = password;
-                    if (tipo == 0)
-                    {                //Cliente    
-                        cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombreRazon;
-                        cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = ApellidCui;
-                        cmd.Parameters.Add("@Dni_Cliente", SqlDbType.Int).Value = Convert.ToInt32(Doccto);
-                        cmd.Parameters.Add("@Tipo_Dni", SqlDbType.VarChar).Value = tiporub;
-                        cmd.Parameters.Add("@FechaNacimiento", SqlDbType.DateTime).Value = Convert.ToDateTime(fechaCiud);
-                    }
-                    else
-                    { //empresa
-                        cmd.Parameters.Add("@RazonSocial", SqlDbType.VarChar).Value = nombreRazon;
-                        cmd.Parameters.Add("@Cuit_Empresa", SqlDbType.VarChar).Value = ApellidCui;
-                        cmd.Parameters.Add("@Contacto", SqlDbType.VarChar).Value = Doccto;
-                        cmd.Parameters.Add("@Rubro", SqlDbType.VarChar).Value = tiporub;
-                        cmd.Parameters.Add("@Ciudad", SqlDbType.VarChar).Value = fechaCiud;
-                    }
-                    cmd.Parameters.Add("@Mail", SqlDbType.VarChar).Value = mail;
-                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = telef;
-                    cmd.Parameters.Add("@DomCalle", SqlDbType.VarChar).Value = direcc;
-                    cmd.Parameters.Add("@NroCalle", SqlDbType.Int).Value = Convert.ToInt32(nro);
-                    cmd.Parameters.Add("@Piso", SqlDbType.Int).Value = Convert.ToInt32(piso);
-                    cmd.Parameters.Add("@Depto", SqlDbType.VarChar).Value = dpto;
-                    cmd.Parameters.Add("@CodigoPostal", SqlDbType.VarChar).Value = local;
-                    if (modo == 0)
-                    {
-                        var returnParameter = cmd.Parameters.Add("@id", SqlDbType.Int);
-                        //returnParameter.Value = 0;
-                        returnParameter.Direction = ParameterDirection.Output;
-                    }
-                    //cmd.Parameters.Add("¨@Localidad", SqlDbType.VarChar).Value = local;
+
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
                     cmd.ExecuteNonQuery();
                 }
                 DBConn.closeConnection();
@@ -202,46 +138,121 @@ namespace ClinicaNegocio
             catch (Exception e)
             {
                 DBConn.closeConnection();
-                throw (new Exception("No se pudo editar la cantidad de intentos fallidos : " + e.Message));
+                throw (new Exception("No se pudo dar de baja al afiliado : " + e.Message));
 
             }
-        }*/
+        }
+
+        public void modificarAfiliado(String nombre,
+            String apellido,
+            String password,
+            String direccion,
+            Int32 documento,
+            Int32 telefono,
+            String mail,
+            DateTime fechaNac,
+            Int32 sexo,
+            Int32 estadoCivil,
+            Int32 cantFamiliares,
+            Int32 plan)
+            
+        {
+            try {
+             String proc = "SIEGFRIED.MODIFICAR_AFILIADO";
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand(proc, DBConn.Connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+                    cmd.Parameters.Add("@nroDoc", SqlDbType.Int).Value = documento;
+                    cmd.Parameters.Add("@direccion", SqlDbType.VarChar).Value = direccion;
+                    cmd.Parameters.Add("@telefono", SqlDbType.Int).Value = telefono;
+                    cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = password;
+                    cmd.Parameters.Add("@mail", SqlDbType.VarChar).Value = mail;
+                    cmd.Parameters.Add("@fechaNac", SqlDbType.DateTime).Value = fechaNac;
+                    cmd.Parameters.Add("@sexo", SqlDbType.Int).Value = sexo;
+                    cmd.Parameters.Add("@estadoCivil", SqlDbType.Int).Value = estadoCivil;
+                    cmd.Parameters.Add("@cantFamiliares", SqlDbType.Int).Value = cantFamiliares;
+                    cmd.Parameters.Add("@plan", SqlDbType.Int).Value = plan;
+ 
+                    cmd.ExecuteNonQuery();
+                }
+                DBConn.closeConnection();
+                
+            }
+            catch (Exception e)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("No se pudo editar al afiliado : " + e.Message));
+
+            }
+        }
+
+        public int agregarAfiliadoTitular(
+            String nombre,
+            String apellido,
+            String password,
+            String direccion,
+            Int32 documento,
+            Int32 telefono,
+            String mail,
+            DateTime fechaNac,
+            Int32 sexo,
+            Int32 estadoCivil,
+            Int32 cantFamiliares,
+            Int32 plan
+            )
+        {
+            try {
+                Int32 id = -1;
+                String proc = "SIEGFRIED.ALTA_AFILIADO_TITULAR";
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand(proc, DBConn.Connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+                    cmd.Parameters.Add("@nroDoc", SqlDbType.Int).Value = documento;
+                    cmd.Parameters.Add("@direccion", SqlDbType.VarChar).Value = direccion;
+                    cmd.Parameters.Add("@telefono", SqlDbType.Int).Value = telefono;
+                    cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = password;
+                    cmd.Parameters.Add("@mail", SqlDbType.VarChar).Value = mail;
+                    cmd.Parameters.Add("@fechaNac", SqlDbType.DateTime).Value = fechaNac;
+                    cmd.Parameters.Add("@sexo", SqlDbType.Int).Value = sexo;
+                    cmd.Parameters.Add("@estadoCivil", SqlDbType.Int).Value = estadoCivil;
+                    cmd.Parameters.Add("@cantFamiliares", SqlDbType.Int).Value = cantFamiliares;
+                    cmd.Parameters.Add("@plan", SqlDbType.Int).Value = plan;
+ 
+                    var returnParameter = cmd.Parameters.Add("@id", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    id = (int) returnParameter.Value;
+                }
+                DBConn.closeConnection();
+                return id;
+                
+            }
+            catch (Exception e)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("No se pudo agregar al afiliado: " + e.Message));
+
+            }
+
+        }
+
+        public void agregarAfiliadoFamiliar()
+        {
+        }
+
 
 
         public static object DbNullIfNull(object obj)
         {
             return obj != null ? obj : DBNull.Value;
         }
-
-
-
-        /*public DataTable ObtenerRubros()
-        {
-            try
-            {
-                var dt = new DataTable();
-                DBConn.openConnection();
-                String sqlRequest;
-                sqlRequest = "SELECT Descripcion FROM PMS.RUBROS ";//Id_Cliente		
-
-                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
-
-                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-                {
-                    adapter.Fill(dt);
-                    return dt;
-                }
-
-
-                command.Dispose();
-                DBConn.closeConnection();
-
-            }
-            catch (Exception ex)
-            {
-                DBConn.closeConnection();
-                throw (new Exception("Error en la busqueda de clientes" + ex.Message));
-            }
-        }*/
     }
 }
