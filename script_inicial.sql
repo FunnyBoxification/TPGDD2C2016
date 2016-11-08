@@ -341,12 +341,6 @@ BEGIN
 		NULL -- Por ahora matricula null
 	FROM #TempMedicos
 
-	INSERT INTO SIEGFRIED.PROFESIONAL_ESPECIALIDAD
-	SELECT
-		(SELECT id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
-		Especialidad_Codigo
-	FROM ( SELECT DISTINCT Medico_Dni, Especialidad_Codigo FROM gd_esquema.Maestra WHERE Medico_Dni is not null and Especialidad_Codigo is not null) vista;
-
 	INSERT INTO SIEGFRIED.USUARIOS
 	SELECT
 		(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) * 100) + @CantidadAfiliados,
@@ -355,6 +349,12 @@ BEGIN
 
 	INSERT INTO SIEGFRIED.ROLES_USUARIOS
 	SELECT 3, id_profesional FROM SIEGFRIED.PROFESIONALES
+
+	INSERT INTO SIEGFRIED.PROFESIONAL_ESPECIALIDAD
+	SELECT
+		(SELECT id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
+		Especialidad_Codigo
+	FROM ( SELECT DISTINCT Medico_Dni, Especialidad_Codigo FROM gd_esquema.Maestra WHERE Medico_Dni is not null and Especialidad_Codigo is not null) vista;
 END
 GO
 
