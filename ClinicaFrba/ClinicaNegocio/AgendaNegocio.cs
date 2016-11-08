@@ -31,11 +31,11 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                String sqlRequest = "SELECT FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad  FROM  SIEGFRIED.AGENDA where @idProf = A.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc)";
+                String sqlRequest = "SELECT FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad  FROM  SIEGFRIED.AGENDA a where @idProf = a.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc)";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@idProf", SqlDbType.Int).Value = idProfesional;
-                command.Parameters.Add("@diabusc", SqlDbType.Int).Value = dia;
+                command.Parameters.Add("@diabusc", SqlDbType.DateTime).Value = dia;
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
 
