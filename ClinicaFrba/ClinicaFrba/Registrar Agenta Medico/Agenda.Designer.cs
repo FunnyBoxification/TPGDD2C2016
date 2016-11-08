@@ -142,18 +142,24 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.hastaHP.CustomFormat = "HH mm";
             this.hastaHP.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.hastaHP.Location = new System.Drawing.Point(357, 61);
+            this.hastaHP.MaxDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.hastaHP.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.hastaHP.Name = "hastaHP";
             this.hastaHP.Size = new System.Drawing.Size(71, 20);
             this.hastaHP.TabIndex = 7;
+            this.hastaHP.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             // 
             // desdeHP
             // 
             this.desdeHP.CustomFormat = "HH mm";
             this.desdeHP.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.desdeHP.Location = new System.Drawing.Point(357, 23);
+            this.desdeHP.MaxDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.desdeHP.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.desdeHP.Name = "desdeHP";
             this.desdeHP.Size = new System.Drawing.Size(71, 20);
             this.desdeHP.TabIndex = 6;
+            this.desdeHP.Value = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             // 
             // label4
             // 

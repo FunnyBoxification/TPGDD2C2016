@@ -6,3 +6,30 @@ C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\Cl
 C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
 C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
 C:\Users\Matias\Documents\Visual Studio 2012\Projects\ClinicaFrba\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csprojResolveAssemblyReference.cache
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.AgregarFamiliar.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.AltaModificacionAfiliado.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Afiliado.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Abm_Especialidades_Medicas.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.AltaRol.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.AbmRol.ModificacionRol.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Cancelar_Atencion.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.ComprarBonos.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Compra_Bono.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Listados.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Pedir_Turno.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Principal.PaginaPrincipal.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Properties.Resources.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registrar_Agenta_Medico.Agenda.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.Registro_Llegada.Form1.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.SelectRolForm.resources
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.csproj.GenerateResource.Cache
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe.config
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.exe
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaFrba.pdb
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaNegocio.dll
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\bin\Debug\ClinicaNegocio.pdb
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.exe
+C:\Users\Juli\GDD\gdd2doT\ClinicaFrba\ClinicaFrba\obj\Debug\ClinicaFrba.pdb

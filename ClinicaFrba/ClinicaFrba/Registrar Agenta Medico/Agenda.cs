@@ -94,27 +94,85 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try{
-                var dia = new DateTime(desdeDTP.Value.Year, desdeDTP.Value.Month, desdeDTP.Value.Day, desdeHP.Value.Hour, desdeHP.Value.Minute, 0); 
-
-                var hasta = hastaDTP.Value;
-                while(dia <= hasta)
+            if (ValidarInsertar())
+            {
+                try
                 {
-                    if (diasCheck.CheckedIndices.Contains((int)dia.DayOfWeek - 1))
+
+
+                    var dia = new DateTime(desdeDTP.Value.Year, desdeDTP.Value.Month, desdeDTP.Value.Day, desdeHP.Value.Hour, desdeHP.Value.Minute, 0);
+
+                    var hasta = hastaDTP.Value;
+                    while (dia <= hasta)
                     {
-                        var diahasta = new DateTime(dia.Year, dia.Month, dia.Day, hastaHP.Value.Hour, hastaHP.Value.Minute, 0); 
-                        ageNegocio.EjecutarDia(IdProfesional, dia, diahasta ,(int)especialidadCBX.SelectedItem);
+                        if (diasCheck.CheckedIndices.Contains((int)dia.DayOfWeek - 1))
+                        {
+                            var diahasta = new DateTime(dia.Year, dia.Month, dia.Day, hastaHP.Value.Hour, hastaHP.Value.Minute, 0);
+                            ageNegocio.EjecutarDia(IdProfesional, dia, diahasta, Convert.ToInt32(especialidadCBX.SelectedValue));
 
-                       
+
+                        }
+                        //
+                        dia = dia.AddDays(1);
                     }
-                    //
-                    dia = dia.AddDays(1);
-                }
-                CargarDias();
+                    CargarDias();
 
-            }catch(Exception ex){
-                MessageBox.Show("Error al cargar datos");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar datos");
+                }
             }
+        }
+
+        private bool ValidarInsertar()
+        {
+
+
+            if (desdeDTP.Value > hastaDTP.Value)
+            {
+                MessageBox.Show("Fecha desde mayor a Fecha hasta");
+                return false;
+            }
+
+            if (desdeHP.Value > hastaHP.Value)
+            {
+                MessageBox.Show("Hora desde mayor a Hora hasta");
+                return false;
+            }
+
+            if (desdeHP.Value < Convert.ToDateTime("01/01/2015 07:00:00"))
+            {
+                MessageBox.Show("Hora no puede ser menor a las 7 para de Lunes a Viernes");
+                return false;
+            }
+
+            if (hastaHP.Value > Convert.ToDateTime("01/01/2015 19:59:00"))
+            {
+                MessageBox.Show("Hora no puede ser menor a las 20 para de Lunes a Viernes");
+                return false;
+            }
+
+            if (desdeHP.Value < Convert.ToDateTime("01/01/2015 10:00:00") && diasCheck.CheckedIndices.Contains(5) )
+            {
+                MessageBox.Show("La hora debe ser mayor a las 10 o igual a las 10 para los dias Sabado");
+                return false;
+            }
+
+            if (hastaHP.Value > Convert.ToDateTime("01/01/2015 15:00:00") && diasCheck.CheckedIndices.Contains(5))
+            {
+                MessageBox.Show("La hora debe ser menor a las 15 o igual a las 10 para los dias Sabado");
+                return false;
+            }
+
+            if ((int)desdeHP.Value.Minute != 30 || (int)desdeHP.Value.Minute != 0)
+            {
+                MessageBox.Show("La hora desde debe ser en punto o y media");
+                return false;
+            }
+
+
+            return true;
         }
 
        
