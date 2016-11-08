@@ -352,7 +352,7 @@ BEGIN
 
 	INSERT INTO SIEGFRIED.PROFESIONAL_ESPECIALIDAD
 	SELECT
-		(SELECT id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
+		(SELECT TOP 1 id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
 		Especialidad_Codigo
 	FROM ( SELECT DISTINCT Medico_Dni, Especialidad_Codigo FROM gd_esquema.Maestra WHERE Medico_Dni is not null and Especialidad_Codigo is not null) vista;
 END
@@ -578,6 +578,46 @@ begin
 		insert into siegfried.BONOS (id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@plan,@afiliado,null,@fecha,null)
 		set @i = @i - 1
 	END
+end
+go
+
+create procedure SIEGFRIED.MODIFICAR_AFILIADO 
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@nroDoc numeric(18,0),
+	@direccion varchar(255),
+	@telefono numeric(18,0),
+	@password varchar(255),
+	@mail varchar(255),
+	@fechaNac datetime,
+	@sexo numeric(18,0),
+	@estadoCivil numeric(18,0),
+	@cantFamiliares numeric(18,0),
+	@plan numeric(18,0),
+	@id numeric(18,0) output
+as begin
+	DECLARE @idAfiliado numeric(18,0)
+	set @idAfiliado = (SELECT id_usuario FROM SIEGFRIED.USUARIOS WHERE nro_dni = @nroDoc)
+
+	UPDATE  SIEGFRIED.AFILIADOS SET 
+	estado_civil = @estadoCivil, cantidad_familiares = @cantFamiliares, id_plan = @plan 
+	WHERE id_afiliado = @idAfiliado 
+
+	UPDATE SIEGFRIED.USUARIOS SET 
+			username = @nombre+@apellido,
+			contrasenia = @password,
+			habilitado = 1,
+			intentos_login = 0,
+			nombre = @nombre,
+			apellido = @apellido,
+			direccion = @direccion,
+			tipo_dni = 'dni',
+			nro_dni = @nroDoc,
+			telefono = @telefono,
+			mail = @mail,
+			fecha_nacimiento = @fechaNac,
+			sexo = @sexo
+		WHERE id_usuario = @idAfiliado
 end
 go
 
