@@ -32,6 +32,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.panel1 = new System.Windows.Forms.Panel();
             this.especialidadCBX = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.diasCheck = new System.Windows.Forms.CheckedListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.hastaHP = new System.Windows.Forms.DateTimePicker();
@@ -44,25 +45,18 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.desdeDTP = new System.Windows.Forms.DateTimePicker();
             this.siguienteBtn = new System.Windows.Forms.Button();
             this.anteriorBtn = new System.Windows.Forms.Button();
-            this.diasCheck = new System.Windows.Forms.CheckedListBox();
             this.lunesDGV = new System.Windows.Forms.DataGridView();
-            this.Lunes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Especialidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MartesDGV = new System.Windows.Forms.DataGridView();
             this.miercolesDGV = new System.Windows.Forms.DataGridView();
             this.juevesDGV = new System.Windows.Forms.DataGridView();
             this.viernesDGV = new System.Windows.Forms.DataGridView();
             this.sabadoDGV = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblLunes = new System.Windows.Forms.Label();
+            this.lblMartes = new System.Windows.Forms.Label();
+            this.lblMiercoles = new System.Windows.Forms.Label();
+            this.lblJueves = new System.Windows.Forms.Label();
+            this.lblViernes = new System.Windows.Forms.Label();
+            this.lblSabado = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lunesDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MartesDGV)).BeginInit();
@@ -108,6 +102,21 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.label6.Size = new System.Drawing.Size(67, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Especialidad";
+            // 
+            // diasCheck
+            // 
+            this.diasCheck.FormattingEnabled = true;
+            this.diasCheck.Items.AddRange(new object[] {
+            "Lunes",
+            "Martes",
+            "Miercoles",
+            "Jueves",
+            "Viernes",
+            "Sabado"});
+            this.diasCheck.Location = new System.Drawing.Point(435, 5);
+            this.diasCheck.Name = "diasCheck";
+            this.diasCheck.Size = new System.Drawing.Size(87, 94);
+            this.diasCheck.TabIndex = 12;
             // 
             // label5
             // 
@@ -198,7 +207,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // 
             // siguienteBtn
             // 
-            this.siguienteBtn.Location = new System.Drawing.Point(613, 438);
+            this.siguienteBtn.Location = new System.Drawing.Point(614, 466);
             this.siguienteBtn.Name = "siguienteBtn";
             this.siguienteBtn.Size = new System.Drawing.Size(140, 23);
             this.siguienteBtn.TabIndex = 10;
@@ -208,7 +217,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // 
             // anteriorBtn
             // 
-            this.anteriorBtn.Location = new System.Drawing.Point(448, 438);
+            this.anteriorBtn.Location = new System.Drawing.Point(449, 466);
             this.anteriorBtn.Name = "anteriorBtn";
             this.anteriorBtn.Size = new System.Drawing.Size(153, 23);
             this.anteriorBtn.TabIndex = 11;
@@ -216,31 +225,14 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.anteriorBtn.UseVisualStyleBackColor = true;
             this.anteriorBtn.Click += new System.EventHandler(this.anteriorBtn_Click);
             // 
-            // diasCheck
-            // 
-            this.diasCheck.FormattingEnabled = true;
-            this.diasCheck.Items.AddRange(new object[] {
-            "Lunes",
-            "Martes",
-            "Miercoles",
-            "Jueves",
-            "Viernes",
-            "Sabado"});
-            this.diasCheck.Location = new System.Drawing.Point(435, 5);
-            this.diasCheck.Name = "diasCheck";
-            this.diasCheck.Size = new System.Drawing.Size(87, 94);
-            this.diasCheck.TabIndex = 12;
-            // 
             // lunesDGV
             // 
             this.lunesDGV.AllowUserToAddRows = false;
             this.lunesDGV.AllowUserToDeleteRows = false;
             this.lunesDGV.AllowUserToResizeRows = false;
             this.lunesDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.lunesDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Lunes,
-            this.Especialidad});
-            this.lunesDGV.Location = new System.Drawing.Point(12, 122);
+            this.lunesDGV.ColumnHeadersVisible = false;
+            this.lunesDGV.Location = new System.Drawing.Point(13, 150);
             this.lunesDGV.Name = "lunesDGV";
             this.lunesDGV.ReadOnly = true;
             this.lunesDGV.RowHeadersVisible = false;
@@ -251,29 +243,14 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.lunesDGV.Size = new System.Drawing.Size(126, 299);
             this.lunesDGV.TabIndex = 12;
             // 
-            // Lunes
-            // 
-            this.Lunes.HeaderText = "Lunes";
-            this.Lunes.Name = "Lunes";
-            this.Lunes.ReadOnly = true;
-            this.Lunes.Width = 40;
-            // 
-            // Especialidad
-            // 
-            this.Especialidad.HeaderText = "Especialidad";
-            this.Especialidad.Name = "Especialidad";
-            this.Especialidad.ReadOnly = true;
-            // 
             // MartesDGV
             // 
             this.MartesDGV.AllowUserToAddRows = false;
             this.MartesDGV.AllowUserToDeleteRows = false;
             this.MartesDGV.AllowUserToResizeRows = false;
             this.MartesDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.MartesDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            this.MartesDGV.Location = new System.Drawing.Point(137, 122);
+            this.MartesDGV.ColumnHeadersVisible = false;
+            this.MartesDGV.Location = new System.Drawing.Point(138, 150);
             this.MartesDGV.Name = "MartesDGV";
             this.MartesDGV.ReadOnly = true;
             this.MartesDGV.RowHeadersVisible = false;
@@ -290,10 +267,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.miercolesDGV.AllowUserToDeleteRows = false;
             this.miercolesDGV.AllowUserToResizeRows = false;
             this.miercolesDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.miercolesDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.miercolesDGV.Location = new System.Drawing.Point(262, 122);
+            this.miercolesDGV.ColumnHeadersVisible = false;
+            this.miercolesDGV.Location = new System.Drawing.Point(263, 150);
             this.miercolesDGV.Name = "miercolesDGV";
             this.miercolesDGV.ReadOnly = true;
             this.miercolesDGV.RowHeadersVisible = false;
@@ -310,10 +285,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.juevesDGV.AllowUserToDeleteRows = false;
             this.juevesDGV.AllowUserToResizeRows = false;
             this.juevesDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.juevesDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
-            this.juevesDGV.Location = new System.Drawing.Point(387, 122);
+            this.juevesDGV.ColumnHeadersVisible = false;
+            this.juevesDGV.Location = new System.Drawing.Point(388, 150);
             this.juevesDGV.Name = "juevesDGV";
             this.juevesDGV.ReadOnly = true;
             this.juevesDGV.RowHeadersVisible = false;
@@ -330,10 +303,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.viernesDGV.AllowUserToDeleteRows = false;
             this.viernesDGV.AllowUserToResizeRows = false;
             this.viernesDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viernesDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8});
-            this.viernesDGV.Location = new System.Drawing.Point(512, 122);
+            this.viernesDGV.ColumnHeadersVisible = false;
+            this.viernesDGV.Location = new System.Drawing.Point(513, 150);
             this.viernesDGV.Name = "viernesDGV";
             this.viernesDGV.ReadOnly = true;
             this.viernesDGV.RowHeadersVisible = false;
@@ -341,7 +312,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.viernesDGV.ShowCellToolTips = false;
             this.viernesDGV.ShowEditingIcon = false;
             this.viernesDGV.ShowRowErrors = false;
-            this.viernesDGV.Size = new System.Drawing.Size(126, 299);
+            this.viernesDGV.Size = new System.Drawing.Size(129, 299);
             this.viernesDGV.TabIndex = 21;
             // 
             // sabadoDGV
@@ -350,10 +321,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.sabadoDGV.AllowUserToDeleteRows = false;
             this.sabadoDGV.AllowUserToResizeRows = false;
             this.sabadoDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.sabadoDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10});
-            this.sabadoDGV.Location = new System.Drawing.Point(627, 122);
+            this.sabadoDGV.ColumnHeadersVisible = false;
+            this.sabadoDGV.Location = new System.Drawing.Point(640, 150);
             this.sabadoDGV.Name = "sabadoDGV";
             this.sabadoDGV.ReadOnly = true;
             this.sabadoDGV.RowHeadersVisible = false;
@@ -361,79 +330,74 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             this.sabadoDGV.ShowCellToolTips = false;
             this.sabadoDGV.ShowEditingIcon = false;
             this.sabadoDGV.ShowRowErrors = false;
-            this.sabadoDGV.Size = new System.Drawing.Size(126, 299);
+            this.sabadoDGV.Size = new System.Drawing.Size(113, 299);
             this.sabadoDGV.TabIndex = 22;
             // 
-            // dataGridViewTextBoxColumn1
+            // lblLunes
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Martes";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 40;
+            this.lblLunes.AutoSize = true;
+            this.lblLunes.Location = new System.Drawing.Point(12, 134);
+            this.lblLunes.Name = "lblLunes";
+            this.lblLunes.Size = new System.Drawing.Size(35, 13);
+            this.lblLunes.TabIndex = 24;
+            this.lblLunes.Text = "label8";
             // 
-            // dataGridViewTextBoxColumn2
+            // lblMartes
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Especialidad";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.lblMartes.AutoSize = true;
+            this.lblMartes.Location = new System.Drawing.Point(135, 134);
+            this.lblMartes.Name = "lblMartes";
+            this.lblMartes.Size = new System.Drawing.Size(35, 13);
+            this.lblMartes.TabIndex = 25;
+            this.lblMartes.Text = "label9";
             // 
-            // dataGridViewTextBoxColumn3
+            // lblMiercoles
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Miercoles";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 40;
+            this.lblMiercoles.AutoSize = true;
+            this.lblMiercoles.Location = new System.Drawing.Point(260, 134);
+            this.lblMiercoles.Name = "lblMiercoles";
+            this.lblMiercoles.Size = new System.Drawing.Size(41, 13);
+            this.lblMiercoles.TabIndex = 26;
+            this.lblMiercoles.Text = "label10";
             // 
-            // dataGridViewTextBoxColumn4
+            // lblJueves
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Especialidad";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.lblJueves.AutoSize = true;
+            this.lblJueves.Location = new System.Drawing.Point(385, 134);
+            this.lblJueves.Name = "lblJueves";
+            this.lblJueves.Size = new System.Drawing.Size(41, 13);
+            this.lblJueves.TabIndex = 27;
+            this.lblJueves.Text = "label11";
             // 
-            // dataGridViewTextBoxColumn5
+            // lblViernes
             // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Jueves";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 40;
+            this.lblViernes.AutoSize = true;
+            this.lblViernes.Location = new System.Drawing.Point(510, 134);
+            this.lblViernes.Name = "lblViernes";
+            this.lblViernes.Size = new System.Drawing.Size(41, 13);
+            this.lblViernes.TabIndex = 28;
+            this.lblViernes.Text = "label12";
             // 
-            // dataGridViewTextBoxColumn6
+            // lblSabado
             // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Especialidad";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Viernes";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 40;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Especialidad";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Sabado";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 40;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Especialidad";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.lblSabado.AutoSize = true;
+            this.lblSabado.Location = new System.Drawing.Point(637, 134);
+            this.lblSabado.Name = "lblSabado";
+            this.lblSabado.Size = new System.Drawing.Size(41, 13);
+            this.lblSabado.TabIndex = 29;
+            this.lblSabado.Text = "label13";
             // 
             // Agenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(798, 473);
+            this.ClientSize = new System.Drawing.Size(798, 559);
+            this.Controls.Add(this.lblSabado);
+            this.Controls.Add(this.lblViernes);
+            this.Controls.Add(this.lblJueves);
+            this.Controls.Add(this.lblMiercoles);
+            this.Controls.Add(this.lblMartes);
+            this.Controls.Add(this.lblLunes);
             this.Controls.Add(this.sabadoDGV);
             this.Controls.Add(this.viernesDGV);
             this.Controls.Add(this.juevesDGV);
@@ -455,6 +419,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             ((System.ComponentModel.ISupportInitialize)(this.viernesDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sabadoDGV)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -477,23 +442,17 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private Label label6;
         private CheckedListBox diasCheck;
         private DataGridView lunesDGV;
-        private DataGridViewTextBoxColumn Lunes;
-        private DataGridViewTextBoxColumn Especialidad;
         private DataGridView MartesDGV;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridView miercolesDGV;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridView juevesDGV;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private DataGridView viernesDGV;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private DataGridView sabadoDGV;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private Label lblLunes;
+        private Label lblMartes;
+        private Label lblMiercoles;
+        private Label lblJueves;
+        private Label lblViernes;
+        private Label lblSabado;
 
     }
 }

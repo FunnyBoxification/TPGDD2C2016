@@ -54,15 +54,26 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             try
             {
                 int dia = (int)Fecha.DayOfWeek;
-                var lunes = Fecha.AddDays(-dia - 1);
-
-
+                
+                var lunes = Fecha.AddDays(-dia + 1);
+                lblLunes.Text =    "Lunes "+ lunes.ToString("dd/MM/yyyy");
+                lblMartes.Text =   "Martes "+ (lunes.AddDays(1)).ToString("dd/MM/yyyy");
+                lblMiercoles.Text ="Miercoles "+ (lunes.AddDays(2)).ToString("dd/MM/yyyy");
+                lblJueves.Text =   "Jueves "+ (lunes.AddDays(3)).ToString("dd/MM/yyyy");
+                lblViernes.Text =  "Viernes "+ (lunes.AddDays(4)).ToString("dd/MM/yyyy");
+                lblSabado.Text =   "Sabado "+ (lunes.AddDays(5)).ToString("dd/MM/yyyy");
                 lunesDGV.DataSource =       ageNegocio.getDiaAgenda(IdProfesional, lunes);
                 MartesDGV.DataSource =      ageNegocio.getDiaAgenda(IdProfesional, lunes.AddDays(1));
                 miercolesDGV.DataSource =   ageNegocio.getDiaAgenda(IdProfesional, lunes.AddDays(2));
                 juevesDGV.DataSource =      ageNegocio.getDiaAgenda(IdProfesional, lunes.AddDays(3));
                 viernesDGV.DataSource =     ageNegocio.getDiaAgenda(IdProfesional, lunes.AddDays(4));
                 sabadoDGV.DataSource =      ageNegocio.getDiaAgenda(IdProfesional, lunes.AddDays(5));
+                lunesDGV.Columns[0].Width =     40;
+                MartesDGV.Columns[0].Width =    40;
+                miercolesDGV.Columns[0].Width = 40;
+                juevesDGV.Columns[0].Width =    40;
+                viernesDGV.Columns[0].Width =   40;
+                sabadoDGV.Columns[0].Width =    40;
 
             }catch(Exception ex){
                 MessageBox.Show("Error al cargar dias");
@@ -94,9 +105,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                         var diahasta = new DateTime(dia.Year, dia.Month, dia.Day, hastaHP.Value.Hour, hastaHP.Value.Minute, 0); 
                         ageNegocio.EjecutarDia(IdProfesional, dia, diahasta ,(int)especialidadCBX.SelectedItem);
 
-                        dia.AddDays(1);
+                       
                     }
                     //
+                    dia = dia.AddDays(1);
                 }
                 CargarDias();
 

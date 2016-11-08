@@ -674,7 +674,7 @@ as begin
 end
 go
 
-CREATE PROCEDURE CREARDIAAGENDA
+CREATE PROCEDURE SIEGFRIED.CREARDIAAGENDA
 	-- Add the parameters for the stored procedure here
 	@desde DATETIME, 
 	@hasta datetime,
