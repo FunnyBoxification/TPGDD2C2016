@@ -343,7 +343,7 @@ BEGIN
 
 	INSERT INTO SIEGFRIED.PROFESIONAL_ESPECIALIDAD
 	SELECT
-		(SELECT id_profesional FROM SIEGFRIED.PROFESIONALES where id_profesional = Medico_Dni),
+		(SELECT id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
 		Especialidad_Codigo
 	FROM ( SELECT DISTINCT Medico_Dni, Especialidad_Codigo FROM gd_esquema.Maestra WHERE Medico_Dni is not null and Especialidad_Codigo is not null) vista;
 
