@@ -352,7 +352,7 @@ BEGIN
 
 	INSERT INTO SIEGFRIED.PROFESIONAL_ESPECIALIDAD
 	SELECT
-		(SELECT TOP 1 id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
+		(SELECT id_usuario FROM SIEGFRIED.USUARIOS where nro_dni = Medico_Dni),
 		Especialidad_Codigo
 	FROM ( SELECT DISTINCT Medico_Dni, Especialidad_Codigo FROM gd_esquema.Maestra WHERE Medico_Dni is not null and Especialidad_Codigo is not null) vista;
 END
@@ -732,9 +732,37 @@ BEGIN
 	DECLARE @fecha datetime  = @desde;
 	WHILE @desde <= @hasta
 	BEGIN
+		declare @horassemanales int
+		SET @horassemanales = (select count(*)/2 from SIEGFRIED.AGENDA where DATEPART(week,@desde) = DATEPART(week,dia_hora) and id_profesional = @idprofesional)
+		if @horassemanales >= 48
+		BEGIN
+			declare @msj varchar = 'El medico ya posee asignadas 48 horas semanales! No puede poseer mas para la semana del dia'+ @desde
+			RAISERROR(@msj, 18, 0)
+			RETURN 
+		END
 		INSERT INTO SIEGFRIED.AGENDA VALUES(@idprofesional, @desde, @especialidad, null); 
 		SET @desde = DATEADD(minute,30,@desde);
 	END
 
+END
+GO
+
+
+CREATE PROCEDURE SIEGFRIED.GRABAR_TURNO
+	@id_agenda int, 
+	@id_afiliado int
+AS
+BEGIN
+	
+	INSERT INTO SIEGFRIED.TURNOS
+	SELECT TOP 1
+		@id_afiliado,
+		[id_profesional],
+		dia_hora,
+	    id_especialidad
+	FROM SIEGFRIED.AGENDA
+	WHERE id_agenda = @id_agenda;
+	
+	UPDATE SIEGFRIED.AGENDA SET id_turno = @@IDENTITY WHERE id_agenda = @id_agenda
 END
 GO
