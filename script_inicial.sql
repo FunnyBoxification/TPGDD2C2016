@@ -581,8 +581,6 @@ begin
 end
 go
 
-<<<<<<< HEAD
-=======
 create procedure SIEGFRIED.BAJA_USUARIO 
 	@id numeric(18,0)
 as begin
@@ -679,7 +677,6 @@ begin
 end
 go
 
->>>>>>> 8b6bf026f588d71dc386c645892fdc99182318d7
 create procedure SIEGFRIED.ALTA_AFILIADO_TITULAR 
 	@nombre varchar(255),
 	@apellido varchar(255),
