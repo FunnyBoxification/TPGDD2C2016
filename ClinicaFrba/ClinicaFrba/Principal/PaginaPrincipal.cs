@@ -99,7 +99,7 @@ namespace ClinicaFrba.Principal
 
         private void agendaBtn_Click(object sender, EventArgs e)
         {
-            var Form = new Registrar_Agenta_Medico.RegistrarAgenda();
+            var Form = new Registrar_Agenta_Medico.Agenda(Convert.ToInt32(Agendatxb.Text));
             Form.Show();
         }
 

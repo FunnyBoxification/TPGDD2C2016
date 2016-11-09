@@ -37,6 +37,7 @@
             this.regLlegadaBtn = new System.Windows.Forms.Button();
             this.regConsultaBtn = new System.Windows.Forms.Button();
             this.listadoBtn = new System.Windows.Forms.Button();
+            this.Agendatxb = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // rolesBtn
@@ -91,7 +92,7 @@
             // 
             // agendaBtn
             // 
-            this.agendaBtn.Location = new System.Drawing.Point(61, 157);
+            this.agendaBtn.Location = new System.Drawing.Point(106, 157);
             this.agendaBtn.Name = "agendaBtn";
             this.agendaBtn.Size = new System.Drawing.Size(98, 23);
             this.agendaBtn.TabIndex = 5;
@@ -128,11 +129,19 @@
             this.listadoBtn.Text = "Listado Est.";
             this.listadoBtn.UseVisualStyleBackColor = true;
             // 
+            // Agendatxb
+            // 
+            this.Agendatxb.Location = new System.Drawing.Point(12, 157);
+            this.Agendatxb.Name = "Agendatxb";
+            this.Agendatxb.Size = new System.Drawing.Size(77, 20);
+            this.Agendatxb.TabIndex = 9;
+            // 
             // PaginaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(216, 280);
+            this.Controls.Add(this.Agendatxb);
             this.Controls.Add(this.listadoBtn);
             this.Controls.Add(this.regConsultaBtn);
             this.Controls.Add(this.regLlegadaBtn);
@@ -146,6 +155,7 @@
             this.Text = "PaginaPrincipal";
             this.Load += new System.EventHandler(this.PaginaPrincipal_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -160,5 +170,6 @@
         private System.Windows.Forms.Button regLlegadaBtn;
         private System.Windows.Forms.Button regConsultaBtn;
         private System.Windows.Forms.Button listadoBtn;
+        private System.Windows.Forms.TextBox Agendatxb;
     }
 }
