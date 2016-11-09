@@ -67,7 +67,7 @@ namespace ClinicaFrba.AbmRol
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
-            comboBox1.SelectionLength = 0;
+            comboBox1.SelectedItem = null;
             var negocio = new RolesNegocio(SqlServerDBConnection.Instance());
             dataGridView1.DataSource = negocio.searchRoles(null, -1);
 

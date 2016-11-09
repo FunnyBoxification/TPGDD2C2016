@@ -169,7 +169,7 @@ namespace ClinicaNegocio
         public Boolean estaHabilitado(String user)
         {
             DBConn.openConnection();
-            String sqlRequest = "SELECT Habilitado FROM SIEGFRIED.USUARIOS where User_Nombre = @user";
+            String sqlRequest = "SELECT habilitado FROM SIEGFRIED.USUARIOS where username = @user";
             SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
             command.Parameters.Add("@user", SqlDbType.VarChar).Value = user;
 

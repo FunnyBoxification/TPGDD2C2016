@@ -34,7 +34,7 @@ namespace ClinicaFrba.Compra_Bono
         {
             tbxCantidad.Text = "";
             tbxNroAfiliado.Text = "";
-            cbxPlan.SelectedValue = null;
+            cbxPlan.SelectedItem = null;
             dtpFecha.Value = DateTimePicker.MinimumDateTime;
         }
 

@@ -97,8 +97,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            cbxEstadoCivil.SelectedIndex = -1;
-            cbxPlan.SelectedIndex = -1;
+            cbxEstadoCivil.SelectedItem = null;
+            cbxPlan.SelectedItem = null; 
             tbxNombre.Text = "";
         }
 

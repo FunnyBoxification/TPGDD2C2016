@@ -50,8 +50,8 @@ namespace ClinicaFrba.Abm_Afiliado
             tbxTelefono.Text = "";
             tbxMail.Text = "";
             dtpFechaNacimiento.Value = DateTimePicker.MinimumDateTime;
-            cbxEstadoCivil.SelectedIndex = -1;
-            cbxSexo.SelectedIndex = -1;
+            cbxEstadoCivil.SelectedItem = null;
+            cbxSexo.SelectedItem = null;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -132,8 +132,8 @@ namespace ClinicaFrba.Abm_Afiliado
                     tbxTelefono.Text = "";
                     tbxMail.Text = "";
                     dtpFechaNacimiento.Value = DateTimePicker.MinimumDateTime;
-                    cbxEstadoCivil.SelectedIndex = -1;
-                    cbxSexo.SelectedIndex = -1;
+                    cbxEstadoCivil.SelectedItem = null;
+                    cbxSexo.SelectedItem = null;
 
                 }
                 else if (dialogResult == DialogResult.No)

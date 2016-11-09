@@ -33,9 +33,6 @@ namespace ClinicaFrba
 
         }
 
-
-
-
         private void btContinuar_Click(object sender, EventArgs e)
         {
 

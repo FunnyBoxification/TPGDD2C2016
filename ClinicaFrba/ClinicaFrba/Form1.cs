@@ -58,7 +58,6 @@ namespace ClinicaFrba
                 MessageBox.Show("Usuario logueado exitosamente");
                 UsuarioLogueado.Instance().userId = userId.ToString();
                 DataTable dt = loginNegocio.getRolesDT(userId);
-                UsuarioLogueado.Instance().rol = (dt.Rows[0][0]).ToString();
                 this.Hide();
                 if (dt.Rows.Count > 1)
                 {
@@ -74,6 +73,7 @@ namespace ClinicaFrba
                 {
                     //TODO
                     //ACCEDER A la aplicacion el unico rol que tiene el usuario
+                    UsuarioLogueado.Instance().rol = (dt.Rows[0][0]).ToString();
                     Principal.PaginaPrincipal form = new Principal.PaginaPrincipal(/*(dt.Rows[0][0]).ToString(),userId*/);
                     User userToSave = new User();
                     userToSave.userId = userId;

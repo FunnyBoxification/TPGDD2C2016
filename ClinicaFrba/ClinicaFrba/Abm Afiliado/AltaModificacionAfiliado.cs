@@ -69,10 +69,10 @@ namespace ClinicaFrba.Abm_Afiliado
             tbxTelefono.Text = "";
             tbxMail.Text = "";
             dtpFechaNac.Value = DateTimePicker.MinimumDateTime;
-            cbxSexo.SelectedIndex = -1;
-            cbxEstadoCivil.SelectedIndex = -1;
+            cbxSexo.SelectedItem = null;
+            cbxEstadoCivil.SelectedItem = null;
             tbxCantFamiliares.Text = "";
-            cbxPlanMedico.SelectedIndex = -1;
+            cbxPlanMedico.SelectedItem = null;
         }
 
         private void btnListo_Click(object sender, EventArgs e)
