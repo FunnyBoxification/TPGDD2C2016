@@ -135,6 +135,8 @@
             this.Agendatxb.Name = "Agendatxb";
             this.Agendatxb.Size = new System.Drawing.Size(77, 20);
             this.Agendatxb.TabIndex = 9;
+            this.Agendatxb.Text = "0";
+            this.Agendatxb.Leave += new System.EventHandler(this.profchange);
             // 
             // PaginaPrincipal
             // 
