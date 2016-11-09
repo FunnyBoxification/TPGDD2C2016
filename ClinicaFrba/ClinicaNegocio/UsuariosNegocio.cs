@@ -244,8 +244,58 @@ namespace ClinicaNegocio
 
         }
 
-        public void agregarAfiliadoFamiliar()
+        public int agregarAfiliadoFamiliar(
+            String nombre,
+            String apellido,
+            String password,
+            String direccion,
+            Int32 documento,
+            Int32 telefono,
+            String mail,
+            DateTime fechaNac,
+            Int32 sexo,
+            Int32 estadoCivil,
+            Int32 idTitular,
+            Int32 plan
+            )
         {
+            try
+            {
+                Int32 id = -1;
+                String proc = "SIEGFRIED.ALTA_AFILIADO_FAMILIAR";
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand(proc, DBConn.Connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+                    cmd.Parameters.Add("@nroDoc", SqlDbType.Int).Value = documento;
+                    cmd.Parameters.Add("@direccion", SqlDbType.VarChar).Value = direccion;
+                    cmd.Parameters.Add("@telefono", SqlDbType.Int).Value = telefono;
+                    cmd.Parameters.Add("@password", SqlDbType.VarChar).Value = password;
+                    cmd.Parameters.Add("@mail", SqlDbType.VarChar).Value = mail;
+                    cmd.Parameters.Add("@fechaNac", SqlDbType.DateTime).Value = fechaNac;
+                    cmd.Parameters.Add("@sexo", SqlDbType.Int).Value = sexo;
+                    cmd.Parameters.Add("@estadoCivil", SqlDbType.Int).Value = estadoCivil;
+                    cmd.Parameters.Add("@idTitular", SqlDbType.Int).Value = idTitular;
+                    cmd.Parameters.Add("@plan", SqlDbType.Int).Value = plan;
+
+                    var returnParameter = cmd.Parameters.Add("@id", SqlDbType.Int);
+                    returnParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    id = (int)returnParameter.Value;
+                }
+                DBConn.closeConnection();
+                return id;
+
+            }
+            catch (Exception e)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("No se pudo agregar al afiliado: " + e.Message));
+
+            }
         }
 
 

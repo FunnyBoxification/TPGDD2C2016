@@ -144,6 +144,8 @@ namespace ClinicaFrba.Abm_Afiliado
                 int id = usuariosNegocio.agregarAfiliadoTitular(nombre,apellido,password,direccion,documento,telefono,mail,fechaNac,sexo,estadoCivil,cantFamiliares,plan);
                 if(cantFamiliares > 0) {
                     //Codigo para empezar a agregar familiares aca
+                    var form = new AgregarFamiliar(id,plan, cantFamiliares);
+                    form.Show();
                 }
             }
             else//MODIFICACION

@@ -630,6 +630,53 @@ as begin
 end
 go
 
+create procedure SIEGFRIED.ALTA_AFILIADO_FAMILIAR
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@nroDoc numeric(18,0),
+	@direccion varchar(255),
+	@telefono numeric(18,0),
+	@password varchar(255),
+	@mail varchar(255),
+	@fechaNac datetime,
+	@sexo numeric(18,0),
+	@estadoCivil numeric(18,0),
+	@idTitular numeric(18,0),
+	@plan numeric(18,0),
+	@id numeric(18,0) output
+as
+begin
+	declare @cantidadFamiliaresActual numeric(18,0)
+	set @cantidadFamiliaresActual = (SELECT COUNT(id_afiliado) FROM SIEGFRIED.AFILIADOS WHERE id_afiliado/100 = @idTitular/100)
+
+	DECLARE @idUsuario numeric(18,0)
+	set @idUsuario = @idTitular + @cantidadFamiliaresActual + 1
+
+	INSERT INTO SIEGFRIED.AFILIADOS (id_afiliado, estado_civil, cantidad_familiares, id_plan) VALUES (@idUsuario,@estadoCivil,@cantFamiliares,@plan)
+	INSERT INTO SIEGFRIED.USUARIOS 
+		(
+			id_usuario,
+			username,
+			contrasenia,
+			habilitado,
+			intentos_login,
+			nombre,
+			apellido,
+			direccion,
+			tipo_dni,
+			nro_dni,
+			telefono,
+			mail,
+			fecha_nacimiento,
+			sexo
+		)
+		VALUES (@idUsuario,@nombre+@apellido,HASHBYTES('SHA2_256',@password),1,0,@nombre,@apellido,@direccion,'dni',@nroDoc, @telefono,@mail,@fechaNac,@sexo)
+		SET @id = @idUsuario
+	
+	
+end
+go
+
 create procedure SIEGFRIED.ALTA_AFILIADO_TITULAR 
 	@nombre varchar(255),
 	@apellido varchar(255),
