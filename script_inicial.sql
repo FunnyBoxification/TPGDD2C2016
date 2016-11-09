@@ -746,3 +746,23 @@ BEGIN
 
 END
 GO
+
+
+CREATE PROCEDURE SIEGFRIED.GRABAR_TURNO
+	@id_agenda int, 
+	@id_afiliado int
+AS
+BEGIN
+	
+	INSERT INTO SIEGFRIED.TURNOS
+	SELECT TOP 1
+		@id_afiliado,
+		[id_profesional],
+		a.dia_hora,
+	    a.id_especialidad
+	FROM SIEGFRIED.AGENDA
+	WHERE a.id_agenda = @id_agenda;
+	
+	UPDATE SIEGFRIED.AGENDA SET id_turno = @@IDENTITY WHERE id_agenda = @id_agenda
+END
+GO
