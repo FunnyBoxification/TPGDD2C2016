@@ -581,6 +581,105 @@ begin
 end
 go
 
+<<<<<<< HEAD
+=======
+create procedure SIEGFRIED.BAJA_USUARIO 
+	@id numeric(18,0)
+as begin
+	UPDATE SIEGFRIED.USUARIOS SET 
+			habilitado = 0
+		WHERE id_usuario = @id
+end
+go
+
+create procedure SIEGFRIED.MODIFICAR_AFILIADO 
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@nroDoc numeric(18,0),
+	@direccion varchar(255),
+	@telefono numeric(18,0),
+	@password varchar(255),
+	@mail varchar(255),
+	@fechaNac datetime,
+	@sexo numeric(18,0),
+	@estadoCivil numeric(18,0),
+	@cantFamiliares numeric(18,0),
+	@plan numeric(18,0),
+	@id numeric(18,0) output
+as begin
+	DECLARE @idAfiliado numeric(18,0)
+	set @idAfiliado = (SELECT id_usuario FROM SIEGFRIED.USUARIOS WHERE nro_dni = @nroDoc)
+
+	UPDATE  SIEGFRIED.AFILIADOS SET 
+	estado_civil = @estadoCivil, cantidad_familiares = @cantFamiliares, id_plan = @plan 
+	WHERE id_afiliado = @idAfiliado 
+
+	UPDATE SIEGFRIED.USUARIOS SET 
+			username = @nombre+@apellido,
+			contrasenia = @password,
+			habilitado = 1,
+			intentos_login = 0,
+			nombre = @nombre,
+			apellido = @apellido,
+			direccion = @direccion,
+			tipo_dni = 'dni',
+			nro_dni = @nroDoc,
+			telefono = @telefono,
+			mail = @mail,
+			fecha_nacimiento = @fechaNac,
+			sexo = @sexo
+		WHERE id_usuario = @idAfiliado
+end
+go
+
+create procedure SIEGFRIED.ALTA_AFILIADO_FAMILIAR
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@nroDoc numeric(18,0),
+	@direccion varchar(255),
+	@telefono numeric(18,0),
+	@password varchar(255),
+	@mail varchar(255),
+	@fechaNac datetime,
+	@sexo numeric(18,0),
+	@estadoCivil numeric(18,0),
+	@idTitular numeric(18,0),
+	@plan numeric(18,0),
+	@id numeric(18,0) output
+as
+begin
+	declare @cantidadFamiliaresActual numeric(18,0)
+	set @cantidadFamiliaresActual = (SELECT COUNT(id_afiliado) FROM SIEGFRIED.AFILIADOS WHERE id_afiliado/100 = @idTitular/100)
+
+	DECLARE @idUsuario numeric(18,0)
+	set @idUsuario = @idTitular + @cantidadFamiliaresActual + 1
+
+	INSERT INTO SIEGFRIED.AFILIADOS (id_afiliado, estado_civil, cantidad_familiares, id_plan) VALUES (@idUsuario,@estadoCivil,@cantFamiliares,@plan)
+	INSERT INTO SIEGFRIED.USUARIOS 
+		(
+			id_usuario,
+			username,
+			contrasenia,
+			habilitado,
+			intentos_login,
+			nombre,
+			apellido,
+			direccion,
+			tipo_dni,
+			nro_dni,
+			telefono,
+			mail,
+			fecha_nacimiento,
+			sexo
+		)
+		VALUES (@idUsuario,@nombre+@apellido,HASHBYTES('SHA2_256',@password),1,0,@nombre,@apellido,@direccion,'dni',@nroDoc, @telefono,@mail,@fechaNac,@sexo)
+		SET @id = @idUsuario
+	
+	
+end
+go
+
+>>>>>>> 8b6bf026f588d71dc386c645892fdc99182318d7
 create procedure SIEGFRIED.ALTA_AFILIADO_TITULAR 
 	@nombre varchar(255),
 	@apellido varchar(255),

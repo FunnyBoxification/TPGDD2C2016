@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ClinicaFrba.Registrar_Agenta_Medico;
+using ClinicaFrba.Pedir_Turno;
 
 namespace ClinicaFrba
 {
@@ -17,7 +17,7 @@ namespace ClinicaFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Agenda(5950));
+            Application.Run(new PedirTurno());
         }
     }
 }

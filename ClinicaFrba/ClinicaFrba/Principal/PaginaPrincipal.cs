@@ -87,7 +87,7 @@ namespace ClinicaFrba.Principal
 
         private void turnosBtn_Click(object sender, EventArgs e)
         {
-            var Form = new Pedir_Turno.Form1();
+            var Form = new Pedir_Turno.PedirTurno();
             Form.Show();
         }
 

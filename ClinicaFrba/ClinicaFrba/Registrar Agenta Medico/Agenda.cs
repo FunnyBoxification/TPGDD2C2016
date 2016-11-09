@@ -107,6 +107,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                     {
                         if (diasCheck.CheckedIndices.Contains((int)dia.DayOfWeek - 1))
                         {
+                            
                             var diahasta = new DateTime(dia.Year, dia.Month, dia.Day, hastaHP.Value.Hour, hastaHP.Value.Minute, 0);
                             ageNegocio.EjecutarDia(IdProfesional, dia, diahasta, Convert.ToInt32(especialidadCBX.SelectedValue));
 

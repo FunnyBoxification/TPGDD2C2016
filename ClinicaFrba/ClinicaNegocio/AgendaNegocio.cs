@@ -56,7 +56,42 @@ namespace ClinicaNegocio
 
         }
 
+        public DataTable getDiaAgenda(int idProfesional, DateTime dia, int idespecialidad)
+        {
 
+            //int ID_ROL_COLUMN = 0;
+            //List<decimal> listRolIds = new List<decimal>();
+            DataTable dt = new DataTable();
+
+
+            try
+            {
+                DBConn.openConnection();
+                String sqlRequest = "SELECT id_agenda, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA a where @idProf = a.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
+
+                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
+                command.Parameters.Add("@idProf", SqlDbType.Int).Value = idProfesional;
+                command.Parameters.Add("@diabusc", SqlDbType.DateTime).Value = dia;
+                command.Parameters.Add("@idesp", SqlDbType.Int).Value = idespecialidad;
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+
+                    adapter.Fill(dt);
+                    return dt;
+                }
+
+
+                command.Dispose();
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en getDiaAgenda" + ex.Message));
+            }
+
+        }
 
 
 
@@ -105,6 +140,11 @@ namespace ClinicaNegocio
             return ds.Tables[0];
         }
 
-      
+
+
+        public void GrabarTurno(int idturno, int idafiliado)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
