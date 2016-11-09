@@ -28,11 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.dgvCambiosPlanes = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCambiosPlanes)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dgvCambiosPlanes
+            // 
+            this.dgvCambiosPlanes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCambiosPlanes.Location = new System.Drawing.Point(12, 12);
+            this.dgvCambiosPlanes.Name = "dgvCambiosPlanes";
+            this.dgvCambiosPlanes.Size = new System.Drawing.Size(260, 238);
+            this.dgvCambiosPlanes.TabIndex = 0;
+            // 
+            // HistorialPlanes
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.dgvCambiosPlanes);
+            this.Name = "HistorialPlanes";
             this.Text = "HistorialPlanes";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCambiosPlanes)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView dgvCambiosPlanes;
     }
 }

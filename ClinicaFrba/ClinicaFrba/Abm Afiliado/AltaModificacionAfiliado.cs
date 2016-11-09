@@ -157,7 +157,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void btnHistorial_Click(object sender, EventArgs e)
         {
-            var Form = new HistorialPlanes();
+            var Form = new HistorialPlanes(usuarioRow.Cells["id_usuario"].Value.ToString());
             Form.Show();
         }
 

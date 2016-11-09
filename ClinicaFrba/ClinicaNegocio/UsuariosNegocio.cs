@@ -69,6 +69,20 @@ namespace ClinicaNegocio
             return ds.Tables[0];
         }
 
+        public DataTable getCambiosPlanes(String userid)
+        {
+            string Sql = "SELECT id_plan_viejo ,id_plan_nuevo,motivo_cambio FROM SIEGFRIED.HISTORIAL_USUARIOS_PLANES WHERE id_afiliado = @id";
+            DBConn.openConnection();
+            SqlCommand cmd = new SqlCommand(Sql, DBConn.Connection);
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = userid;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            DBConn.closeConnection();
+            return ds.Tables[0];
+        }
+
         public DataTable getPlanes()
         {
             string Sql = "select * from SIEGFRIED.PLANES";
