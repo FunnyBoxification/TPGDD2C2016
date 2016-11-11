@@ -393,7 +393,7 @@ BEGIN
 		INSERT INTO SIEGFRIED.CONSULTAS
 		SELECT DISTINCT
 			Turno_Fecha, --hora_llegada datetime,
-			Bono_Consulta_Fecha_Impresion, --hora_atencion datetime,
+			Turno_Fecha, --hora_atencion datetime,
 			Consulta_Sintomas,
 			Consulta_Enfermedades,
 			[Turno_Numero] --id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
@@ -578,6 +578,22 @@ begin
 		insert into siegfried.BONOS (id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@plan,@afiliado,null,@fecha,null)
 		set @i = @i - 1
 	END
+end
+go
+
+CREATE PROCEDURE SIEGFRIED.GENERAR_CONSULTA @turno numeric(18,0), @bono numeric(18,0), @fecha datetime
+as 
+begin
+	INSERT INTO SIEGFRIED.CONSULTAS (hora_llegada, hora_atencion, sintomas, diagnostico, id_turno)
+	VALUES
+	(@fecha,null,null,null,@turno)
+
+	declare @afiliado numeric(18,0)
+	set @afiliado = (SELECT TOP 1 id_afiliado FROM SIEGFRIED.TURNOS where id_turno = @turno)
+
+	UPDATE SIEGFRIED.BONOS 
+	SET id_consulta = @@IDENTITY, id_bono = @bono, nro_consulta_medica = (SELECT MAX(nro_consulta_medica) FROM SIEGFRIED.BONOS WHERE id_afiliado = @afiliado) + 1
+	WHERE id_bono = @bono
 end
 go
 

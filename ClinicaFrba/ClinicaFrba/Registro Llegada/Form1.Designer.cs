@@ -30,14 +30,14 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbxAfiliado = new System.Windows.Forms.TextBox();
+            this.tbxProfesional = new System.Windows.Forms.TextBox();
+            this.cbxEspecialidad = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbxEspecialidad = new System.Windows.Forms.ComboBox();
-            this.tbxProfesional = new System.Windows.Forms.TextBox();
-            this.tbxAfiliado = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -49,6 +49,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(436, 242);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // groupBox1
             // 
@@ -65,41 +66,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
-            // button1
+            // tbxAfiliado
             // 
-            this.button1.Location = new System.Drawing.Point(12, 140);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Limpiar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.tbxAfiliado.Location = new System.Drawing.Point(82, 22);
+            this.tbxAfiliado.Name = "tbxAfiliado";
+            this.tbxAfiliado.Size = new System.Drawing.Size(121, 20);
+            this.tbxAfiliado.TabIndex = 5;
             // 
-            // button2
+            // tbxProfesional
             // 
-            this.button2.Location = new System.Drawing.Point(373, 140);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Buscar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.tbxProfesional.Location = new System.Drawing.Point(82, 57);
+            this.tbxProfesional.Name = "tbxProfesional";
+            this.tbxProfesional.Size = new System.Drawing.Size(121, 20);
+            this.tbxProfesional.TabIndex = 4;
             // 
-            // label1
+            // cbxEspecialidad
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Afiliado";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 60);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Profesional";
+            this.cbxEspecialidad.FormattingEnabled = true;
+            this.cbxEspecialidad.Location = new System.Drawing.Point(82, 94);
+            this.cbxEspecialidad.Name = "cbxEspecialidad";
+            this.cbxEspecialidad.Size = new System.Drawing.Size(121, 21);
+            this.cbxEspecialidad.TabIndex = 3;
             // 
             // label3
             // 
@@ -110,27 +97,43 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Especialidad";
             // 
-            // cbxEspecialidad
+            // label2
             // 
-            this.cbxEspecialidad.FormattingEnabled = true;
-            this.cbxEspecialidad.Location = new System.Drawing.Point(82, 94);
-            this.cbxEspecialidad.Name = "cbxEspecialidad";
-            this.cbxEspecialidad.Size = new System.Drawing.Size(121, 21);
-            this.cbxEspecialidad.TabIndex = 3;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 60);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Profesional";
             // 
-            // tbxProfesional
+            // label1
             // 
-            this.tbxProfesional.Location = new System.Drawing.Point(82, 57);
-            this.tbxProfesional.Name = "tbxProfesional";
-            this.tbxProfesional.Size = new System.Drawing.Size(121, 20);
-            this.tbxProfesional.TabIndex = 4;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Afiliado";
             // 
-            // tbxAfiliado
+            // button1
             // 
-            this.tbxAfiliado.Location = new System.Drawing.Point(82, 22);
-            this.tbxAfiliado.Name = "tbxAfiliado";
-            this.tbxAfiliado.Size = new System.Drawing.Size(121, 20);
-            this.tbxAfiliado.TabIndex = 5;
+            this.button1.Location = new System.Drawing.Point(12, 140);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Limpiar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(373, 140);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Buscar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
