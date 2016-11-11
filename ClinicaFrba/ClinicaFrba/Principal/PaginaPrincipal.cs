@@ -97,10 +97,24 @@ namespace ClinicaFrba.Principal
             Form.Show();
         }
 
+        private void profchange(object sender, EventArgs e)
+        {
+
+        }
         private void agendaBtn_Click(object sender, EventArgs e)
         {
-            var Form = new Registrar_Agenta_Medico.RegistrarAgenda();
-            Form.Show();
+            var negocio = new PrincipalNegocio(SqlServerDBConnection.Instance());
+            var id = Convert.ToInt32(Agendatxb.Text);
+            if (negocio.EsProfesionaloValido(id))
+            {
+                var Form = new Registrar_Agenta_Medico.Agenda(id);
+                Form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar un Id de Profesional Valido");
+            }
+            
         }
 
         private void regLlegadaBtn_Click(object sender, EventArgs e)

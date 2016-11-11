@@ -630,7 +630,7 @@ as begin
 
 	UPDATE SIEGFRIED.USUARIOS SET 
 			username = @nombre+@apellido,
-			contrasenia = @password,
+			contrasenia = HASHBYTES('SHA2_256',@password),
 			habilitado = 1,
 			intentos_login = 0,
 			nombre = @nombre,
@@ -668,7 +668,7 @@ begin
 	DECLARE @idUsuario numeric(18,0)
 	set @idUsuario = @idTitular + @cantidadFamiliaresActual + 1
 
-	INSERT INTO SIEGFRIED.AFILIADOS (id_afiliado, estado_civil, cantidad_familiares, id_plan) VALUES (@idUsuario,@estadoCivil,@cantFamiliares,@plan)
+	INSERT INTO SIEGFRIED.AFILIADOS (id_afiliado, estado_civil, cantidad_familiares, id_plan) VALUES (@idUsuario,@estadoCivil,@cantidadFamiliaresActual,@plan)
 	INSERT INTO SIEGFRIED.USUARIOS 
 		(
 			id_usuario,
