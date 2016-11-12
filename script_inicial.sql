@@ -765,15 +765,16 @@ GO
 
 
 CREATE PROCEDURE SIEGFRIED.GRABAR_TURNO
-	@id_agenda int, 
-	@id_afiliado int
+	@id_agenda numeric(18,0), 
+	@id_afiliado numeric(18,0)
 AS
 BEGIN
 	
 	INSERT INTO SIEGFRIED.TURNOS
 	SELECT TOP 1
+		(SELECT MAX(id_turno) + 1  FROM SIEGFRIED.TURNOS),
 		@id_afiliado,
-		[id_profesional],
+		id_profesional,
 		dia_hora,
 	    id_especialidad
 	FROM SIEGFRIED.AGENDA

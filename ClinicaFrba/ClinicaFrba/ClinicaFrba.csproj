@@ -158,12 +158,6 @@
     <Compile Include="Registrar Agenta Medico\Agenda.Designer.cs">
       <DependentUpon>Agenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Agenta Medico\RegistrarAgenda.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registrar Agenta Medico\RegistrarAgenda.Designer.cs">
-      <DependentUpon>RegistrarAgenda.cs</DependentUpon>
-    </Compile>
     <Compile Include="Registro Llegada\BonosDisponiblesAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>

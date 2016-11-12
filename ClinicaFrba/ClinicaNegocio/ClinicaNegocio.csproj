@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BonosNegocio.cs" />
     <Compile Include="AgendaNegocio.cs" />
+    <Compile Include="ListadosNegocio.cs" />
     <Compile Include="LoginNegocio.cs" />
     <Compile Include="PrincipalNegocio.cs" />
     <Compile Include="RegistroLlegadaNegocio.cs" />
