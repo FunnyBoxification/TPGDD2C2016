@@ -9,36 +9,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaNegocio;
 
-namespace ClinicaFrba.Pedir_Turno   
+namespace ClinicaFrba.Pedir_Turno
 {
-    public partial class PedirTurno : Form
+    public partial class CancelarTurno : Form
     {
+        public CancelarTurno()
+        {
+            InitializeComponent();
+        }
+
         public AgendaNegocio ageNegocio { get; set; }
         public SqlServerDBConnection instance { get; set; }
         public DateTime Fecha { get; set; }
 
-        public PedirTurno()
-        {
-            InitializeComponent();
-        }
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void profesionalchange(object sender, EventArgs e)
-        {
-            try{
-                cbxEspecialidad.DataSource = ageNegocio.getEspecialidades(Convert.ToInt32(tbxProfesional.Text));
-                cbxEspecialidad.DisplayMember = "descripcion";
-                cbxEspecialidad.ValueMember = "id_especialidad";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar profesional");
-            }
-        }
+        
 
 
         private void CargarDias()
@@ -46,7 +37,6 @@ namespace ClinicaFrba.Pedir_Turno
             try
             {
                 int dia = (int)Fecha.DayOfWeek;
-                var idesp = Convert.ToInt32(cbxEspecialidad.SelectedValue);
                 var lunes = Fecha.AddDays(-dia + 1);
                 lblLunes.Text = "Lunes " + lunes.ToString("dd/MM/yyyy");
                 lblMartes.Text = "Martes " + (lunes.AddDays(1)).ToString("dd/MM/yyyy");
@@ -54,12 +44,12 @@ namespace ClinicaFrba.Pedir_Turno
                 lblJueves.Text = "Jueves " + (lunes.AddDays(3)).ToString("dd/MM/yyyy");
                 lblViernes.Text = "Viernes " + (lunes.AddDays(4)).ToString("dd/MM/yyyy");
                 lblSabado.Text = "Sabado " + (lunes.AddDays(5)).ToString("dd/MM/yyyy");
-                lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxProfesional.Text), lunes, idesp);
-                MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(1),idesp);
-                miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(2), idesp);
-                juevesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(3), idesp);
-                viernesDGV.DataSource = ageNegocio.getDiaAgenda(    Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(4), idesp);
-                sabadoDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(5), idesp);
+                lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxProfesional.Text), lunes);
+                MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(1));
+                miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(2));
+                juevesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(3));
+                viernesDGV.DataSource = ageNegocio.getDiaAgenda(    Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(4));
+                sabadoDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(5));
                 List<DataGridView> dgvs = new List<DataGridView>();
                 dgvs.Add(lunesDGV);
                 dgvs.Add(MartesDGV);
@@ -140,6 +130,28 @@ namespace ClinicaFrba.Pedir_Turno
                 int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
                 ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value),Convert.ToInt32(tbxAfiliado.Text));
             }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
