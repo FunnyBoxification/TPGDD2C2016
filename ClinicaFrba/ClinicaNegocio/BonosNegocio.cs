@@ -39,9 +39,9 @@ namespace ClinicaNegocio
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("ifAfiliado", afiliado);
-                    cmd.Parameters.AddWithValue("cantidad", cantidad);
-                    cmd.Parameters.AddWithValue("fecha", fecha);
+                    cmd.Parameters.AddWithValue("@afiliado", afiliado);
+                    cmd.Parameters.AddWithValue("@cantidad", cantidad);
+                    cmd.Parameters.AddWithValue("@fecha", fecha);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }

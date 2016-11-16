@@ -60,22 +60,23 @@ left join siegfried.especialidades especialidad on especialidad.id_especialidad 
 
 
 SELECT TOP 5 usuario.nombre+' '+usuario.apellido as medico,
-	   plann.descripcion,
-	   especialidad.descripcion
+	   --plann.descripcion,
+	   especialidad.descripcion,
 	   count(*) / 2 as horas_trabajadas
 FROM (
 	SELECT 
-		bono.id_plan as planid,
-		turno.id_profesional as profesional
+		--bono.id_plan as planid,
+		turno.id_profesional as profesional,
 		turno.id_especialidad as especialidad
 	FROM SIEGFRIED.BONOS bono
 	LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta
 	LEFT JOIN SIEGFRIED.TURNOS turno on turno.id_turno = consulta.id_turno
 	WHERE bono.id_consulta is not null ) as vista
 LEFT JOIN SIEGFRIED.USUARIOS usuario ON vista.profesional = usuario.id_usuario
-LEFT JOIN SIEGFRIED.PLANES plann on plann.id_plan = vista.planid
+--LEFT JOIN SIEGFRIED.PLANES plann on plann.id_plan = vista.planid
 LEFT JOIN SIEGFRIED.ESPECIALIDADES especialidad on especialidad.id_especialidad = vista.especialidad
-GROUP BY plann.descripcion, usuario.nombre+' '+usuario.apellido
+--GROUP BY plann.descripcion, 
+GROUP BY usuario.nombre+' '+usuario.apellido
 ORDER BY 3 ASC
 
 ----------------------------------------------------------------------------------------

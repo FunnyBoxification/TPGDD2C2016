@@ -158,6 +158,12 @@
     <Compile Include="Registrar Agenta Medico\Agenda.Designer.cs">
       <DependentUpon>Agenda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Registro Llegada\BonosDisponiblesAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\BonosDisponiblesAfiliado.Designer.cs">
+      <DependentUpon>BonosDisponiblesAfiliado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Llegada\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\HistorialPlanes.resx">
+      <DependentUpon>HistorialPlanes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Especialidades Medicas\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -229,6 +238,9 @@
     </Compile>
     <EmbeddedResource Include="Registrar Agenta Medico\Agenda.resx">
       <DependentUpon>Agenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\BonosDisponiblesAfiliado.resx">
+      <DependentUpon>BonosDisponiblesAfiliado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

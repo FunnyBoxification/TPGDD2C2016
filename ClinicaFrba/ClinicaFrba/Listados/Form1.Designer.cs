@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.cbxMes = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.cbxSemestre = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbxAnio = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbxEspecialidad = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cbxPlan = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.radioAmbos = new System.Windows.Forms.RadioButton();
+            this.radioSoloProf = new System.Windows.Forms.RadioButton();
+            this.radioSoloAfiliados = new System.Windows.Forms.RadioButton();
+            this.cbxListado = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -53,20 +53,20 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox6);
+            this.groupBox1.Controls.Add(this.cbxMes);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.comboBox5);
+            this.groupBox1.Controls.Add(this.cbxSemestre);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.comboBox4);
+            this.groupBox1.Controls.Add(this.cbxAnio);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.comboBox3);
+            this.groupBox1.Controls.Add(this.cbxEspecialidad);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.cbxPlan);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.radioAmbos);
+            this.groupBox1.Controls.Add(this.radioSoloProf);
+            this.groupBox1.Controls.Add(this.radioSoloAfiliados);
+            this.groupBox1.Controls.Add(this.cbxListado);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(49, 12);
             this.groupBox1.Name = "groupBox1";
@@ -75,124 +75,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
-            // label1
+            // cbxMes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Listado";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(84, 17);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 1;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(54, 110);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(87, 17);
-            this.radioButton1.TabIndex = 5;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Solo afiliados";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(147, 110);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(111, 17);
-            this.radioButton2.TabIndex = 6;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Solo profesionales";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(264, 110);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(57, 17);
-            this.radioButton3.TabIndex = 7;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Ambos";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Plan";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(84, 47);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Especialidad";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(84, 75);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 11;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(216, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Año";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(277, 16);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(71, 21);
-            this.comboBox4.TabIndex = 13;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(216, 50);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 13);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Semestre";
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(277, 47);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(71, 21);
-            this.comboBox5.TabIndex = 15;
+            this.cbxMes.FormattingEnabled = true;
+            this.cbxMes.Location = new System.Drawing.Point(277, 75);
+            this.cbxMes.Name = "cbxMes";
+            this.cbxMes.Size = new System.Drawing.Size(71, 21);
+            this.cbxMes.TabIndex = 17;
             // 
             // label6
             // 
@@ -203,13 +92,126 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "Mes";
             // 
-            // comboBox6
+            // cbxSemestre
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(277, 75);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(71, 21);
-            this.comboBox6.TabIndex = 17;
+            this.cbxSemestre.FormattingEnabled = true;
+            this.cbxSemestre.Location = new System.Drawing.Point(277, 47);
+            this.cbxSemestre.Name = "cbxSemestre";
+            this.cbxSemestre.Size = new System.Drawing.Size(71, 21);
+            this.cbxSemestre.TabIndex = 15;
+            this.cbxSemestre.SelectedIndexChanged += new System.EventHandler(this.cbxSemestre_SelectedIndexChanged);
+            this.cbxSemestre.SelectedValueChanged += new System.EventHandler(this.cbxSemestre_SelectedValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(216, 50);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Semestre";
+            // 
+            // cbxAnio
+            // 
+            this.cbxAnio.FormattingEnabled = true;
+            this.cbxAnio.Location = new System.Drawing.Point(277, 16);
+            this.cbxAnio.Name = "cbxAnio";
+            this.cbxAnio.Size = new System.Drawing.Size(71, 21);
+            this.cbxAnio.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(216, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Año";
+            // 
+            // cbxEspecialidad
+            // 
+            this.cbxEspecialidad.FormattingEnabled = true;
+            this.cbxEspecialidad.Location = new System.Drawing.Point(84, 75);
+            this.cbxEspecialidad.Name = "cbxEspecialidad";
+            this.cbxEspecialidad.Size = new System.Drawing.Size(121, 21);
+            this.cbxEspecialidad.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Especialidad";
+            // 
+            // cbxPlan
+            // 
+            this.cbxPlan.FormattingEnabled = true;
+            this.cbxPlan.Location = new System.Drawing.Point(84, 47);
+            this.cbxPlan.Name = "cbxPlan";
+            this.cbxPlan.Size = new System.Drawing.Size(121, 21);
+            this.cbxPlan.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(28, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Plan";
+            // 
+            // radioAmbos
+            // 
+            this.radioAmbos.AutoSize = true;
+            this.radioAmbos.Location = new System.Drawing.Point(264, 110);
+            this.radioAmbos.Name = "radioAmbos";
+            this.radioAmbos.Size = new System.Drawing.Size(57, 17);
+            this.radioAmbos.TabIndex = 7;
+            this.radioAmbos.TabStop = true;
+            this.radioAmbos.Text = "Ambos";
+            this.radioAmbos.UseVisualStyleBackColor = true;
+            this.radioAmbos.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // radioSoloProf
+            // 
+            this.radioSoloProf.AutoSize = true;
+            this.radioSoloProf.Location = new System.Drawing.Point(147, 110);
+            this.radioSoloProf.Name = "radioSoloProf";
+            this.radioSoloProf.Size = new System.Drawing.Size(111, 17);
+            this.radioSoloProf.TabIndex = 6;
+            this.radioSoloProf.TabStop = true;
+            this.radioSoloProf.Text = "Solo profesionales";
+            this.radioSoloProf.UseVisualStyleBackColor = true;
+            // 
+            // radioSoloAfiliados
+            // 
+            this.radioSoloAfiliados.AutoSize = true;
+            this.radioSoloAfiliados.Location = new System.Drawing.Point(54, 110);
+            this.radioSoloAfiliados.Name = "radioSoloAfiliados";
+            this.radioSoloAfiliados.Size = new System.Drawing.Size(87, 17);
+            this.radioSoloAfiliados.TabIndex = 5;
+            this.radioSoloAfiliados.TabStop = true;
+            this.radioSoloAfiliados.Text = "Solo afiliados";
+            this.radioSoloAfiliados.UseVisualStyleBackColor = true;
+            // 
+            // cbxListado
+            // 
+            this.cbxListado.FormattingEnabled = true;
+            this.cbxListado.Location = new System.Drawing.Point(84, 17);
+            this.cbxListado.Name = "cbxListado";
+            this.cbxListado.Size = new System.Drawing.Size(121, 21);
+            this.cbxListado.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Listado";
             // 
             // dataGridView1
             // 
@@ -227,6 +229,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Limpiar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -236,6 +239,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
@@ -259,20 +263,20 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.RadioButton radioAmbos;
+        private System.Windows.Forms.RadioButton radioSoloProf;
+        private System.Windows.Forms.RadioButton radioSoloAfiliados;
+        private System.Windows.Forms.ComboBox cbxListado;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox cbxMes;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox cbxSemestre;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox cbxAnio;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cbxEspecialidad;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbxPlan;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
