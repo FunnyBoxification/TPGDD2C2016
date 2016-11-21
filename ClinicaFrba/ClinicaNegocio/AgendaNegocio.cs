@@ -166,5 +166,29 @@ namespace ClinicaNegocio
                 throw (new Exception("Error en Insertar Agenda en Dia" + ex.Message));
             }
         }
+
+        public void CancelarTurno(int idagenda, int idafiliado)
+        {
+            try
+            {
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CANCELAR_TURNO", DBConn.Connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("id_agenda", idagenda);
+                    cmd.Parameters.AddWithValue("id_afiliado", idafiliado);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en Insertar Agenda en Dia" + ex.Message));
+            }
+        }
     }
 }

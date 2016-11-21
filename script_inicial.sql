@@ -126,9 +126,6 @@ BEGIN
 		CREATE TABLE SIEGFRIED.TURNOS(
 		id_turno numeric(18,0) primary key,
 		id_afiliado numeric(18,0) foreign key references SIEGFRIED.AFILIADOS(id_afiliado),
-		id_profesional numeric(18,0) foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
-		fecha datetime,
-		id_especialidad numeric(18,0) foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
 		--numero_turno numeric(18,0) -- ????
 	);
 
@@ -171,13 +168,15 @@ BEGIN
 
 	CREATE TABLE SIEGFRIED.TIPOS_CANCELACION(
 		id_tipo numeric(18,0) not null identity(1,1) primary key,
-		descripcion varchar(255)
+		descripcion varchar(255),
 	);
 
 	CREATE TABLE SIEGFRIED.CANCELACION(
 		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno),
+		id_agenda numeric(18,0) foreign key references SIEGFRIED.AGENDA(id_agenda),
 		id_tipo_cancelacion numeric(18,0) foreign key references SIEGFRIED.TIPOS_CANCELACION(id_tipo),
-		primary key(id_turno, id_tipo_cancelacion)
+		explicacion varchar(255),
+		primary key(id_turno, id_agenda)
 	);
 
 	
@@ -375,9 +374,6 @@ BEGIN
 		SELECT DISTINCT
 			[Turno_Numero],       
 			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
-			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
-			[Turno_Fecha], --fecha datetime,
-			Especialidad_Codigo
 		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 
@@ -432,6 +428,16 @@ BEGIN
 END 
 GO
 
+CREATE PROCEDURE SIEGFRIED.LOAD_CANCELACIONES
+AS
+BEGIN
+
+		INSERT INTO SIEGFRIED.TIPOS_CANCELACION VALUES ('Enfermedad'),('Vacaciones'),('Perdida Familiar'),('Embarazo'),('Parto'),('Muerte'),('Personal')
+
+			
+END 
+GO
+
 CREATE PROCEDURE SIEGFRIED.CREATE_INDEXES
 AS
 BEGIN
@@ -455,6 +461,7 @@ BEGIN TRY
 		EXEC SIEGFRIED.LOAD_USERS
 		EXEC SIEGFRIED.LOAD_CONSULTAS_TURNOS
 		EXEC SIEGFRIED.LOAD_BONOS
+		EXEC SIEGFRIED.LOAD_CANCELACIONES
 		EXEC SIEGFRIED.SET_ADMIN
 		EXEC SIEGFRIED.CREATE_INDEXES
 	COMMIT TRANSACTION MAIN_T
@@ -769,17 +776,29 @@ CREATE PROCEDURE SIEGFRIED.GRABAR_TURNO
 	@id_afiliado numeric(18,0)
 AS
 BEGIN
+	declare @id_turno numeric(18,0) = (SELECT MAX(id_turno) + 1  FROM SIEGFRIED.TURNOS)
+	INSERT INTO SIEGFRIED.TURNOS Values (@id_turno,@id_afiliado)
 	
-	INSERT INTO SIEGFRIED.TURNOS
-	SELECT TOP 1
-		(SELECT MAX(id_turno) + 1  FROM SIEGFRIED.TURNOS),
-		@id_afiliado,
-		id_profesional,
-		dia_hora,
-	    id_especialidad
-	FROM SIEGFRIED.AGENDA
-	WHERE id_agenda = @id_agenda;
-	
-	UPDATE SIEGFRIED.AGENDA SET id_turno = @@IDENTITY WHERE id_agenda = @id_agenda
+	UPDATE SIEGFRIED.AGENDA SET id_turno = @id_turno WHERE id_agenda = @id_agenda
+END
+GO
+
+CREATE PROCEDURE SIEGFRIED.CANCELAR_TURNO
+	@id_turno numeric(18,0), 
+	@id_afiliado numeric(18,0),
+	@id_cancelacion numeric(18,0),
+	@explicacion varchar(255)
+AS
+BEGIN
+	DECLARE @validaId int
+	SET  @validaId = (select t.id_afiliado from SIEGFRIED.TURNOS t where @id_turno =  t.id_turno )
+
+	IF @validaId != @id_afiliado
+		begin
+		RAISERROR('El turno no pertenece al afiliado', 18, 0)
+		end
+
+	INSERT INTO SIEGFRIED.CANCELACION VALUES(@id_turno,@id_cancelacion,@explicacion)
+
 END
 GO

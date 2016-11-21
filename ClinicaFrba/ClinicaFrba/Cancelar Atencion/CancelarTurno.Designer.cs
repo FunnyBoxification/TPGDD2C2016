@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.Pedir_Turno
 {
-    partial class PedirTurno
+    partial class CancelarTurno
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tbxUsuario = new System.Windows.Forms.TextBox();
-            this.cbxUsuario = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.anteriorBtn = new System.Windows.Forms.Button();
-            this.siguienteBtn = new System.Windows.Forms.Button();
             this.lblSabado = new System.Windows.Forms.Label();
             this.lblViernes = new System.Windows.Forms.Label();
             this.lblJueves = new System.Windows.Forms.Label();
@@ -48,108 +40,30 @@
             this.miercolesDGV = new System.Windows.Forms.DataGridView();
             this.MartesDGV = new System.Windows.Forms.DataGridView();
             this.lunesDGV = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tbxProfesional = new System.Windows.Forms.TextBox();
+            this.Usuario = new System.Windows.Forms.Label();
+            this.anteriorBtn = new System.Windows.Forms.Button();
+            this.siguienteBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.hastaDTP = new System.Windows.Forms.DateTimePicker();
             this.desdeDTP = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbxMotivo = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sabadoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viernesDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.juevesDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.miercolesDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MartesDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lunesDGV)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.tbxUsuario);
-            this.groupBox1.Controls.Add(this.cbxUsuario);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.anteriorBtn);
-            this.groupBox1.Controls.Add(this.siguienteBtn);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(355, 107);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(231, 53);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Limpiar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(287, 53);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Buscar";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // tbxUsuario
-            // 
-            this.tbxUsuario.Location = new System.Drawing.Point(219, 24);
-            this.tbxUsuario.Name = "tbxUsuario";
-            this.tbxUsuario.Size = new System.Drawing.Size(118, 20);
-            this.tbxUsuario.TabIndex = 5;
-            // 
-            // cbxUsuario
-            // 
-            this.cbxUsuario.FormattingEnabled = true;
-            this.cbxUsuario.Items.AddRange(new object[] {
-            "Profesional",
-            "Afiliado"});
-            this.cbxUsuario.Location = new System.Drawing.Point(65, 23);
-            this.cbxUsuario.Name = "cbxUsuario";
-            this.cbxUsuario.Size = new System.Drawing.Size(148, 21);
-            this.cbxUsuario.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Usuario";
-            // 
-            // anteriorBtn
-            // 
-            this.anteriorBtn.Location = new System.Drawing.Point(6, 53);
-            this.anteriorBtn.Name = "anteriorBtn";
-            this.anteriorBtn.Size = new System.Drawing.Size(96, 23);
-            this.anteriorBtn.TabIndex = 31;
-            this.anteriorBtn.Text = "Anterior Semana";
-            this.anteriorBtn.UseVisualStyleBackColor = true;
-            this.anteriorBtn.Click += new System.EventHandler(this.anteriorBtn_Click);
-            // 
-            // siguienteBtn
-            // 
-            this.siguienteBtn.Location = new System.Drawing.Point(108, 53);
-            this.siguienteBtn.Name = "siguienteBtn";
-            this.siguienteBtn.Size = new System.Drawing.Size(105, 23);
-            this.siguienteBtn.TabIndex = 30;
-            this.siguienteBtn.Text = "Siguiente Semana";
-            this.siguienteBtn.UseVisualStyleBackColor = true;
-            this.siguienteBtn.Click += new System.EventHandler(this.siguienteBtn_Click);
             // 
             // lblSabado
             // 
@@ -157,7 +71,7 @@
             this.lblSabado.Location = new System.Drawing.Point(507, 466);
             this.lblSabado.Name = "lblSabado";
             this.lblSabado.Size = new System.Drawing.Size(44, 13);
-            this.lblSabado.TabIndex = 43;
+            this.lblSabado.TabIndex = 56;
             this.lblSabado.Text = "Sabado";
             // 
             // lblViernes
@@ -166,7 +80,7 @@
             this.lblViernes.Location = new System.Drawing.Point(257, 466);
             this.lblViernes.Name = "lblViernes";
             this.lblViernes.Size = new System.Drawing.Size(42, 13);
-            this.lblViernes.TabIndex = 42;
+            this.lblViernes.TabIndex = 55;
             this.lblViernes.Text = "Viernes";
             // 
             // lblJueves
@@ -175,7 +89,7 @@
             this.lblJueves.Location = new System.Drawing.Point(12, 466);
             this.lblJueves.Name = "lblJueves";
             this.lblJueves.Size = new System.Drawing.Size(41, 13);
-            this.lblJueves.TabIndex = 41;
+            this.lblJueves.TabIndex = 54;
             this.lblJueves.Text = "Jueves";
             // 
             // lblMiercoles
@@ -184,7 +98,7 @@
             this.lblMiercoles.Location = new System.Drawing.Point(507, 137);
             this.lblMiercoles.Name = "lblMiercoles";
             this.lblMiercoles.Size = new System.Drawing.Size(52, 13);
-            this.lblMiercoles.TabIndex = 40;
+            this.lblMiercoles.TabIndex = 53;
             this.lblMiercoles.Text = "Miercoles";
             // 
             // lblMartes
@@ -193,7 +107,7 @@
             this.lblMartes.Location = new System.Drawing.Point(257, 137);
             this.lblMartes.Name = "lblMartes";
             this.lblMartes.Size = new System.Drawing.Size(39, 13);
-            this.lblMartes.TabIndex = 39;
+            this.lblMartes.TabIndex = 52;
             this.lblMartes.Text = "Martes";
             // 
             // lblLunes
@@ -202,7 +116,7 @@
             this.lblLunes.Location = new System.Drawing.Point(9, 137);
             this.lblLunes.Name = "lblLunes";
             this.lblLunes.Size = new System.Drawing.Size(36, 13);
-            this.lblLunes.TabIndex = 38;
+            this.lblLunes.TabIndex = 51;
             this.lblLunes.Text = "Lunes";
             // 
             // sabadoDGV
@@ -221,8 +135,7 @@
             this.sabadoDGV.ShowEditingIcon = false;
             this.sabadoDGV.ShowRowErrors = false;
             this.sabadoDGV.Size = new System.Drawing.Size(251, 299);
-            this.sabadoDGV.TabIndex = 37;
-            this.sabadoDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lunesDGV_CellContentClick);
+            this.sabadoDGV.TabIndex = 50;
             // 
             // viernesDGV
             // 
@@ -240,8 +153,7 @@
             this.viernesDGV.ShowEditingIcon = false;
             this.viernesDGV.ShowRowErrors = false;
             this.viernesDGV.Size = new System.Drawing.Size(251, 299);
-            this.viernesDGV.TabIndex = 36;
-            this.viernesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lunesDGV_CellContentClick);
+            this.viernesDGV.TabIndex = 49;
             // 
             // juevesDGV
             // 
@@ -259,8 +171,7 @@
             this.juevesDGV.ShowEditingIcon = false;
             this.juevesDGV.ShowRowErrors = false;
             this.juevesDGV.Size = new System.Drawing.Size(251, 299);
-            this.juevesDGV.TabIndex = 35;
-            this.juevesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lunesDGV_CellContentClick);
+            this.juevesDGV.TabIndex = 48;
             // 
             // miercolesDGV
             // 
@@ -278,8 +189,7 @@
             this.miercolesDGV.ShowEditingIcon = false;
             this.miercolesDGV.ShowRowErrors = false;
             this.miercolesDGV.Size = new System.Drawing.Size(251, 299);
-            this.miercolesDGV.TabIndex = 34;
-            this.miercolesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lunesDGV_CellContentClick);
+            this.miercolesDGV.TabIndex = 47;
             // 
             // MartesDGV
             // 
@@ -297,8 +207,7 @@
             this.MartesDGV.ShowEditingIcon = false;
             this.MartesDGV.ShowRowErrors = false;
             this.MartesDGV.Size = new System.Drawing.Size(251, 299);
-            this.MartesDGV.TabIndex = 33;
-            this.MartesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lunesDGV_CellContentClick);
+            this.MartesDGV.TabIndex = 46;
             // 
             // lunesDGV
             // 
@@ -316,107 +225,155 @@
             this.lunesDGV.ShowEditingIcon = false;
             this.lunesDGV.ShowRowErrors = false;
             this.lunesDGV.Size = new System.Drawing.Size(251, 299);
-            this.lunesDGV.TabIndex = 32;
-            this.lunesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lunesDGV_CellContentClick);
+            this.lunesDGV.TabIndex = 45;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.tbxProfesional);
+            this.groupBox1.Controls.Add(this.Usuario);
+            this.groupBox1.Controls.Add(this.anteriorBtn);
+            this.groupBox1.Controls.Add(this.siguienteBtn);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(359, 107);
+            this.groupBox1.TabIndex = 44;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Filtros";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Profesional",
+            "Afiliado"});
+            this.comboBox1.Location = new System.Drawing.Point(66, 27);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 32;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(221, 64);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(51, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Limpiar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(278, 64);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Buscar";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // tbxProfesional
+            // 
+            this.tbxProfesional.Location = new System.Drawing.Point(193, 28);
+            this.tbxProfesional.Name = "tbxProfesional";
+            this.tbxProfesional.Size = new System.Drawing.Size(145, 20);
+            this.tbxProfesional.TabIndex = 1;
+            // 
+            // Usuario
+            // 
+            this.Usuario.AutoSize = true;
+            this.Usuario.Location = new System.Drawing.Point(16, 27);
+            this.Usuario.Name = "Usuario";
+            this.Usuario.Size = new System.Drawing.Size(43, 13);
+            this.Usuario.TabIndex = 0;
+            this.Usuario.Text = "Usuario";
+            // 
+            // anteriorBtn
+            // 
+            this.anteriorBtn.Location = new System.Drawing.Point(6, 64);
+            this.anteriorBtn.Name = "anteriorBtn";
+            this.anteriorBtn.Size = new System.Drawing.Size(98, 23);
+            this.anteriorBtn.TabIndex = 31;
+            this.anteriorBtn.Text = "Anterior Semana";
+            this.anteriorBtn.UseVisualStyleBackColor = true;
+            // 
+            // siguienteBtn
+            // 
+            this.siguienteBtn.Location = new System.Drawing.Point(104, 64);
+            this.siguienteBtn.Name = "siguienteBtn";
+            this.siguienteBtn.Size = new System.Drawing.Size(102, 23);
+            this.siguienteBtn.TabIndex = 30;
+            this.siguienteBtn.Text = "Siguiente Semana";
+            this.siguienteBtn.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.cbxMotivo);
-            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.hastaDTP);
             this.panel1.Controls.Add(this.desdeDTP);
-            this.panel1.Location = new System.Drawing.Point(373, 24);
+            this.panel1.Location = new System.Drawing.Point(389, 17);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(381, 95);
-            this.panel1.TabIndex = 44;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 51);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Hasta";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Desde";
-            // 
-            // hastaDTP
-            // 
-            this.hastaDTP.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.hastaDTP.Location = new System.Drawing.Point(44, 51);
-            this.hastaDTP.Name = "hastaDTP";
-            this.hastaDTP.Size = new System.Drawing.Size(82, 20);
-            this.hastaDTP.TabIndex = 5;
-            // 
-            // desdeDTP
-            // 
-            this.desdeDTP.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.desdeDTP.Location = new System.Drawing.Point(47, 15);
-            this.desdeDTP.Name = "desdeDTP";
-            this.desdeDTP.Size = new System.Drawing.Size(79, 20);
-            this.desdeDTP.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(139, 19);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Motivo";
-            // 
-            // cbxMotivo
-            // 
-            this.cbxMotivo.FormattingEnabled = true;
-            this.cbxMotivo.Location = new System.Drawing.Point(184, 16);
-            this.cbxMotivo.Name = "cbxMotivo";
-            this.cbxMotivo.Size = new System.Drawing.Size(124, 21);
-            this.cbxMotivo.TabIndex = 9;
+            this.panel1.Size = new System.Drawing.Size(368, 102);
+            this.panel1.TabIndex = 57;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(137, 51);
+            this.label5.Location = new System.Drawing.Point(10, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Explicacion";
+            this.label5.Size = new System.Drawing.Size(92, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Rango de Fechas";
             // 
-            // textBox1
+            // label2
             // 
-            this.textBox1.Location = new System.Drawing.Point(204, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(174, 20);
-            this.textBox1.TabIndex = 32;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Día hasta";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Día desde";
+            // 
+            // hastaDTP
+            // 
+            this.hastaDTP.Location = new System.Drawing.Point(67, 61);
+            this.hastaDTP.Name = "hastaDTP";
+            this.hastaDTP.Size = new System.Drawing.Size(200, 20);
+            this.hastaDTP.TabIndex = 1;
+            // 
+            // desdeDTP
+            // 
+            this.desdeDTP.Location = new System.Drawing.Point(67, 23);
+            this.desdeDTP.Name = "desdeDTP";
+            this.desdeDTP.Size = new System.Drawing.Size(200, 20);
+            this.desdeDTP.TabIndex = 0;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(314, 16);
+            this.button3.Location = new System.Drawing.Point(290, 56);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(64, 23);
-            this.button3.TabIndex = 33;
-            this.button3.Text = "Cancelar";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Insertar";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // PedirTurno
+            // CancelarTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 786);
+            this.ClientSize = new System.Drawing.Size(769, 791);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblSabado);
             this.Controls.Add(this.lblViernes);
@@ -431,17 +388,16 @@
             this.Controls.Add(this.MartesDGV);
             this.Controls.Add(this.lunesDGV);
             this.Controls.Add(this.groupBox1);
-            this.Name = "PedirTurno";
+            this.Name = "CancelarTurno";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.PedirTurno_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sabadoDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viernesDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.juevesDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.miercolesDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MartesDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lunesDGV)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -451,12 +407,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cbxUsuario;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox tbxUsuario;
         private System.Windows.Forms.Label lblSabado;
         private System.Windows.Forms.Label lblViernes;
         private System.Windows.Forms.Label lblJueves;
@@ -469,17 +419,21 @@
         private System.Windows.Forms.DataGridView miercolesDGV;
         private System.Windows.Forms.DataGridView MartesDGV;
         private System.Windows.Forms.DataGridView lunesDGV;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox tbxProfesional;
+        private System.Windows.Forms.Label Usuario;
         private System.Windows.Forms.Button anteriorBtn;
         private System.Windows.Forms.Button siguienteBtn;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker hastaDTP;
         private System.Windows.Forms.DateTimePicker desdeDTP;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cbxMotivo;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
+
     }
 }
