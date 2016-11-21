@@ -9,61 +9,35 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaNegocio;
 
-namespace ClinicaFrba.Pedir_Turno   
+namespace ClinicaFrba.Pedir_Turno
 {
     public partial class PedirTurno : Form
     {
         public AgendaNegocio ageNegocio { get; set; }
         public SqlServerDBConnection instance { get; set; }
         public DateTime Fecha { get; set; }
-        public List<DataGridView> dgvs { get; set; }
-
 
         public PedirTurno()
         {
             InitializeComponent();
-            
-            dgvs.Add(lunesDGV);
-            dgvs.Add(MartesDGV);
-            dgvs.Add(miercolesDGV);
-            dgvs.Add(juevesDGV);
-            dgvs.Add(viernesDGV);
-            dgvs.Add(sabadoDGV);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
-        private void tipochange(object sender, EventArgs e)
+        private void profesionalchange(object sender, EventArgs e)
         {
-            if (cbxUsuario.SelectedText == "Profesional")
-            {
-                panel1.Visible = true;
-            foreach (DataGridView dgv in dgvs)
-            {
-                dgv.Enabled = false;
+            try{
+                cbxEspecialidad.DataSource = ageNegocio.getEspecialidades(Convert.ToInt32(tbxProfesional.Text));
+                cbxEspecialidad.DisplayMember = "descripcion";
+                cbxEspecialidad.ValueMember = "id_especialidad";
             }
-
-            }
-            else
+            catch (Exception ex)
             {
-                panel1.Visible = false;
-                foreach (DataGridView dgv in dgvs)
-                {
-                    dgv.Enabled = true;
-                }
+                MessageBox.Show("Error al cargar profesional");
             }
-           // try{
-           //     cbxUsuario.DataSource = ageNegocio.getEspecialidades(Convert.ToInt32(tbxProfesional.Text));
-           //     cbxUsuario.DisplayMember = "descripcion";
-           //     cbxUsuario.ValueMember = "id_especialidad";
-           // }
-           // catch (Exception ex)
-           // {
-           //     MessageBox.Show("Error al cargar profesional");
-           // }
         }
 
 
@@ -72,7 +46,7 @@ namespace ClinicaFrba.Pedir_Turno
             try
             {
                 int dia = (int)Fecha.DayOfWeek;
-                var idesp = Convert.ToInt32(cbxUsuario.SelectedValue);
+                var idesp = Convert.ToInt32(cbxEspecialidad.SelectedValue);
                 var lunes = Fecha.AddDays(-dia + 1);
                 lblLunes.Text = "Lunes " + lunes.ToString("dd/MM/yyyy");
                 lblMartes.Text = "Martes " + (lunes.AddDays(1)).ToString("dd/MM/yyyy");
@@ -80,12 +54,19 @@ namespace ClinicaFrba.Pedir_Turno
                 lblJueves.Text = "Jueves " + (lunes.AddDays(3)).ToString("dd/MM/yyyy");
                 lblViernes.Text = "Viernes " + (lunes.AddDays(4)).ToString("dd/MM/yyyy");
                 lblSabado.Text = "Sabado " + (lunes.AddDays(5)).ToString("dd/MM/yyyy");
-                lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxUsuario.Text), lunes, idesp);
-                MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(1),idesp);
-                miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(2), idesp);
-                juevesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(3), idesp);
-                viernesDGV.DataSource = ageNegocio.getDiaAgenda(    Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(4), idesp);
-                sabadoDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(5), idesp);
+                lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxProfesional.Text), lunes, idesp);
+                MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(1),idesp);
+                miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(2), idesp);
+                juevesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(3), idesp);
+                viernesDGV.DataSource = ageNegocio.getDiaAgenda(    Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(4), idesp);
+                sabadoDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxProfesional.Text), lunes.AddDays(5), idesp);
+                List<DataGridView> dgvs = new List<DataGridView>();
+                dgvs.Add(lunesDGV);
+                dgvs.Add(MartesDGV);
+                dgvs.Add(miercolesDGV);
+                dgvs.Add(juevesDGV);
+                dgvs.Add(viernesDGV);
+                dgvs.Add(sabadoDGV);
                 foreach (DataGridView dgv in dgvs)
                 {
                     dgv.Columns[0].Visible = false;
@@ -154,57 +135,11 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void lunesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (cbxUsuario.SelectedText == "Profesional")
+            if (MessageBox.Show("Desea solicitar este turno?", "Solicitar Turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Desea cancelar este turno?", "Cancelar Turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
-                    ageNegocio.CancelarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value), Convert.ToInt32(tbxUsuario.Text));
-                }
+                int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
+                ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value),Convert.ToInt32(tbxAfiliado.Text));
             }
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-             
-            //if (ValidarCancelar())
-            {
-                try
-                {
-
-
-                    var dia = new DateTime(desdeDTP.Value.Year, desdeDTP.Value.Month, desdeDTP.Value.Day, desdeHP.Value.Hour, desdeHP.Value.Minute, 0);
-
-                    var hasta = hastaDTP.Value;
-                    while (dia <= hasta)
-                    {
-                        if (diasCheck.CheckedIndices.Contains((int)dia.DayOfWeek - 1))
-                        {
-                            
-                            var diahasta = new DateTime(dia.Year, dia.Month, dia.Day, hastaHP.Value.Hour, hastaHP.Value.Minute, 0);
-                            ageNegocio.EjecutarDia(IdProfesional, dia, diahasta, Convert.ToInt32(especialidadCBX.SelectedValue));
-
-
-                        }
-                        //
-                        dia = dia.AddDays(1);
-                    }
-                    CargarDias();
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al cargar datos");
-                }
-            }
-        
-        }
-
-        private bool ValidarCancelar()
-        {
-            throw new NotImplementedException();
-        }
-
-      
     }
 }

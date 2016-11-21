@@ -798,7 +798,41 @@ BEGIN
 		RAISERROR('El turno no pertenece al afiliado', 18, 0)
 		end
 
-	INSERT INTO SIEGFRIED.CANCELACION VALUES(@id_turno,@id_cancelacion,@explicacion)
+	INSERT INTO SIEGFRIED.CANCELACION VALUES(@id_turno,@id_cancelacion,@explicacion);
+	UPDATE SIEGFRIED.AGENDA SET id_turno = NULL WHERE id_turno = @id_turno;
+END
+GO
+
+CREATE PROCEDURE SIEGFRIED.CANCELAR_DIAS
+	@id_profesional numeric(18,0), 
+	@fecha_desde numeric(18,0),
+	@fecha_hasta numeric(18,0),	
+	@id_cancelacion numeric(18,0),
+	@explicacion varchar(255)
+AS
+BEGIN
+	DECLARE @id_turno numeric(18,0), @id_afiliado numeric(18,0);
+	DECLARE turnos_cursor CURSOR FOR 
+	SELECT t.id_ turno, t.id_afiliado
+	FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a
+	WHERE t.id_turno = a.id_turno
+	  AND a.dia_hora between(@fecha_desde,@fecha_hasta)
+	  AND a.id_profesional = @id_profesional
+
+	OPEN turnos_cursor
+
+	FETCH NEXT FROM turnos_cursor   
+	INTO @id_turno, @id_afiliado 
+	
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+	
+		SIEGFRIED.CANCELAR_TURNO(@id_turno,@id_afiliado,@id_cancelacion,@explicacion);
+		FETCH NEXT FROM turnos_cursor   
+	    INTO @id_turno, @id_afiliado  
+	END   
+	CLOSE turnos_cursor;  
+	DEALLOCATE turnos_cursor;  
 
 END
 GO

@@ -93,7 +93,7 @@ namespace ClinicaFrba.Principal
 
         private void cancelacionesBtn_Click(object sender, EventArgs e)
         {
-            var Form = new Pedir_Turno.CancelarTurno();
+            var Form = new Cancelar_Turno.CancelarTurno();
             Form.Show();
         }
 

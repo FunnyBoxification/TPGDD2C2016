@@ -190,5 +190,10 @@ namespace ClinicaNegocio
                 throw (new Exception("Error en Insertar Agenda en Dia" + ex.Message));
             }
         }
+
+        public void CancelarDias(int p1, DateTime dateTime1, DateTime dateTime2, object p2, string p3)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
