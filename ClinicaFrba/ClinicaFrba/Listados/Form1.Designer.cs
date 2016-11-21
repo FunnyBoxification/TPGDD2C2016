@@ -39,9 +39,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cbxPlan = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.radioAmbos = new System.Windows.Forms.RadioButton();
-            this.radioSoloProf = new System.Windows.Forms.RadioButton();
-            this.radioSoloAfiliados = new System.Windows.Forms.RadioButton();
             this.cbxListado = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -63,14 +60,11 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cbxPlan);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.radioAmbos);
-            this.groupBox1.Controls.Add(this.radioSoloProf);
-            this.groupBox1.Controls.Add(this.radioSoloAfiliados);
             this.groupBox1.Controls.Add(this.cbxListado);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(49, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(390, 133);
+            this.groupBox1.Size = new System.Drawing.Size(390, 114);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
@@ -162,40 +156,6 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Plan";
             // 
-            // radioAmbos
-            // 
-            this.radioAmbos.AutoSize = true;
-            this.radioAmbos.Location = new System.Drawing.Point(264, 110);
-            this.radioAmbos.Name = "radioAmbos";
-            this.radioAmbos.Size = new System.Drawing.Size(57, 17);
-            this.radioAmbos.TabIndex = 7;
-            this.radioAmbos.TabStop = true;
-            this.radioAmbos.Text = "Ambos";
-            this.radioAmbos.UseVisualStyleBackColor = true;
-            this.radioAmbos.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
-            // 
-            // radioSoloProf
-            // 
-            this.radioSoloProf.AutoSize = true;
-            this.radioSoloProf.Location = new System.Drawing.Point(147, 110);
-            this.radioSoloProf.Name = "radioSoloProf";
-            this.radioSoloProf.Size = new System.Drawing.Size(111, 17);
-            this.radioSoloProf.TabIndex = 6;
-            this.radioSoloProf.TabStop = true;
-            this.radioSoloProf.Text = "Solo profesionales";
-            this.radioSoloProf.UseVisualStyleBackColor = true;
-            // 
-            // radioSoloAfiliados
-            // 
-            this.radioSoloAfiliados.AutoSize = true;
-            this.radioSoloAfiliados.Location = new System.Drawing.Point(54, 110);
-            this.radioSoloAfiliados.Name = "radioSoloAfiliados";
-            this.radioSoloAfiliados.Size = new System.Drawing.Size(87, 17);
-            this.radioSoloAfiliados.TabIndex = 5;
-            this.radioSoloAfiliados.TabStop = true;
-            this.radioSoloAfiliados.Text = "Solo afiliados";
-            this.radioSoloAfiliados.UseVisualStyleBackColor = true;
-            // 
             // cbxListado
             // 
             this.cbxListado.FormattingEnabled = true;
@@ -203,6 +163,7 @@
             this.cbxListado.Name = "cbxListado";
             this.cbxListado.Size = new System.Drawing.Size(121, 21);
             this.cbxListado.TabIndex = 1;
+            this.cbxListado.SelectedIndexChanged += new System.EventHandler(this.cbxListado_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -216,14 +177,14 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 191);
+            this.dataGridView1.Location = new System.Drawing.Point(9, 161);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(469, 214);
             this.dataGridView1.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 159);
+            this.button1.Location = new System.Drawing.Point(9, 132);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -233,7 +194,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(405, 159);
+            this.button2.Location = new System.Drawing.Point(406, 132);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
@@ -245,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 417);
+            this.ClientSize = new System.Drawing.Size(493, 381);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
@@ -263,9 +224,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioAmbos;
-        private System.Windows.Forms.RadioButton radioSoloProf;
-        private System.Windows.Forms.RadioButton radioSoloAfiliados;
         private System.Windows.Forms.ComboBox cbxListado;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxMes;

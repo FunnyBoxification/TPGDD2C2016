@@ -23,15 +23,16 @@ namespace ClinicaFrba.Listados
 
             cbxListado.DataSource = negocio.getListados();
             cbxAnio.DataSource = negocio.getAniosPublicaciones();
+
             cbxEspecialidad.DataSource = negocio.getEspecialidades();
+            cbxEspecialidad.DisplayMember = "descripcion";
+            cbxEspecialidad.ValueMember = "id_especialidad";
+
             cbxPlan.DataSource = negocio.getPlanes();
+            cbxPlan.DisplayMember = "descripcion";
+            cbxPlan.ValueMember = "id_plan";
 
             cbxMes.Enabled = false;
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -47,14 +48,51 @@ namespace ClinicaFrba.Listados
             cbxMes.SelectedItem = null;
             cbxPlan.SelectedItem = null;
             cbxSemestre.SelectedItem = null;
-            radioAmbos.Checked = false;
-            radioSoloAfiliados.Checked = false;
-            radioSoloProf.Checked = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (cbxListado.SelectedIndex > -1)
+            {
+                int semestre = -1;
+                int mes = -1;
+                int anio = -1;
 
+                if (cbxAnio.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un año");
+                    return;
+                }
+                anio = Int32.Parse(cbxAnio.Text);
+                if (cbxSemestre.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un semestre");
+                    return;
+                }
+                semestre = cbxSemestre.SelectedIndex + 1;
+                if (cbxMes.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un mes");
+                    return;
+                }
+                mes = semestre * (cbxMes.SelectedIndex + 1);
+
+                if ((cbxListado.SelectedIndex == 1 || cbxListado.SelectedIndex == 2) && cbxPlan.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione un plan");
+                    return;
+                }
+                if (cbxListado.SelectedIndex == 2 && cbxEspecialidad.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Seleccione una especialidad");
+                    return;
+                }
+
+                dataGridView1.DataSource = negocio.getEstadisticas(cbxListado.SelectedIndex, (int)cbxPlan.SelectedValue, (int)cbxEspecialidad.SelectedValue, anio, semestre, mes);
+            }
+            else {
+                MessageBox.Show("Seleccione un listado");
+            }
         }
 
         private void cbxSemestre_SelectedValueChanged(object sender, EventArgs e)
@@ -70,6 +108,25 @@ namespace ClinicaFrba.Listados
             }
             else {
                 cbxMes.Enabled = false;
+            }
+        }
+
+        private void cbxListado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbxListado.SelectedIndex == 2)
+            {
+                cbxPlan.Enabled = true;
+                cbxEspecialidad.Enabled = true;
+            }
+            else if (cbxListado.SelectedIndex == 1)
+            {
+                cbxPlan.Enabled = true;
+                cbxEspecialidad.Enabled = false;
+            }
+            else
+            {
+                cbxPlan.Enabled = false;
+                cbxEspecialidad.Enabled = false;
             }
         }
     }

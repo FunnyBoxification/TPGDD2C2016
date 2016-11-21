@@ -19,12 +19,12 @@ ORDER BY 2 desc)
 
 SELECT TOP 5 usuario.nombre+' '+usuario.apellido as medico,
 	   plann.descripcion,
-	   especialidad.descripcion
+	   especialidad.descripcion,
 	   count(*) as cantidad_consultas
 FROM (
 	SELECT 
 		bono.id_plan as planid,
-		turno.id_profesional as profesional
+		turno.id_profesional as profesional,
 		turno.id_especialidad as especialidad
 	FROM SIEGFRIED.BONOS bono
 	LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta
