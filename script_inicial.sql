@@ -816,7 +816,7 @@ BEGIN
 	SELECT t.id_ turno, t.id_afiliado
 	FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a
 	WHERE t.id_turno = a.id_turno
-	  AND a.dia_hora between(@fecha_desde,@fecha_hasta)
+	  AND a.dia_hora between @fecha_desde and @fecha_hasta
 	  AND a.id_profesional = @id_profesional
 
 	OPEN turnos_cursor
@@ -825,8 +825,7 @@ BEGIN
 	INTO @id_turno, @id_afiliado 
 	
 	WHILE @@FETCH_STATUS = 0  
-	BEGIN  
-	
+	BEGIN	
 		SIEGFRIED.CANCELAR_TURNO(@id_turno,@id_afiliado,@id_cancelacion,@explicacion);
 		FETCH NEXT FROM turnos_cursor   
 	    INTO @id_turno, @id_afiliado  

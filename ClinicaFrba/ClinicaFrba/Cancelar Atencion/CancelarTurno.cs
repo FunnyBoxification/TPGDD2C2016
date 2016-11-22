@@ -31,10 +31,6 @@ namespace ClinicaFrba.Cancelar_Turno
             dgvs.Add(sabadoDGV);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
 
         private void tipochange(object sender, EventArgs e)
         {
@@ -80,12 +76,21 @@ namespace ClinicaFrba.Cancelar_Turno
                 lblJueves.Text = "Jueves " + (lunes.AddDays(3)).ToString("dd/MM/yyyy");
                 lblViernes.Text = "Viernes " + (lunes.AddDays(4)).ToString("dd/MM/yyyy");
                 lblSabado.Text = "Sabado " + (lunes.AddDays(5)).ToString("dd/MM/yyyy");
-                lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxUsuario.Text), lunes, idesp);
-                MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(1),idesp);
-                miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(2), idesp);
-                juevesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(3), idesp);
-                viernesDGV.DataSource = ageNegocio.getDiaAgenda(    Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(4), idesp);
-                sabadoDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(5), idesp);
+                if(cbxUsuario.SelectedText == "Profesional"){
+                    lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxUsuario.Text), lunes);
+                    MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(1));
+                    miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(2));
+                    juevesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(3));
+                    viernesDGV.DataSource = ageNegocio.getDiaAgenda(    Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(4));
+                    sabadoDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(5));
+                }else{
+                    lunesDGV.DataSource = ageNegocio.getDiaAgendaAfiliado(      Convert.ToInt32(tbxUsuario.Text), lunes);
+                    MartesDGV.DataSource = ageNegocio.getDiaAgendaAfiliado(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(1));
+                    miercolesDGV.DataSource = ageNegocio.getDiaAgendaAfiliado(  Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(2));
+                    juevesDGV.DataSource = ageNegocio.getDiaAgendaAfiliado(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(3));
+                    viernesDGV.DataSource = ageNegocio.getDiaAgendaAfiliado(    Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(4));
+                    sabadoDGV.DataSource = ageNegocio.getDiaAgendaAfiliado(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(5));
+                }
                 foreach (DataGridView dgv in dgvs)
                 {
                     dgv.Columns[0].Visible = false;
