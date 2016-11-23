@@ -191,9 +191,64 @@ namespace ClinicaNegocio
             }
         }
 
-        public void CancelarDias(int p1, DateTime dateTime1, DateTime dateTime2, object p2, string p3)
+        public void CancelarDias(int id_profesional, DateTime fecha_desde, DateTime fecha_hasta, object id_cancelacion, string explicacion)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CANCELAR_TURNO", DBConn.Connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_profesional", id_profesional);
+                    cmd.Parameters.AddWithValue("@fecha_desde", fecha_desde);
+                    cmd.Parameters.AddWithValue("@fecha_hasta", fecha_hasta);
+                    cmd.Parameters.AddWithValue("id_cancelacion", id_cancelacion);
+                    cmd.Parameters.AddWithValue("explicacion", explicacion);                    
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en Insertar Agenda en Dia" + ex.Message));
+            }
+        }
+
+        public object getDiaAgendaAfiliado(int id_afiliado, DateTime dia)
+        {
+            DataTable dt = new DataTable();
+
+
+            try
+            {
+                DBConn.openConnection();
+                String sqlRequest = "SELECT t.id_turno, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA, SIEGFRIED.TURNOS a where a.id_turno = t.id_turno and @id_afiliado = t.id_afiliado and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
+
+                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
+                command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = id_afiliado;
+                command.Parameters.Add("@diabusc", SqlDbType.DateTime).Value = dia;
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+
+                    adapter.Fill(dt);
+                    return dt;
+                }
+
+
+                command.Dispose();
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en getDiaAgenda" + ex.Message));
+            }
+
         }
     }
 }

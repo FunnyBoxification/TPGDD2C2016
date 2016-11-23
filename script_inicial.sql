@@ -819,9 +819,9 @@ CREATE PROCEDURE SIEGFRIED.CANCELAR_DIAS
 	@explicacion varchar(255)
 AS
 BEGIN
-	DECLARE @id_turno numeric(18,0), @id_afiliado numeric(18,0);
+	DECLARE @id_turno numeric(18,0), @id_afiliado numeric(18,0), @id_agenda numeric(18,0);
 	DECLARE turnos_cursor CURSOR FOR 
-	SELECT t.id_turno, t.id_afiliado
+	SELECT t.id_turno, t.id_afiliado, a.id_agenda
 	FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a
 	WHERE t.id_turno = a.id_turno
 	  AND a.dia_hora between @fecha_desde and @fecha_hasta
@@ -830,14 +830,14 @@ BEGIN
 	OPEN turnos_cursor
 
 	FETCH NEXT FROM turnos_cursor   
-	INTO @id_turno, @id_afiliado 
+	INTO @id_turno, @id_afiliado , @id_agenda
 	
 	WHILE @@FETCH_STATUS = 0  
 	BEGIN  
 	
-		EXEC SIEGFRIED.CANCELAR_TURNO(@id_turno,@id_afiliado,@id_cancelacion,@explicacion);
+		EXEC SIEGFRIED.CANCELAR_TURNO @id_turno,@id_afiliado,@id_cancelacion,@explicacion,@id_agenda;
 		FETCH NEXT FROM turnos_cursor   
-	    INTO @id_turno, @id_afiliado  
+	    INTO @id_turno, @id_afiliado, @id_agenda
 	END   
 	CLOSE turnos_cursor;  
 	DEALLOCATE turnos_cursor;  
