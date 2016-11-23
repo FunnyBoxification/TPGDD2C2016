@@ -110,11 +110,11 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT t.* FROM SIEGFRIED.TURNOS t, SIEGFRIED.USUARIOS WHERE id_profesional = id_usuario";
-                sqlRequest += " AND fecha = @fechaDeHoy";
+                sqlRequest = "SELECT t.* FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a SIEGFRIED.USUARIOS u WHERE t.id_turno = a.id_turno AND a.id_profesional = u.id_usuario";
+                sqlRequest += " AND CONVERT(date,a.fecha_hora) = CONVERT(date,@fechaDeHoy)";
                 if (afiliadoId != -1)
                 {
-                    sqlRequest += " AND id_afiliado = @idAfiliado";
+                    sqlRequest += " AND t.id_afiliado = @idAfiliado";
                 }
                 if (profesionalNombre != null)
                 {
@@ -122,7 +122,7 @@ namespace ClinicaNegocio
                 }
                 if (especialidad != -1)
                 {
-                    sqlRequest += "AND id_especialidad = @idEspecialidad";
+                    sqlRequest += "AND a.id_especialidad = @idEspecialidad";
                 }
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);

@@ -373,7 +373,7 @@ BEGIN
 		INSERT INTO SIEGFRIED.TURNOS
 		SELECT DISTINCT
 			[Turno_Numero],       
-			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni),
+			(select id_usuario from SIEGFRIED.USUARIOS where Paciente_Dni = nro_dni)
 		FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
 
@@ -604,6 +604,13 @@ begin
 end
 go
 
+CREATE PROCEDURE SIEGFRIED.GUARDAR_CONSULTA @consulta numeric(18,0), @diagnostico varchar(255),@sintomas varchar(255), @fecha datetime
+as 
+begin
+	UPDATE SIEGFRIED.CONSULTAS set sintomas = @sintomas, diagnostico = @diagnostico, hora_atencion = @fecha WHERE id_consulta = @consulta
+end
+go
+
 create procedure SIEGFRIED.BAJA_USUARIO 
 	@id numeric(18,0)
 as begin
@@ -787,7 +794,8 @@ CREATE PROCEDURE SIEGFRIED.CANCELAR_TURNO
 	@id_turno numeric(18,0), 
 	@id_afiliado numeric(18,0),
 	@id_cancelacion numeric(18,0),
-	@explicacion varchar(255)
+	@explicacion varchar(255),
+	@id_agenda numeric(18,0)
 AS
 BEGIN
 	DECLARE @validaId int
@@ -798,8 +806,8 @@ BEGIN
 		RAISERROR('El turno no pertenece al afiliado', 18, 0)
 		end
 
-	INSERT INTO SIEGFRIED.CANCELACION VALUES(@id_turno,@id_cancelacion,@explicacion);
-	UPDATE SIEGFRIED.AGENDA SET id_turno = NULL WHERE id_turno = @id_turno;
+	INSERT INTO SIEGFRIED.CANCELACION VALUES(@id_turno,@id_agenda,@id_cancelacion,@explicacion);
+	UPDATE SIEGFRIED.AGENDA SET id_turno = NULL WHERE id_agenda = id_agenda;
 END
 GO
 
@@ -813,10 +821,10 @@ AS
 BEGIN
 	DECLARE @id_turno numeric(18,0), @id_afiliado numeric(18,0);
 	DECLARE turnos_cursor CURSOR FOR 
-	SELECT t.id_ turno, t.id_afiliado
+	SELECT t.id_turno, t.id_afiliado
 	FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a
 	WHERE t.id_turno = a.id_turno
-	  AND a.dia_hora between(@fecha_desde,@fecha_hasta)
+	  AND a.dia_hora between @fecha_desde and @fecha_hasta
 	  AND a.id_profesional = @id_profesional
 
 	OPEN turnos_cursor
@@ -827,7 +835,7 @@ BEGIN
 	WHILE @@FETCH_STATUS = 0  
 	BEGIN  
 	
-		SIEGFRIED.CANCELAR_TURNO(@id_turno,@id_afiliado,@id_cancelacion,@explicacion);
+		EXEC SIEGFRIED.CANCELAR_TURNO(@id_turno,@id_afiliado,@id_cancelacion,@explicacion);
 		FETCH NEXT FROM turnos_cursor   
 	    INTO @id_turno, @id_afiliado  
 	END   

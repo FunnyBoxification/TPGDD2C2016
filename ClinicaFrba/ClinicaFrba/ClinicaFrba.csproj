@@ -170,6 +170,12 @@
     <Compile Include="Registro Llegada\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Registro Resultado\CargarSintomas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Resultado\CargarSintomas.Designer.cs">
+      <DependentUpon>CargarSintomas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Resultado\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +249,12 @@
       <DependentUpon>BonosDisponiblesAfiliado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\CargarSintomas.resx">
+      <DependentUpon>CargarSintomas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Resultado\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectRolForm.resx">
