@@ -19,6 +19,37 @@ namespace ClinicaNegocio
             DBConn = dbConnection;
         }
 
+        public List<Int32> getEstados()
+        {
+            List<Int32> a = new List<Int32>();
+            a.Add(0);
+            a.Add(1);
+            return a;
+        }
+
+        public void cambiarNombreRol(int idRol,String nombre) {
+            try
+            {
+                DBConn.openConnection();
+                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CAMBIAR_NOMBRE_ROL", DBConn.Connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@nombreNuevo", nombre);
+                    cmd.Parameters.AddWithValue("@id", idRol);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en Modificar nombre rol: " + ex.Message));
+            }
+        }
+
         public int insertRol(String Nombre)
         {
             var dt = new DataTable();
@@ -30,11 +61,10 @@ namespace ClinicaNegocio
                 using (SqlCommand cmd = new SqlCommand("SIEGFRIED.ALTA_ROL", DBConn.Connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("Nombre", Nombre);
-                    var returnParameter = cmd.Parameters.Add("@id", SqlDbType.Int);
-                    returnParameter.Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters.AddWithValue("@nombre", Nombre);
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
-                    int.TryParse(returnParameter.Value.ToString(), out result);
+                    int.TryParse(cmd.Parameters["@id"].Value.ToString(), out result);
                     cmd.Dispose();
                 }
 
@@ -45,7 +75,7 @@ namespace ClinicaNegocio
             catch (Exception ex)
             {
                 DBConn.closeConnection();
-                throw (new Exception("Error en ObtenerRoles" + ex.Message));
+                throw (new Exception("Error en ObtenerRoles: " + ex.Message));
             }
         }
 

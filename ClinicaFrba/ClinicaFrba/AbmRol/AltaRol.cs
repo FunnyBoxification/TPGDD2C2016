@@ -60,5 +60,44 @@ namespace ClinicaFrba.AbmRol
         {
 
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var negocio = new RolesNegocio(SqlServerDBConnection.Instance());
+
+            using (IDbTransaction tran = SqlServerDBConnection.Instance().Connection.BeginTransaction())
+            {
+                try
+                {
+
+                    int idRol = negocio.insertRol(this.textBox1.Text);
+
+                    foreach (var item in listBox1.SelectedItems)
+                    {
+                        negocio.insertFuncionalidadToRol(idRol, Int32.Parse((item as DataRowView)["Id_Funcionalidad"].ToString()));
+
+                    }
+
+                    tran.Commit();
+                    this.Hide();
+                }
+
+                catch
+                {
+                    tran.Rollback();
+                    throw;
+                }
+            }
+        }
     }
 }

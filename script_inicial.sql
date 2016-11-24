@@ -844,3 +844,132 @@ BEGIN
 
 END
 GO
+
+IF not EXISTS (SELECT * FROM sys.types WHERE is_user_defined = 1 AND name = 'pms.Funcionalidades')
+	CREATE TYPE SIEGFRIED.Funcionalidades
+	AS TABLE
+	(
+		funcionalidad_id INT
+	);
+	GO
+
+CREATE PROCEDURE SIEGFRIED.CAMBIAR_NOMBRE_ROL @id numeric(18,0), @nombreNuevo varchar(255)
+as
+begin
+UPDATE SIEGFRIED.[ROLES]
+   SET nombre = @nombreNuevo
+ WHERE Id_Rol = @id;
+end
+go
+
+CREATE  PROCEDURE SIEGFRIED.MODIFICACION_ROLES
+       @id numeric,
+	   @nombre nvarchar(255),
+	   @func_add SIEGFRIED.Funcionalidades READONLY
+	   
+		
+                    
+AS 
+BEGIN 
+     SET NOCOUNT ON 
+
+UPDATE SIEGFRIED.[ROLES]
+   SET nombre = @nombre
+ WHERE Id_Rol = @id;
+ 
+
+ DELETE FROM SIEGFRIED.[FUNCIONALIDES_ROLES]
+      WHERE (Id_Rol=@id);
+
+DECLARE @id_func INT
+DECLARE db_cursor CURSOR FOR  
+SELECT * 
+FROM @func_add 
+
+OPEN db_cursor   
+FETCH NEXT FROM db_cursor INTO @id_func   
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+ INSERT INTO SIEGFRIED.[FUNCIONALIDES_ROLES]
+           ([Id_Rol],Id_Funcionalidad)
+     VALUES
+           (@id,@id_func);
+FETCH NEXT FROM db_cursor INTO @id_func
+END
+
+END 
+GO
+
+CREATE PROCEDURE SIEGFRIED.BORRAR_FUNCIONALIDADES_ROL
+	@Id_Rol numeric(18,0)
+AS
+BEGIN
+	DELETE FROM SIEGFRIED.FUNCIONALIDES_ROLES WHERE Id_Rol = @Id_Rol
+END
+GO
+
+CREATE PROCEDURE SIEGFRIED.insertFuncionalidad
+	@Id_Rol numeric(18,0), @Id_Funcionalidad numeric(18,0)
+AS BEGIN
+	INSERT INTO SIEGFRIED.FUNCIONALIDES_ROLES (Id_Rol, Id_Funcionalidad) VALUES (@Id_Rol, @Id_Funcionalidad)
+END 
+GO
+
+CREATE PROCEDURE SIEGFRIED.ALTA_ROL
+       @nombre nvarchar(255),
+	   @id numeric(18,0) OUTPUT
+                    
+AS 
+BEGIN 
+     SET NOCOUNT ON 
+
+     INSERT INTO SIEGFRIED.[ROLES]
+          ( 
+            nombre, 
+			habilitado		
+          ) 
+     VALUES 
+          ( 
+            @nombre,
+			1)
+	set @id=(SELECT MAX(Id_Rol) from SIEGFRIED.ROLES)	
+END 
+GO
+CREATE  PROCEDURE SIEGFRIED.BAJA_ROL
+       @id numeric 
+                    
+AS 
+BEGIN 
+     SET NOCOUNT ON 
+
+UPDATE SIEGFRIED.[ROLES]
+   SET [Habilitado] = 0
+ WHERE Id_Rol = @id;
+ 
+ DELETE FROM SIEGFRIED.[ROLES_USUARIOS]
+      where Id_Rol=@id;
+
+
+END
+GO
+
+CREATE  PROCEDURE SIEGFRIED.HABILITAR_ROL
+       @id numeric 
+                    
+AS 
+BEGIN 
+     SET NOCOUNT ON 
+
+UPDATE SIEGFRIED.[ROLES]
+   SET [Habilitado] = 1
+ WHERE Id_Rol = @id;
+ 
+ DELETE FROM SIEGFRIED.[ROLES_USUARIOS]
+      where Id_Rol=@id;
+
+
+END
+GO
+

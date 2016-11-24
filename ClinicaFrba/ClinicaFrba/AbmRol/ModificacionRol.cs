@@ -30,16 +30,20 @@ namespace ClinicaFrba.AbmRol
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if (funcionalidades.Contains(Convert.ToString(row.Cells["Nombre"])))
-                    ((DataGridViewCheckBoxCell)row.Cells[0]).Value = true;
+                {
+                    //((DataGridViewCheckBoxCell)row.Cells[0]).Value = true;
+                    row.Selected = true;
+                }
             }
 
             checkBox1.Checked = habilitado == 1 ? true : false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+      private void button1_Click_1(object sender, EventArgs e)
+      {
             var negocio = new RolesNegocio(SqlServerDBConnection.Instance());
             var nombre = textBox1.Text;
+            negocio.cambiarNombreRol(idRol, nombre);
             List<int> idsFuncionalidades = new List<int>();
             if (dataGridView1.SelectedRows.Count > 0)
             {
@@ -60,7 +64,11 @@ namespace ClinicaFrba.AbmRol
                 negocio.habilitarRol(idRol);
             }
             this.Hide();
-
         }
+
+      private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+      {
+
+      }
     }
 }
