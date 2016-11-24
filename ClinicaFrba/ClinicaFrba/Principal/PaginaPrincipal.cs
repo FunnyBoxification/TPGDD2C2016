@@ -133,5 +133,11 @@ namespace ClinicaFrba.Principal
         {
 
         }
+
+        private void listadoBtn_Click(object sender, EventArgs e)
+        {
+            var Form = new Listados.Form1();
+            Form.Show();
+        }
     }
 }

@@ -128,6 +128,7 @@
             this.listadoBtn.TabIndex = 8;
             this.listadoBtn.Text = "Listado Est.";
             this.listadoBtn.UseVisualStyleBackColor = true;
+            this.listadoBtn.Click += new System.EventHandler(this.listadoBtn_Click);
             // 
             // Agendatxb
             // 

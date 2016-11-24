@@ -85,7 +85,7 @@ namespace ClinicaNegocio
 
         public DataTable getPlanes()
         {
-            string Sql = "select * from SIEGFRIED.PLANES";
+            string Sql = "select id_plan, descripcion from SIEGFRIED.PLANES";
             DBConn.openConnection();
             SqlCommand cmd = new SqlCommand(Sql, DBConn.Connection);
             cmd.CommandType = CommandType.Text;
@@ -103,12 +103,12 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT u.habilitado, u.id_usuario, u.nombre, u.apellido, u.fecha_nacimiento, u.mail, a.cantidad_familiares, u.direccion, u.dni, u.telefono";
-                sqlRequest += " FROM SIEGFRIED.USUARIOS u, SIEGRIED.AFILIADOS a";
+                sqlRequest = "SELECT u.habilitado, u.id_usuario, u.nombre, u.apellido, u.fecha_nacimiento, u.mail, a.cantidad_familiares, u.direccion, u.nro_dni, u.telefono";
+                sqlRequest += " FROM SIEGFRIED.USUARIOS u, SIEGFRIED.AFILIADOS a";
                 sqlRequest += " WHERE u.id_usuario = a.id_afiliado";
                 if (nombre != null && nombre != "") sqlRequest += " and u.nombre + ' ' + u.apellido LIKE  @nombre";                                                        			                                               //DomCalle		
-                if (plan != null && plan != 0) sqlRequest += " and u.id_plan = @id_plan";                                                             		
-                if (estadoCivil != null && estadoCivil != 0) sqlRequest += " and u.estado_civil = @estado_civil";                                                             			
+                if (plan != null && plan != 0) sqlRequest += " and a.id_plan = @id_plan";                                                             		
+                if (estadoCivil != null && estadoCivil != 0) sqlRequest += " and a.estado_civil = @estado_civil";                                                             			
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);                                                                 			
                 if (nombre != null && nombre != "") command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = "%" + nombre + "%";                           				
                 if (plan != null && plan != 0) command.Parameters.Add("@id_plan", SqlDbType.Int).Value = plan;                                        		

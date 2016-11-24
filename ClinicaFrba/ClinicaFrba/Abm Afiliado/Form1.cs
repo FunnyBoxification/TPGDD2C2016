@@ -38,8 +38,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
             //Cargo Planes
             cbxPlan.DataSource = usuNegocio.getPlanes();
-            cbxEstadoCivil.DisplayMember = "descripcion";
-            cbxEstadoCivil.ValueMember = "id_plan";
+            cbxPlan.DisplayMember = "descripcion";
+            cbxPlan.ValueMember = "id_plan";
         }
 
         private void dgvAfiliados_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -68,7 +68,7 @@ namespace ClinicaFrba.Abm_Afiliado
                 if (cbxEstadoCivil.SelectedValue != null)
                 {
                     //Int32 plan1;
-                    Int32.TryParse(cbxPlan.SelectedValue.ToString(), out estadoCivil);
+                    Int32.TryParse(cbxEstadoCivil.SelectedValue.ToString(), out estadoCivil);
                 }
                 dgvAfiliados.DataSource = usuNegocio.BuscarAfiliados(tbxNombre.Text, plan, estadoCivil);
 
