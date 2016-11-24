@@ -37,6 +37,18 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void AltaModificacionAfiliado_Load(object sender, EventArgs e)
         {
+            cbxSexo.DataSource = usuariosNegocio.getSexos();
+            cbxSexo.DisplayMember = "descripcion";
+            cbxSexo.ValueMember = "sexo";
+
+            cbxEstadoCivil.DataSource = usuariosNegocio.getEstadosCiviles();
+            cbxEstadoCivil.DisplayMember = "descripcion";
+            cbxEstadoCivil.ValueMember = "id_estado";
+
+            cbxPlanMedico.DataSource = usuariosNegocio.getPlanes();
+            cbxPlanMedico.DisplayMember = "descripcion";
+            cbxPlanMedico.ValueMember = "id_plan";
+
             if (usuarioRow != null)
             {
                 tbxNombre.Text = usuarioRow.Cells["nombre"].Value.ToString();
@@ -45,26 +57,33 @@ namespace ClinicaFrba.Abm_Afiliado
                 tbxApellido.Enabled = false;
                 tbxCantFamiliares.Text = usuarioRow.Cells["cantidad_familiares"].Value.ToString();
                 tbxDireccion.Text = usuarioRow.Cells["direccion"].Value.ToString();
-                tbxDni.Text = usuarioRow.Cells["dni"].Value.ToString();
+                tbxDni.Text = usuarioRow.Cells["nro_dni"].Value.ToString();
                 tbxDni.Enabled = false;
                 tbxMail.Text = usuarioRow.Cells["mail"].Value.ToString();
                 tbxTelefono.Text = usuarioRow.Cells["telefono"].Value.ToString();
                 dtpFechaNac.Value = Convert.ToDateTime(usuarioRow.Cells["fecha_nacimiento"].Value.ToString());
                 dtpFechaNac.Enabled = false;
-                btnBaja.Enabled = false;
+                btnBaja.Enabled = true;
+                //tbxPassword.Text = usuarioRow.Cells
+                cbxPlanMedico.SelectedValue = Int32.Parse(usuarioRow.Cells["id_plan"].Value.ToString());
+                cbxEstadoCivil.SelectedValue = Int32.Parse(usuarioRow.Cells["estado_civil"].Value.ToString());
 
             }
             else
             {
                 btnHistorial.Enabled = false;
+                btnBaja.Enabled = false;
             }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            tbxNombre.Text = "";
-            tbxApellido.Text = "";
-            tbxDni.Text = "";
+            if (usuarioRow == null)
+            {
+                tbxNombre.Text = "";
+                tbxApellido.Text = "";
+                tbxDni.Text = "";
+            }
             tbxDireccion.Text = "";
             tbxTelefono.Text = "";
             tbxMail.Text = "";
@@ -131,26 +150,37 @@ namespace ClinicaFrba.Abm_Afiliado
             password = tbxPassword.Text;
             direccion = tbxDireccion.Text;
             documento = Int32.Parse(tbxDni.Text);
+            if (usuariosNegocio.documentoRepetido(documento))
+            {
+                MessageBox.Show("Este nro de documento ya existe en el sistema");
+                return;
+            }
             telefono = Int32.Parse(tbxTelefono.Text);
             mail = tbxMail.Text;
             fechaNac = dtpFechaNac.Value;
-            sexo = (int)cbxSexo.SelectedValue;
-            estadoCivil = (int)cbxEstadoCivil.SelectedValue;
-            plan = (int) cbxPlanMedico.SelectedValue;
+            sexo = Int32.Parse(cbxSexo.SelectedValue.ToString());
+            estadoCivil = Int32.Parse(cbxEstadoCivil.SelectedValue.ToString());
+            plan = Int32.Parse(cbxPlanMedico.SelectedValue.ToString());
             cantFamiliares = Int32.Parse(tbxCantFamiliares.Text);
 
             if (Tipo == 1) //ALTA
             {
                 int id = usuariosNegocio.agregarAfiliadoTitular(nombre,apellido,password,direccion,documento,telefono,mail,fechaNac,sexo,estadoCivil,cantFamiliares,plan);
-                if(cantFamiliares > 0) {
+                if (cantFamiliares > 0)
+                {
                     //Codigo para empezar a agregar familiares aca
-                    var form = new AgregarFamiliar(id,plan, cantFamiliares);
+                    var form = new AgregarFamiliar(id, plan, cantFamiliares);
                     form.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    this.Hide();
                 }
             }
             else//MODIFICACION
             {
-                usuariosNegocio.agregarAfiliadoTitular(nombre,apellido,password,direccion,documento,telefono,mail,fechaNac,sexo,estadoCivil,cantFamiliares,plan);
+                usuariosNegocio.modificarAfiliado(nombre,apellido,password,direccion,documento,telefono,mail,fechaNac,sexo,estadoCivil,cantFamiliares,plan);
                 this.Hide();
             }
         }

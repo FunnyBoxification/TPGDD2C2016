@@ -19,7 +19,13 @@ namespace ClinicaFrba.Abm_Afiliado
         public HistorialPlanes(String userid)
         {
             InitializeComponent();
+            usuNegocio = new UsuariosNegocio(SqlServerDBConnection.Instance());
             this.dgvCambiosPlanes.DataSource = usuNegocio.getCambiosPlanes(userid);
+        }
+
+        private void HistorialPlanes_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

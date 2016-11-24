@@ -19,6 +19,35 @@ namespace ClinicaNegocio
             DBConn = dbConnection;
         }
 
+        public Boolean documentoRepetido(int documento)
+        {
+            try
+            {
+                var dt = new DataTable();
+                DBConn.openConnection();
+                String sqlRequest;
+                sqlRequest = "SELECT nro_dni from siegfried.usuarios where nro_dni = @documento";
+                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
+                command.Parameters.Add("@documento", SqlDbType.Int).Value = documento;
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dt);
+                    return dt.Rows.Count > 0;
+                }
+
+
+                command.Dispose();
+                DBConn.closeConnection();
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en la busqueda de afiliados" + ex.Message));
+            }
+        }
+
 
         public DataTable BuscarProfesionales(string nombre, string especialidad, string email)
         {
@@ -54,6 +83,19 @@ namespace ClinicaNegocio
                 DBConn.closeConnection();
                 throw (new Exception("Error en la busqueda de afiliados" + ex.Message));
             }   
+        }
+
+        public DataTable getSexos()
+        {
+            string Sql = "select 0 as sexo, 'Hombre' as descripcion from SIEGFRIED.USUARIOS UNION SELECT 1 as sexo, 'Mujer' as descripcion FROM SIEGFRIED.USUARIOS ";
+            DBConn.openConnection();
+            SqlCommand cmd = new SqlCommand(Sql, DBConn.Connection);
+            cmd.CommandType = CommandType.Text;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            DBConn.closeConnection();
+            return ds.Tables[0];
         }
 
         public DataTable getEstadosCiviles()
@@ -103,9 +145,9 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT u.habilitado, u.id_usuario, u.nombre, u.apellido, u.fecha_nacimiento, u.mail, a.cantidad_familiares, u.direccion, u.nro_dni, u.telefono";
+                sqlRequest = "SELECT u.habilitado, u.id_usuario, a.id_plan, a.estado_civil, u.nombre, u.apellido, u.fecha_nacimiento, u.mail, a.cantidad_familiares, u.direccion, u.nro_dni, u.telefono";
                 sqlRequest += " FROM SIEGFRIED.USUARIOS u, SIEGFRIED.AFILIADOS a";
-                sqlRequest += " WHERE u.id_usuario = a.id_afiliado";
+                sqlRequest += " WHERE u.id_usuario = a.id_afiliado AND u.habilitado = 1";
                 if (nombre != null && nombre != "") sqlRequest += " and u.nombre + ' ' + u.apellido LIKE  @nombre";                                                        			                                               //DomCalle		
                 if (plan != null && plan != 0) sqlRequest += " and a.id_plan = @id_plan";                                                             		
                 if (estadoCivil != null && estadoCivil != 0) sqlRequest += " and a.estado_civil = @estado_civil";                                                             			
