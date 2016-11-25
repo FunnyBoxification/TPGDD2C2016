@@ -92,26 +92,26 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT  ";
+                sqlRequest = "SELECT * ";
                 sqlRequest += "FROM SIEGFRIED.COMPRA_BONOS ";
                 sqlRequest += "WHERE 1=1 ";
                 if (idAfiliado != -1)
                 {
-                    sqlRequest += "AND id_afiliado = @id_afiliado ";
+                    sqlRequest += " AND id_afiliado = @id_afiliado ";
                 }
                 if (cantidad != -1)
                 {
-                    sqlRequest += "AND cantidad = @cantidad ";
+                    sqlRequest += " AND cantidad = @cantidad ";
                 }
                 //FALTA CHEQUEAR QUE NO BUSQUE COMPRAS A FUTURO!!
-                if (fecha != null) sqlRequest += " and fecha_compra = @fecha_compra ";
+                if (fecha != null) sqlRequest += " and CONVERT(date,fecha_compra) = CONVERT(date,@fechita) ";
 
-                if (plan != -1 ) sqlRequest += " and id_plan = @id_plan";
+                if (plan != -1 ) sqlRequest += " and id_plan = @id_plan ";
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
 
                 if (idAfiliado != -1) command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = idAfiliado;
                 if (cantidad != -1) command.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad;
-                if (fecha != null) command.Parameters.Add("@fecha", SqlDbType.DateTime).Value = fecha;
+                if (fecha != null) command.Parameters.Add("@fechita", SqlDbType.DateTime).Value = fecha;
                 if (plan != -1) command.Parameters.Add("@id_plan", SqlDbType.Int).Value = plan;
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
@@ -137,7 +137,7 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT  ";
+                sqlRequest = "SELECT * ";
                 sqlRequest += "FROM SIEGFRIED.COMPRA_BONOS ";
                 sqlRequest += "WHERE 1=1 ";
                 if (idAfiliado != -1)

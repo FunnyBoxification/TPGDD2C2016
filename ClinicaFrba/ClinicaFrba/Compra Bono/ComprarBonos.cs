@@ -40,7 +40,7 @@ namespace ClinicaFrba.Compra_Bono
             }
 
             int cantidad = 0;
-            if (textBox2.Text == "" || !Int32.TryParse(textBox1.Text, out cantidad))
+            if (textBox2.Text == "" || !Int32.TryParse(textBox2.Text, out cantidad))
             {
                 MessageBox.Show("Inserte una cantidad valida");
                 return;
@@ -52,6 +52,7 @@ namespace ClinicaFrba.Compra_Bono
             }
 
             bonosNegocio.comprarBonos(textBox1.Text, cantidad, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]));
+            this.Hide();
         }
     }
 }

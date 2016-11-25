@@ -582,7 +582,9 @@ begin
 
 	WHILE(@i > 0)
 	BEGIN
-		insert into siegfried.BONOS (id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@plan,@afiliado,null,@fecha,null)
+		DECLARE @id numeric(18,0)
+		SET @id = (SELECT MAX(id_bono)+1 FROM SIEGFRIED.BONOS)
+		insert into siegfried.BONOS (id_bono,id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@id,@plan,@afiliado,null,@fecha,null)
 		set @i = @i - 1
 	END
 end
