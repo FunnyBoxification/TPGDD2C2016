@@ -23,6 +23,10 @@ namespace ClinicaFrba.Listados
 
             cbxListado.DataSource = negocio.getListados();
             cbxAnio.DataSource = negocio.getAniosPublicaciones();
+            cbxAnio.DisplayMember = "anio";
+            cbxAnio.ValueMember = "anio";
+
+            cbxSemestre.DataSource = negocio.getSemestres();
 
             cbxEspecialidad.DataSource = negocio.getEspecialidades();
             cbxEspecialidad.DisplayMember = "descripcion";
@@ -88,7 +92,7 @@ namespace ClinicaFrba.Listados
                     return;
                 }
 
-                dataGridView1.DataSource = negocio.getEstadisticas(cbxListado.SelectedIndex, (int)cbxPlan.SelectedValue, (int)cbxEspecialidad.SelectedValue, anio, semestre, mes);
+                dataGridView1.DataSource = negocio.getEstadisticas(cbxListado.SelectedIndex, Int32.Parse(cbxPlan.SelectedValue.ToString()), Int32.Parse(cbxEspecialidad.SelectedValue.ToString()), anio, semestre, mes);
             }
             else {
                 MessageBox.Show("Seleccione un listado");
