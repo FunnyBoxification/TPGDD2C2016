@@ -63,21 +63,21 @@
             // 
             // tbxConsulta
             // 
-            this.tbxConsulta.Location = new System.Drawing.Point(74, 72);
+            this.tbxConsulta.Location = new System.Drawing.Point(85, 72);
             this.tbxConsulta.Name = "tbxConsulta";
             this.tbxConsulta.Size = new System.Drawing.Size(167, 20);
             this.tbxConsulta.TabIndex = 5;
             // 
             // tbxProfesional
             // 
-            this.tbxProfesional.Location = new System.Drawing.Point(74, 43);
+            this.tbxProfesional.Location = new System.Drawing.Point(85, 43);
             this.tbxProfesional.Name = "tbxProfesional";
             this.tbxProfesional.Size = new System.Drawing.Size(167, 20);
             this.tbxProfesional.TabIndex = 4;
             // 
             // tbxAfiliado
             // 
-            this.tbxAfiliado.Location = new System.Drawing.Point(75, 17);
+            this.tbxAfiliado.Location = new System.Drawing.Point(85, 19);
             this.tbxAfiliado.Name = "tbxAfiliado";
             this.tbxAfiliado.Size = new System.Drawing.Size(166, 20);
             this.tbxAfiliado.TabIndex = 3;
@@ -96,18 +96,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Profesional";
+            this.label2.Text = "Profesional ID";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Afiliado";
+            this.label1.Text = "Afiliado ID";
             // 
             // groupBox1
             // 
