@@ -56,7 +56,7 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT * FROM SIEGFRIED.BONOS WHERE id_afiliado = @id_afiliado AND id_consulta is null";
+                sqlRequest = "SELECT * FROM SIEGFRIED.BONOS WHERE FLOOR(id_afiliado/100) = FLOOR(@id_afiliado/100) AND id_consulta is null AND id_plan = (SELECT id_plan FROM SIEGFRIED.AFILIADOS WHERE id_afiliado = @id_afiliado) ";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = id_afiliado;
