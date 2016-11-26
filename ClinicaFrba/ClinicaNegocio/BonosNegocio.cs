@@ -28,6 +28,37 @@ namespace ClinicaNegocio
             DBConn = instance;
         }
 
+        public int getPrecioBono(String afiliado)
+        {
+            var id = Int32.Parse(afiliado);
+            try
+            {
+                var dt = new DataTable();
+                DBConn.openConnection();
+                String sqlRequest;
+                sqlRequest = "SELECT TOP 1 precio_bono_consulta FROM SIEGFRIED.PLANES WHERE id_plan = (SELECT id_plan FROM SIEGFRIED.AFILIADOS WHERE id_afiliado = "+id + ")";
+
+                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
+                int a = Int32.Parse(command.ExecuteScalar().ToString());
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dt);
+                }
+
+                command.Dispose();
+                DBConn.closeConnection();
+                return a;
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en BonosNegocio.getPlanes" + ex.Message));
+            }
+
+        }
+
         public void comprarBonos(String afiliado, int cantidad, DateTime fecha)
         {
             var dt = new DataTable();

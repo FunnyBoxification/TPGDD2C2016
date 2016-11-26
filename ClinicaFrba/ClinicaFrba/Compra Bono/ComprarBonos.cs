@@ -52,6 +52,8 @@ namespace ClinicaFrba.Compra_Bono
             }
 
             bonosNegocio.comprarBonos(textBox1.Text, cantidad, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]));
+            var precioBono = bonosNegocio.getPrecioBono(textBox1.Text);
+            MessageBox.Show(cantidad + " bonos comprados a $" + precioBono + " para el afiliado " + textBox1.Text);
             this.Hide();
         }
     }

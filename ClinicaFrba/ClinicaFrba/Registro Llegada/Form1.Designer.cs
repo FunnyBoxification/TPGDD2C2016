@@ -68,14 +68,14 @@
             // 
             // tbxAfiliado
             // 
-            this.tbxAfiliado.Location = new System.Drawing.Point(82, 22);
+            this.tbxAfiliado.Location = new System.Drawing.Point(111, 22);
             this.tbxAfiliado.Name = "tbxAfiliado";
             this.tbxAfiliado.Size = new System.Drawing.Size(121, 20);
             this.tbxAfiliado.TabIndex = 5;
             // 
             // tbxProfesional
             // 
-            this.tbxProfesional.Location = new System.Drawing.Point(82, 57);
+            this.tbxProfesional.Location = new System.Drawing.Point(111, 57);
             this.tbxProfesional.Name = "tbxProfesional";
             this.tbxProfesional.Size = new System.Drawing.Size(121, 20);
             this.tbxProfesional.TabIndex = 4;
@@ -83,7 +83,7 @@
             // cbxEspecialidad
             // 
             this.cbxEspecialidad.FormattingEnabled = true;
-            this.cbxEspecialidad.Location = new System.Drawing.Point(82, 94);
+            this.cbxEspecialidad.Location = new System.Drawing.Point(111, 94);
             this.cbxEspecialidad.Name = "cbxEspecialidad";
             this.cbxEspecialidad.Size = new System.Drawing.Size(121, 21);
             this.cbxEspecialidad.TabIndex = 3;
@@ -102,18 +102,18 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(99, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Profesional";
+            this.label2.Text = "Profesional Nombre";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(55, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Afiliado";
+            this.label1.Text = "Afiliado ID";
             // 
             // button1
             // 

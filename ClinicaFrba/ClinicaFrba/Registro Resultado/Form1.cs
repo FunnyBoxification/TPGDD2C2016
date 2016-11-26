@@ -28,7 +28,7 @@ namespace ClinicaFrba.Registro_Resultado
                 tbxProfesional.Text = UsuarioLogueado.Instance().userId;
             }
 
-            var resultadoNegocio = new ResultadoNegocio(SqlServerDBConnection.Instance());
+            resultadoNegocio = new ResultadoNegocio(SqlServerDBConnection.Instance());
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,17 +52,17 @@ namespace ClinicaFrba.Registro_Resultado
             int idAfiliado = -1;
             int idProfesional = -1;
             int idConsulta = -1;
-            if (!Int32.TryParse(tbxAfiliado.Text, out idAfiliado))
+            if (tbxAfiliado.Text != "" && !Int32.TryParse(tbxAfiliado.Text, out idAfiliado))
             {
                 MessageBox.Show("El id de afiliado debe ser numerico");
                 return;
             }
-            if (!Int32.TryParse(tbxProfesional.Text, out idProfesional))
+            if (tbxProfesional.Text != "" && !Int32.TryParse(tbxProfesional.Text, out idProfesional))
             {
                 MessageBox.Show("El id de profesional debe ser numerico");
                 return;
             }
-            if (!Int32.TryParse(tbxConsulta.Text, out idConsulta))
+            if (tbxConsulta.Text != "" && !Int32.TryParse(tbxConsulta.Text, out idConsulta))
             {
                 MessageBox.Show("El id de consulta debe ser numerico");
                 return;
