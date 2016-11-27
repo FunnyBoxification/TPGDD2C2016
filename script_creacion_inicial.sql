@@ -582,7 +582,9 @@ begin
 
 	WHILE(@i > 0)
 	BEGIN
-		insert into siegfried.BONOS (id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@plan,@afiliado,null,@fecha,null)
+		DECLARE @id numeric(18,0)
+		SET @id = (SELECT MAX(id_bono)+1 FROM SIEGFRIED.BONOS)
+		insert into siegfried.BONOS (id_bono,id_plan, id_afiliado, id_consulta, fecha_compra, nro_consulta_medica) VALUES (@id,@plan,@afiliado,null,@fecha,null)
 		set @i = @i - 1
 	END
 end
@@ -617,6 +619,11 @@ as begin
 	UPDATE SIEGFRIED.USUARIOS SET 
 			habilitado = 0
 		WHERE id_usuario = @id
+
+	-- cancelo todos los turnos pendientes del usuario
+	insert into siegfried.cancelacion (id_turno,id_agenda,id_tipo_cancelacion,explicacion) 
+	SELECT t.id_turno, a.id_agenda, 7, 'Baja del usuario' FROM siegfried.turnos t, siegfried.agenda a 
+	where a.id_turno = t.id_turno and t.id_afiliado = @id and t.id_turno not in (SELECT id_turno FROM siegfried.consultas) 
 end
 go
 
@@ -632,11 +639,10 @@ create procedure SIEGFRIED.MODIFICAR_AFILIADO
 	@sexo numeric(18,0),
 	@estadoCivil numeric(18,0),
 	@cantFamiliares numeric(18,0),
-	@plan numeric(18,0),
-	@id numeric(18,0) output
+	@plan numeric(18,0)
 as begin
 	DECLARE @idAfiliado numeric(18,0)
-	set @idAfiliado = (SELECT id_usuario FROM SIEGFRIED.USUARIOS WHERE nro_dni = @nroDoc)
+	set @idAfiliado = (SELECT TOP 1 id_usuario FROM SIEGFRIED.USUARIOS WHERE nro_dni = @nroDoc and nombre = @nombre)
 
 	UPDATE  SIEGFRIED.AFILIADOS SET 
 	estado_civil = @estadoCivil, cantidad_familiares = @cantFamiliares, id_plan = @plan 
@@ -677,7 +683,7 @@ create procedure SIEGFRIED.ALTA_AFILIADO_FAMILIAR
 as
 begin
 	declare @cantidadFamiliaresActual numeric(18,0)
-	set @cantidadFamiliaresActual = (SELECT COUNT(id_afiliado) FROM SIEGFRIED.AFILIADOS WHERE id_afiliado/100 = @idTitular/100)
+	set @cantidadFamiliaresActual = (SELECT COUNT(id_usuario) FROM SIEGFRIED.usuarios WHERE FLOOR(id_usuario/100) = FLOOR(@idTitular/100) and id_usuario <> @idTitular)
 
 	DECLARE @idUsuario numeric(18,0)
 	set @idUsuario = @idTitular + @cantidadFamiliaresActual + 1

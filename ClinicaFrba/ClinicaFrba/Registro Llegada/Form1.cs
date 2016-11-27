@@ -22,6 +22,9 @@ namespace ClinicaFrba.Registro_Llegada
         {
             regNegocio = new RegistroLlegadaNegocio(SqlServerDBConnection.Instance());
             InitializeComponent();
+            cbxEspecialidad.DataSource = regNegocio.getEspecialidades();
+            cbxEspecialidad.DisplayMember = "descripcion";
+            cbxEspecialidad.ValueMember = "id_especialidad";
             dataGridView1.DataSource = regNegocio.getTurnos(-1, null, -1, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]));
         }
 

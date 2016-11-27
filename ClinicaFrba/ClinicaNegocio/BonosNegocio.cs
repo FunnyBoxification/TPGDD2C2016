@@ -28,6 +28,37 @@ namespace ClinicaNegocio
             DBConn = instance;
         }
 
+        public int getPrecioBono(String afiliado)
+        {
+            var id = Int32.Parse(afiliado);
+            try
+            {
+                var dt = new DataTable();
+                DBConn.openConnection();
+                String sqlRequest;
+                sqlRequest = "SELECT TOP 1 precio_bono_consulta FROM SIEGFRIED.PLANES WHERE id_plan = (SELECT id_plan FROM SIEGFRIED.AFILIADOS WHERE id_afiliado = "+id + ")";
+
+                SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
+                int a = Int32.Parse(command.ExecuteScalar().ToString());
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                {
+                    adapter.Fill(dt);
+                }
+
+                command.Dispose();
+                DBConn.closeConnection();
+                return a;
+
+            }
+            catch (Exception ex)
+            {
+                DBConn.closeConnection();
+                throw (new Exception("Error en BonosNegocio.getPlanes" + ex.Message));
+            }
+
+        }
+
         public void comprarBonos(String afiliado, int cantidad, DateTime fecha)
         {
             var dt = new DataTable();
@@ -92,26 +123,26 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT  ";
+                sqlRequest = "SELECT * ";
                 sqlRequest += "FROM SIEGFRIED.COMPRA_BONOS ";
                 sqlRequest += "WHERE 1=1 ";
                 if (idAfiliado != -1)
                 {
-                    sqlRequest += "AND id_afiliado = @id_afiliado ";
+                    sqlRequest += " AND id_afiliado = @id_afiliado ";
                 }
                 if (cantidad != -1)
                 {
-                    sqlRequest += "AND cantidad = @cantidad ";
+                    sqlRequest += " AND cantidad = @cantidad ";
                 }
                 //FALTA CHEQUEAR QUE NO BUSQUE COMPRAS A FUTURO!!
-                if (fecha != null) sqlRequest += " and fecha_compra = @fecha_compra ";
+                if (fecha != null) sqlRequest += " and CONVERT(date,fecha_compra) = CONVERT(date,@fechita) ";
 
-                if (plan != -1 ) sqlRequest += " and id_plan = @id_plan";
+                if (plan != -1 ) sqlRequest += " and id_plan = @id_plan ";
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
 
                 if (idAfiliado != -1) command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = idAfiliado;
                 if (cantidad != -1) command.Parameters.Add("@cantidad", SqlDbType.Int).Value = cantidad;
-                if (fecha != null) command.Parameters.Add("@fecha", SqlDbType.DateTime).Value = fecha;
+                if (fecha != null) command.Parameters.Add("@fechita", SqlDbType.DateTime).Value = fecha;
                 if (plan != -1) command.Parameters.Add("@id_plan", SqlDbType.Int).Value = plan;
 
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
@@ -137,7 +168,7 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT  ";
+                sqlRequest = "SELECT * ";
                 sqlRequest += "FROM SIEGFRIED.COMPRA_BONOS ";
                 sqlRequest += "WHERE 1=1 ";
                 if (idAfiliado != -1)

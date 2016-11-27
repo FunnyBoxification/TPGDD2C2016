@@ -54,8 +54,8 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT c.id_consulta, c.id_turno, a.id_profesional, t.id_afiliado, a.id_especialidad FROM SIEGFRIED.CONSULTAS c, SIEGFRIED.USUARIOS u, SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a WHERE c.id_profesional = u.id_usuario AND c.id_turno = t.id_turno AND a.id_turno = c.id_turno";
-                sqlRequest += " AND a.dia_hora = @fecha";
+                sqlRequest = "SELECT c.id_consulta, c.id_turno, a.id_profesional, t.id_afiliado, a.id_especialidad FROM SIEGFRIED.CONSULTAS c, SIEGFRIED.USUARIOS u, SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a WHERE a.id_profesional = u.id_usuario AND c.id_turno = t.id_turno AND a.id_turno = c.id_turno";
+                sqlRequest += " AND CONVERT(date,a.dia_hora) = CONVERT(date,@fecha) AND c.diagnostico is NULL and c.sintomas is NULL";
                 if (afiliadoId != -1)
                 {
                     sqlRequest += " AND t.id_afiliado = @idAfiliado";

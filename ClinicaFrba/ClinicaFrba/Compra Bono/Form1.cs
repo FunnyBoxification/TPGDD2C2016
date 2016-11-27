@@ -54,7 +54,7 @@ namespace ClinicaFrba.Compra_Bono
             }
             if (tbxCantidad.Text != "")
             {
-                if (!Int32.TryParse(tbxNroAfiliado.Text, out cantidad))
+                if (!Int32.TryParse(tbxCantidad.Text, out cantidad))
                 {
                     MessageBox.Show("La cantidad debe ser un numero");
                     return;

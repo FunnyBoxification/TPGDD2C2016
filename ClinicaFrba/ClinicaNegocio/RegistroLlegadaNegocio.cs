@@ -56,7 +56,7 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT * FROM SIEGFRIED.BONOS WHERE id_afiliado = @id_afiliado AND id_consulta is null";
+                sqlRequest = "SELECT * FROM SIEGFRIED.BONOS WHERE FLOOR(id_afiliado/100) = FLOOR(@id_afiliado/100) AND id_consulta is null AND id_plan = (SELECT id_plan FROM SIEGFRIED.AFILIADOS WHERE id_afiliado = @id_afiliado) ";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = id_afiliado;
@@ -110,8 +110,8 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT t.* FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a SIEGFRIED.USUARIOS u WHERE t.id_turno = a.id_turno AND a.id_profesional = u.id_usuario";
-                sqlRequest += " AND CONVERT(date,a.fecha_hora) = CONVERT(date,@fechaDeHoy)";
+                sqlRequest = "SELECT t.* FROM SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a, SIEGFRIED.USUARIOS u WHERE t.id_turno = a.id_turno AND a.id_profesional = u.id_usuario";
+                sqlRequest += " AND CONVERT(date,a.dia_hora) = CONVERT(date,@fechaDeHoy) AND t.id_turno NOT IN (SELECT id_turno FROM SIEGFRIED.CONSULTAS)";
                 if (afiliadoId != -1)
                 {
                     sqlRequest += " AND t.id_afiliado = @idAfiliado";
@@ -122,7 +122,7 @@ namespace ClinicaNegocio
                 }
                 if (especialidad != -1)
                 {
-                    sqlRequest += "AND a.id_especialidad = @idEspecialidad";
+                    sqlRequest += "AND a.id_especialidad = @especialidad";
                 }
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);

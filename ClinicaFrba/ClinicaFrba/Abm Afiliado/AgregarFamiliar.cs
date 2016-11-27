@@ -29,11 +29,20 @@ namespace ClinicaFrba.Abm_Afiliado
 
         public AgregarFamiliar(int id, int plan, int cantidadFamiliares)
         {
+            InitializeComponent();
             //usuarioTitularRow = titular;
             idTitular = id;
             this.plan = plan;
             this.cantidadFamiliares = cantidadFamiliares;
             usuNegocio = new UsuariosNegocio(instance = new SqlServerDBConnection());
+
+            cbxEstadoCivil.DataSource = usuNegocio.getEstadosCiviles();
+            cbxEstadoCivil.DisplayMember = "descripcion";
+            cbxEstadoCivil.ValueMember = "id_estado";
+
+            cbxSexo.DataSource = usuNegocio.getSexos();
+            cbxSexo.ValueMember = "sexo";
+            cbxSexo.DisplayMember = "descripcion";
         }
 
         private void AgregarFamiliar_Load(object sender, EventArgs e)
@@ -57,22 +66,22 @@ namespace ClinicaFrba.Abm_Afiliado
         private void button2_Click(object sender, EventArgs e)
         {
             //VALIDACIONES ACA
-            if (!tbxNombre.Text.All(Char.IsLetter))
+            if (!tbxNombre.Text.All(Char.IsLetter) || tbxNombre.Text == "")
             {
                 MessageBox.Show("El nombre debe ser valido");
                 return;
             }
-            if (!tbxApellido.Text.All(Char.IsLetter))
+            if (!tbxApellido.Text.All(Char.IsLetter) || tbxApellido.Text == "")
             {
                 MessageBox.Show("El apellido debe ser valido");
                 return;
             }
-            if (!tbxNroDoc.Text.All(Char.IsDigit))
+            if (!tbxNroDoc.Text.All(Char.IsDigit) || tbxNroDoc.Text == "")
             {
                 MessageBox.Show("El dni del afiliado debe ser un numero");
                 return;
             }
-            if (!tbxTelefono.Text.All(Char.IsDigit))
+            if (!tbxTelefono.Text.All(Char.IsDigit) || tbxTelefono.Text == "")
             {
                 MessageBox.Show("El telefono del afiliado debe ser un numero");
                 return;
@@ -92,6 +101,16 @@ namespace ClinicaFrba.Abm_Afiliado
                 MessageBox.Show("Ingrese una contraseña");
                 return;
             }
+            if (tbxMail.Text == "")
+            {
+                MessageBox.Show("Ingrese una casilla de correo");
+                return;
+            }
+            if (tbxDireccion.Text == "")
+            {
+                MessageBox.Show("Ingrese una direccion");
+                return;
+            }
             String nombre;
             String apellido;
             String password;
@@ -109,21 +128,26 @@ namespace ClinicaFrba.Abm_Afiliado
             password = tbxPassword.Text;
             direccion = tbxDireccion.Text;
             documento = Int32.Parse(tbxNroDoc.Text);
+            if (usuNegocio.documentoRepetido(documento))
+            {
+                MessageBox.Show("Este nro de documento ya existe en el sistema");
+                return;
+            }
             telefono = Int32.Parse(tbxTelefono.Text);
             mail = tbxMail.Text;
             fechaNac = dtpFechaNacimiento.Value;
-            sexo = (int)cbxSexo.SelectedValue;
-            estadoCivil = (int)cbxEstadoCivil.SelectedValue;
+            sexo = Int32.Parse(cbxSexo.SelectedValue.ToString());
+            estadoCivil = Int32.Parse(cbxEstadoCivil.SelectedValue.ToString());
             plan = this.plan;
             //CREAR AFILIADO FAMILIAR
             int id = usuNegocio.agregarAfiliadoFamiliar(nombre, apellido, password, direccion, documento, telefono, mail, fechaNac, sexo, estadoCivil, idTitular, plan);
             //SI FALTAN FAMILIARES, AGREGAR
+            cantidadFamiliares -= 1;
             if (cantidadFamiliares > 0)
             {
                 DialogResult dialogResult = MessageBox.Show("Desea agregar otro familiar?", "Agregar familiar", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    cantidadFamiliares--;
                     //Limpio todo 
                     tbxNombre.Text = "";
                     tbxApellido.Text = "";
@@ -131,9 +155,11 @@ namespace ClinicaFrba.Abm_Afiliado
                     tbxDireccion.Text = "";
                     tbxTelefono.Text = "";
                     tbxMail.Text = "";
+                    tbxPassword.Text = "";
                     dtpFechaNacimiento.Value = DateTimePicker.MinimumDateTime;
                     cbxEstadoCivil.SelectedItem = null;
                     cbxSexo.SelectedItem = null;
+                    return;
 
                 }
                 else if (dialogResult == DialogResult.No)

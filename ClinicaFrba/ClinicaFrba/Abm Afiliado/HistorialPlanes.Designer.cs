@@ -48,6 +48,7 @@
             this.Controls.Add(this.dgvCambiosPlanes);
             this.Name = "HistorialPlanes";
             this.Text = "HistorialPlanes";
+            this.Load += new System.EventHandler(this.HistorialPlanes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCambiosPlanes)).EndInit();
             this.ResumeLayout(false);
 

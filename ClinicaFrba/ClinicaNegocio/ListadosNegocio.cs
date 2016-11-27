@@ -103,7 +103,7 @@ namespace ClinicaNegocio
 
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT DISTINCT DATEPART(yyyy,Fecha) FROM SIEGFRIED.TURNOS";
+                sqlRequest = "SELECT DISTINCT DATEPART(yyyy,dia_hora) as anio FROM SIEGFRIED.AGENDA";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
 
@@ -128,13 +128,13 @@ namespace ClinicaNegocio
                 var dt = new DataTable();
                 DBConn.openConnection();
                 String sqlRequest;
-                sqlRequest = "SELECT descripcion from SIEGRIED.ESPECIALIDADES where id_especialidad IN (";
-                sqlRequest += "SELECT TOP 5 id_especialidad, COUNT(id_turno) ";
-                sqlRequest += "from SIEGFRIED.TURNOS ";
-                sqlRequest += "where id_turno in (SELECT id_turno FROM SIEGFRIED.CANCELACION) ";
-                sqlRequest += "AND YEAR(fecha) = @anio AND MONTH(fecha) = @mes ";
-                sqlRequest += "GROUP BY id_especialidad ";
-                sqlRequest += "ORDER BY 2 desc)";
+                sqlRequest = "SELECT descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad IN (";
+                sqlRequest += "SELECT TOP 5 a.id_especialidad ";
+                sqlRequest += "from SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a ";
+                sqlRequest += "where t.id_turno = a.id_turno AND t.id_turno in (SELECT c.id_turno FROM SIEGFRIED.CANCELACION c) ";
+                sqlRequest += "AND YEAR(a.dia_hora) = @anio AND MONTH(a.dia_hora) = @mes ";
+                sqlRequest += "GROUP BY a.id_especialidad ";
+                sqlRequest += "ORDER BY COUNT(t.id_turno) desc)";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@anio", SqlDbType.Int).Value = anio;
@@ -165,16 +165,17 @@ namespace ClinicaNegocio
                 String sqlRequest;
                 sqlRequest = "SELECT TOP 5 usuario.nombre+' '+usuario.apellido as medico, plann.descripcion, especialidad.descripcion, count(*) as cantidad_consultas ";
                 sqlRequest += "FROM (";
-                sqlRequest += "SELECT bono.id_plan as planid, turno.id_profesional as profesional,turno.id_especialidad as especialidad FROM SIEGFRIED.BONOS bono ";
+                sqlRequest += "SELECT bono.id_plan as planid, agenda.id_profesional as profesional,agenda.id_especialidad as especialidad FROM SIEGFRIED.BONOS bono ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.TURNOS turno on turno.id_turno = consulta.id_turno ";
+                sqlRequest += "LEFT JOIN SIEGFRIED.AGENDA agenda on turno.id_turno = agenda.id_turno ";
                 sqlRequest += "WHERE bono.id_consulta is not null ";
-                sqlRequest += "AND YEAR(turno.fecha) = @anio AND MONTH(turno.fecha) = @mes AND bono.id_plan = @plan ";
+                sqlRequest += "AND YEAR(agenda.dia_hora) = @anio AND MONTH(agenda.dia_hora) = @mes AND bono.id_plan = @plan ";
                 sqlRequest +=") as vista ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.USUARIOS usuario ON vista.profesional = usuario.id_usuario ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.PLANES plann on plann.id_plan = vista.planid ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.ESPECIALIDADES especialidad on especialidad.id_especialidad = vista.especialidad ";
-                sqlRequest += "GROUP BY plann.descripcion, usuario.nombre+' '+usuario.apellido ORDER BY 3 DESC";
+                sqlRequest += "GROUP BY plann.descripcion, usuario.nombre+' '+usuario.apellido, especialidad.descripcion ORDER BY 3 DESC";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@anio", SqlDbType.Int).Value = anio;
@@ -207,10 +208,10 @@ namespace ClinicaNegocio
                 String sqlRequest;
                 sqlRequest = "SELECT TOP 5 usuario.nombre+' '+usuario.apellido as medico,especialidad.descripcion,count(*) / 2 as horas_trabajadas ";
                 sqlRequest += "FROM (";
-                sqlRequest += "SELECT turno.id_profesional as profesional,turno.id_especialidad as especialidad ";
-                sqlRequest += "FROM SIEGFRIED.BONOS bono LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta LEFT JOIN SIEGFRIED.TURNOS turno on turno.id_turno = consulta.id_turno ";
+                sqlRequest += "SELECT agenda.id_profesional as profesional,agenda.id_especialidad as especialidad ";
+                sqlRequest += "FROM SIEGFRIED.BONOS bono LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta LEFT JOIN SIEGFRIED.TURNOS turno on turno.id_turno = consulta.id_turno LEFT JOIN SIEGFRIED.AGENDA agenda on turno.id_turno = agenda.id_turno ";
                 sqlRequest += "WHERE bono.id_consulta is not null ";
-                sqlRequest += "AND YEAR(turno.fecha) = @anio AND MONTH(turno.fecha) = @mes AND bono.id_plan = @plan AND turno.id_especialidad = @especialidad ";
+                sqlRequest += "AND YEAR(agenda.dia_hora) = @anio AND MONTH(agenda.dia_hora) = @mes AND bono.id_plan = @plan AND agenda.id_especialidad = @especialidad ";
                 sqlRequest += ") as vista ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.USUARIOS usuario ON vista.profesional = usuario.id_usuario ";
                 sqlRequest += "LEFT JOIN SIEGFRIED.ESPECIALIDADES especialidad on especialidad.id_especialidad = vista.especialidad ";
@@ -280,10 +281,10 @@ namespace ClinicaNegocio
                 DBConn.openConnection();
                 String sqlRequest;
                 sqlRequest = "SELECT especialidad.descripcion, vista.cantidad_consultas FROM ( ";
-                sqlRequest += "SELECT bono.id_bono as id_bono,turno.id_especialidad as id_especialidad,	COUNT(*) as cantidad_consultas ";
-                sqlRequest += "FROM SIEGFRIED.BONOS bono LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta LEFT JOIN SIEGFRIED.TURNOS turno on turno.id_turno = consulta.id_turno ";
-                sqlRequest += "WHERE bono.id_consulta is not null AND YEAR(turno.fecha) = @anio AND MONTH(turno.fecha) = @mes ";
-                sqlRequest += "GROUP BY 1,2) vista ";
+                sqlRequest += "SELECT TOP 5 bono.id_bono as id_bono,agenda.id_especialidad as id_especialidad, COUNT(*) as cantidad_consultas ";
+                sqlRequest += "FROM SIEGFRIED.BONOS bono LEFT JOIN SIEGFRIED.CONSULTAS consulta on bono.id_consulta = consulta.id_consulta LEFT JOIN SIEGFRIED.TURNOS turno on turno.id_turno = consulta.id_turno LEFT JOIN SIEGFRIED.AGENDA agenda on turno.id_turno = agenda.id_turno ";
+                sqlRequest += "WHERE bono.id_consulta is not null AND YEAR(agenda.dia_hora) = @anio AND MONTH(agenda.dia_hora) = @mes ";
+                sqlRequest += "GROUP BY bono.id_bono, agenda.id_especialidad ORDER BY COUNT(*) DESC  ) vista ";
                 sqlRequest += "left join siegfried.especialidades especialidad on especialidad.id_especialidad = vista.id_especialidad";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);

@@ -23,7 +23,7 @@ namespace ClinicaFrba.Registro_Resultado
         {
             InitializeComponent();
 
-            var resultadoNegocio = new ResultadoNegocio(SqlServerDBConnection.Instance());
+            resultadoNegocio = new ResultadoNegocio(SqlServerDBConnection.Instance());
             consulta = consultaRow;
         }
 
@@ -38,6 +38,7 @@ namespace ClinicaFrba.Registro_Resultado
             var horaActual = DateTime.Now.TimeOfDay;
             DateTime fechaAtencion =  DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Add(horaActual);
             resultadoNegocio.guardarConsulta(idConsulta, rtbDiagnostico.Text, rtbSintomas.Text, fechaAtencion);
+            this.Hide();
         }
     }
 }

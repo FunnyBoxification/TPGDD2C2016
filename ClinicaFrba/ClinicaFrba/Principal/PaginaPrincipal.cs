@@ -150,5 +150,11 @@ namespace ClinicaFrba.Principal
                 Agendatxb.Location = new Point(61, 157);
             }
         }
+
+        private void listadoBtn_Click(object sender, EventArgs e)
+        {
+            var Form = new Listados.Form1();
+            Form.Show();
+        }
     }
 }

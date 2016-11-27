@@ -140,7 +140,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // hastaHP
             // 
             this.hastaHP.CustomFormat = "HH mm";
-            this.hastaHP.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.hastaHP.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.hastaHP.Location = new System.Drawing.Point(357, 61);
             this.hastaHP.MaxDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.hastaHP.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
@@ -151,8 +151,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             // 
             // desdeHP
             // 
+            this.desdeHP.AccessibleRole = System.Windows.Forms.AccessibleRole.Equation;
             this.desdeHP.CustomFormat = "HH mm";
-            this.desdeHP.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.desdeHP.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.desdeHP.Location = new System.Drawing.Point(357, 23);
             this.desdeHP.MaxDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.desdeHP.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
