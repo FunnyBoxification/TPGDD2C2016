@@ -103,18 +103,26 @@ namespace ClinicaFrba.Principal
         }
         private void agendaBtn_Click(object sender, EventArgs e)
         {
-            var negocio = new PrincipalNegocio(SqlServerDBConnection.Instance());
-            var id = Convert.ToInt32(Agendatxb.Text);
-            if (negocio.EsProfesionaloValido(id))
+            if (UsuarioLogueado.Instance().rol == "Administrador")
             {
-                var Form = new Registrar_Agenta_Medico.Agenda(id);
-                Form.Show();
+                var negocio = new PrincipalNegocio(SqlServerDBConnection.Instance());
+                var id = Convert.ToInt32(Agendatxb.Text);
+                if (negocio.EsProfesionaloValido(id))
+                {
+                    var Form = new Registrar_Agenta_Medico.Agenda(id);
+                    Form.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Debe ingresar un Id de Profesional Valido");
+                }
             }
             else
             {
-                MessageBox.Show("Debe ingresar un Id de Profesional Valido");
+                //TODO: poner usuario actual
+                var Form = new Registrar_Agenta_Medico.Agenda(id);
+                Form.Show();
             }
-            
         }
 
         private void regLlegadaBtn_Click(object sender, EventArgs e)
@@ -131,7 +139,16 @@ namespace ClinicaFrba.Principal
 
         private void PaginaPrincipal_Load(object sender, EventArgs e)
         {
-
+            if (UsuarioLogueado.Instance().rol == "Administrador")
+            {
+                Agendatxb.Visible = true;
+                Agendatxb.Location = new Point(106, 157);
+            }
+            else
+            {
+                Agendatxb.Visible = false;
+                Agendatxb.Location = new Point(61, 157);
+            }
         }
     }
 }
