@@ -128,6 +128,19 @@ namespace ClinicaFrba.Cancelar_Turno
         {
             ageNegocio = new AgendaNegocio(instance = new SqlServerDBConnection());
             Fecha = DateTime.Now;
+
+            if ((UsuarioLogueado.Instance().rol == "Profesional"))
+            {
+                cbxUsuario.SelectedText = "Profesional";
+                tbxUsuario.Text = UsuarioLogueado.Instance().userId;
+                tbxUsuario.Enabled = false;
+            }
+            else if (UsuarioLogueado.Instance().rol == "Afiliado")
+            {
+                cbxUsuario.SelectedText = "Afiliado";
+                tbxUsuario.Text = UsuarioLogueado.Instance().userId;
+                tbxUsuario.Enabled = false;
+            }
         }
 
         private void button2_Click_1(object sender, EventArgs e)

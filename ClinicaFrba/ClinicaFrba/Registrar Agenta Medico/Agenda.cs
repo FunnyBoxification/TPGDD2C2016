@@ -23,6 +23,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             InitializeComponent();
             desdeHP.Format = DateTimePickerFormat.Custom;
             desdeHP.CustomFormat = "HH mm";
+            hastaHP.Format = DateTimePickerFormat.Custom;
+            hastaHP.CustomFormat = "HH mm";
             IdProfesional = idProfesional;
             Fecha = DateTime.Now;
 
@@ -166,7 +168,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if ((int)desdeHP.Value.Minute != 30 || (int)desdeHP.Value.Minute != 0)
+            if ((int)desdeHP.Value.Minute != 30 && (int)desdeHP.Value.Minute != 0)
             {
                 MessageBox.Show("La hora desde debe ser en punto o y media");
                 return false;

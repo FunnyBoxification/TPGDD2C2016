@@ -104,6 +104,17 @@ namespace ClinicaFrba.Pedir_Turno
         {
             ageNegocio = new AgendaNegocio(instance = new SqlServerDBConnection());
             Fecha = DateTime.Now;
+            if ((UsuarioLogueado.Instance().rol == "Profesional"))
+            {
+                tbxProfesional.Text = UsuarioLogueado.Instance().userId;
+                tbxProfesional.Enabled = false;
+            }
+            else if (UsuarioLogueado.Instance().rol == "Afiliado")
+            {
+                tbxAfiliado.Text = UsuarioLogueado.Instance().userId;
+                tbxAfiliado.Enabled = false;
+            }
+
         }
 
         private void button2_Click_1(object sender, EventArgs e)

@@ -120,7 +120,7 @@ namespace ClinicaFrba.Principal
             else
             {
                 //TODO: poner usuario actual
-                var Form = new Registrar_Agenta_Medico.Agenda(id);
+                var Form = new Registrar_Agenta_Medico.Agenda(Convert.ToInt32(UsuarioLogueado.Instance().userId));
                 Form.Show();
             }
         }
@@ -142,12 +142,21 @@ namespace ClinicaFrba.Principal
             if (UsuarioLogueado.Instance().rol == "Administrador")
             {
                 Agendatxb.Visible = true;
-                Agendatxb.Location = new Point(106, 157);
+                agendaBtn.Location = new Point(106, 157);
             }
-            else
+            else if (UsuarioLogueado.Instance().rol == "Profesional")
             {
                 Agendatxb.Visible = false;
-                Agendatxb.Location = new Point(61, 157);
+                agendaBtn.Location = new Point(61, 157);
+            }
+            else if (UsuarioLogueado.Instance().rol == "Afiliado")
+            {
+                rolesBtn.Enabled = false;
+                regConsultaBtn.Enabled = false;
+                regLlegadaBtn.Enabled = false;
+                agendaBtn.Enabled = false;
+                Agendatxb.Visible = false;
+                agendaBtn.Location = new Point(61, 157);
             }
         }
 

@@ -134,6 +134,7 @@ BEGIN
 		id_profesional numeric(18,0) not null foreign key references SIEGFRIED.PROFESIONALES(id_profesional),
 		dia_hora datetime,
 		id_especialidad numeric(18,0) not null foreign key references SIEGFRIED.ESPECIALIDADES(id_especialidad),
+		cancelado numeric(1,0),
 		id_turno numeric(18,0) foreign key references SIEGFRIED.TURNOS(id_turno)
 	);
 
@@ -382,6 +383,7 @@ BEGIN
 			(select id_usuario from SIEGFRIED.USUARIOS u where Medico_Dni = nro_dni),
 			Turno_Fecha,
 			Especialidad_Codigo,
+			0,
 			Turno_Numero
 			FROM gd_esquema.Maestra 
 		WHERE [Turno_Numero] IS NOT NULL;
@@ -776,7 +778,7 @@ BEGIN
 			RAISERROR(@msj, 18, 0)
 			RETURN 
 		END
-		INSERT INTO SIEGFRIED.AGENDA VALUES(@idprofesional, @desde, @especialidad, null); 
+		INSERT INTO SIEGFRIED.AGENDA VALUES(@idprofesional, @desde, @especialidad,0, null); 
 		SET @desde = DATEADD(minute,30,@desde);
 	END
 
@@ -801,7 +803,7 @@ CREATE PROCEDURE SIEGFRIED.CANCELAR_TURNO
 	@id_afiliado numeric(18,0),
 	@id_cancelacion numeric(18,0),
 	@explicacion varchar(255),
-	@id_agenda numeric(18,0)
+	@id_agenda numeric(18,0),
 AS
 BEGIN
 	DECLARE @validaId int
@@ -842,6 +844,7 @@ BEGIN
 	BEGIN  
 	
 		EXEC SIEGFRIED.CANCELAR_TURNO @id_turno,@id_afiliado,@id_cancelacion,@explicacion,@id_agenda;
+		UPDATE SIEGFRIED.AGENDA SET cancelado = 1 WHERE id_agenda = id_agenda;
 		FETCH NEXT FROM turnos_cursor   
 	    INTO @id_turno, @id_afiliado, @id_agenda
 	END   

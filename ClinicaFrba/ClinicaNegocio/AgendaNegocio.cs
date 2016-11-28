@@ -31,7 +31,7 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                String sqlRequest = "SELECT FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad  FROM  SIEGFRIED.AGENDA a where @idProf = a.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc)";
+                String sqlRequest = "SELECT FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad  FROM  SIEGFRIED.AGENDA a where a.cancelado <> 1 and @idProf = a.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc)";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@idProf", SqlDbType.Int).Value = idProfesional;
@@ -67,7 +67,7 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                String sqlRequest = "SELECT id_agenda, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA a where @idProf = a.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
+                String sqlRequest = "SELECT id_agenda, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA a where a.cancelado <> 1 and @idProf = a.id_profesional and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@idProf", SqlDbType.Int).Value = idProfesional;
@@ -102,7 +102,7 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CREAR_DIA_AGENDA", DBConn.Connection))
+                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CREARDIAAGENDA", DBConn.Connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("desde", desde);
@@ -226,7 +226,7 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                String sqlRequest = "SELECT t.id_turno, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA, SIEGFRIED.TURNOS a where a.id_turno = t.id_turno and @id_afiliado = t.id_afiliado and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
+                String sqlRequest = "SELECT t.id_turno, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA, SIEGFRIED.TURNOS a where a.cancelado <> 1 and a.id_turno = t.id_turno and @id_afiliado = t.id_afiliado and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = id_afiliado;
