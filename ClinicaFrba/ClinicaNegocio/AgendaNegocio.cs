@@ -105,10 +105,10 @@ namespace ClinicaNegocio
                 using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CREARDIAAGENDA", DBConn.Connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("desde", desde);
-                    cmd.Parameters.AddWithValue("hasta", hasta);
-                    cmd.Parameters.AddWithValue("especialidad", idEspecialidad);
-                    cmd.Parameters.AddWithValue("idprofesional", idProfesional);                    
+                    cmd.Parameters.Add("@desde", SqlDbType.DateTime).Value = desde;
+                    cmd.Parameters.Add("@hasta", SqlDbType.DateTime).Value = hasta;
+                    cmd.Parameters.Add("@especialidad", SqlDbType.Int).Value = idEspecialidad;
+                    cmd.Parameters.Add("@idprofesional", SqlDbType.Int).Value = idProfesional;                   
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }

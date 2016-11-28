@@ -774,7 +774,7 @@ BEGIN
 		SET @horassemanales = (select count(*)/2 from SIEGFRIED.AGENDA where DATEPART(week,@desde) = DATEPART(week,dia_hora) and id_profesional = @idprofesional)
 		if @horassemanales >= 48
 		BEGIN
-			declare @msj varchar = 'El medico ya posee asignadas 48 horas semanales! No puede poseer mas para la semana del dia'+ @desde
+			declare @msj varchar = 'El medico ya posee asignadas 48 horas semanales! No puede poseer mas para la semana del dia' + CONVERT(varchar(10),@desde, 20)
 			RAISERROR(@msj, 18, 0)
 			RETURN 
 		END
@@ -803,7 +803,7 @@ CREATE PROCEDURE SIEGFRIED.CANCELAR_TURNO
 	@id_afiliado numeric(18,0),
 	@id_cancelacion numeric(18,0),
 	@explicacion varchar(255),
-	@id_agenda numeric(18,0),
+	@id_agenda numeric(18,0)
 AS
 BEGIN
 	DECLARE @validaId int
