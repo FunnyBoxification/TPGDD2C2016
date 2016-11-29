@@ -22,21 +22,28 @@ namespace ClinicaFrba.Cancelar_Turno
         public CancelarTurno()
         {
             InitializeComponent();
-            
+            dgvs = new List<DataGridView>();
             dgvs.Add(lunesDGV);
             dgvs.Add(MartesDGV);
             dgvs.Add(miercolesDGV);
             dgvs.Add(juevesDGV);
             dgvs.Add(viernesDGV);
             dgvs.Add(sabadoDGV);
+            panel2.Visible = false;
         }
 
 
         private void tipochange(object sender, EventArgs e)
         {
-            if (cbxUsuario.SelectedText == "Profesional")
+            if (cbxUsuario.SelectedItem == "Profesional")
             {
                 panel1.Visible = true;
+                panel2.Visible = false;
+                ageNegocio = new AgendaNegocio(instance = new SqlServerDBConnection());
+                //Cargomotivos
+                cbxMotivo.DataSource = ageNegocio.getMotivos();
+                cbxMotivo.DisplayMember = "descripcion";
+                cbxMotivo.ValueMember = "id_tipo";
             foreach (DataGridView dgv in dgvs)
             {
                 dgv.Enabled = false;
@@ -46,6 +53,10 @@ namespace ClinicaFrba.Cancelar_Turno
             else
             {
                 panel1.Visible = false;
+                panel2.Visible = true;
+                cbxMotivo2.DataSource = ageNegocio.getMotivos();
+                cbxMotivo2.DisplayMember = "descripcion";
+                cbxMotivo2.ValueMember = "id_tipo";
                 foreach (DataGridView dgv in dgvs)
                 {
                     dgv.Enabled = true;
@@ -76,7 +87,7 @@ namespace ClinicaFrba.Cancelar_Turno
                 lblJueves.Text = "Jueves " + (lunes.AddDays(3)).ToString("dd/MM/yyyy");
                 lblViernes.Text = "Viernes " + (lunes.AddDays(4)).ToString("dd/MM/yyyy");
                 lblSabado.Text = "Sabado " + (lunes.AddDays(5)).ToString("dd/MM/yyyy");
-                if(cbxUsuario.SelectedText == "Profesional"){
+                if(cbxUsuario.SelectedItem == "Profesional"){
                     lunesDGV.DataSource = ageNegocio.getDiaAgenda(      Convert.ToInt32(tbxUsuario.Text), lunes);
                     MartesDGV.DataSource = ageNegocio.getDiaAgenda(     Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(1));
                     miercolesDGV.DataSource = ageNegocio.getDiaAgenda(  Convert.ToInt32(tbxUsuario.Text), lunes.AddDays(2));
@@ -120,7 +131,7 @@ namespace ClinicaFrba.Cancelar_Turno
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar dias");
+                MessageBox.Show("Error al cargar dias"+ ex.Message);
             }
         }
 
@@ -131,13 +142,13 @@ namespace ClinicaFrba.Cancelar_Turno
 
             if ((UsuarioLogueado.Instance().rol == "Profesional"))
             {
-                cbxUsuario.SelectedText = "Profesional";
+                cbxUsuario.SelectedItem = "Profesional";
                 tbxUsuario.Text = UsuarioLogueado.Instance().userId;
                 tbxUsuario.Enabled = false;
             }
             else if (UsuarioLogueado.Instance().rol == "Afiliado")
             {
-                cbxUsuario.SelectedText = "Afiliado";
+                cbxUsuario.SelectedItem = "Afiliado";
                 tbxUsuario.Text = UsuarioLogueado.Instance().userId;
                 tbxUsuario.Enabled = false;
             }
@@ -172,12 +183,16 @@ namespace ClinicaFrba.Cancelar_Turno
 
         private void lunesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (cbxUsuario.SelectedText == "Profesional")
+            if (cbxUsuario.SelectedItem == "Afiliado")
             {
                 if (MessageBox.Show("Desea cancelar este turno?", "Cancelar Turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
-                    ageNegocio.CancelarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value), Convert.ToInt32(tbxUsuario.Text));
+                    if (ValidarCancelarTurno())
+                    {
+                        int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
+                        ageNegocio.CancelarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value), Convert.ToInt32(tbxUsuario.Text), Convert.ToInt32(cbxMotivo2.SelectedValue), tbxExpli2.Text);
+                        CargarDias();
+                    }
                 }
             }
         }
@@ -220,11 +235,34 @@ namespace ClinicaFrba.Cancelar_Turno
             {
                 return false;
             }
-            else
+            if (Convert.ToString(cbxMotivo.SelectedValue) == "")
             {
-                return true;
+                MessageBox.Show("Debe Elegir un tipo de motivo");
+                return false;
             }
+            if (explictxb.Text == "")
+            {
+                MessageBox.Show("Debe Elegir una explicacion");
+                return false;
+            }
+            return true;
         }
+
+        private bool ValidarCancelarTurno()
+        {
+            if (Convert.ToString(cbxMotivo2.SelectedValue) == "")
+            {
+                MessageBox.Show("Debe Elegir un tipo de motivo"); 
+                return false;
+            }
+            if (tbxExpli2.Text == "")
+            {
+                MessageBox.Show("Debe Elegir una explicacion");
+                return false;
+            }
+            return true;
+        }
+        
 
       
     }

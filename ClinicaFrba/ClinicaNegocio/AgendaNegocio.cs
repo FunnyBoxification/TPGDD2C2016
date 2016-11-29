@@ -167,7 +167,7 @@ namespace ClinicaNegocio
             }
         }
 
-        public void CancelarTurno(int idagenda, int idafiliado)
+        public void CancelarTurno(int idturno, int idafiliado, int motivo, string explicacion)
         {
             try
             {
@@ -175,8 +175,10 @@ namespace ClinicaNegocio
                 using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CANCELAR_TURNO", DBConn.Connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("id_agenda", idagenda);
+                    cmd.Parameters.AddWithValue("id_turno", idturno);
                     cmd.Parameters.AddWithValue("id_afiliado", idafiliado);
+                    cmd.Parameters.AddWithValue("id_cancelacion", motivo);
+                    cmd.Parameters.AddWithValue("explicacion", explicacion);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                 }
@@ -226,7 +228,7 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                String sqlRequest = "SELECT t.id_turno, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA, SIEGFRIED.TURNOS a where a.cancelado <> 1 and a.id_turno = t.id_turno and @id_afiliado = t.id_afiliado and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc) and id_especialidad = @idesp";
+                String sqlRequest = "SELECT t.id_turno, FORMAT((a.dia_hora),'hh:mm') as dia, (select descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad =  a.id_especialidad) as especialidad, CASE WHEN a.id_turno IS NULL THEN 'Disponible' ELSE 'Ocupado' END as Turno FROM  SIEGFRIED.AGENDA a, SIEGFRIED.TURNOS t where a.cancelado <> 1 and a.id_turno = t.id_turno and @id_afiliado = t.id_afiliado and DATEPART(dayofyear, a.dia_hora) = DATEPART(dayofyear, @diabusc) and  DATEPART(YEAR, a.dia_hora) = DATEPART(YEAR, @diabusc)";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@id_afiliado", SqlDbType.Int).Value = id_afiliado;
@@ -250,5 +252,20 @@ namespace ClinicaNegocio
             }
 
         }
+
+        public DataTable getMotivos()
+        {
+            string Sql = "SELECT  [id_tipo],[descripcion] FROM [GD2C2016].[SIEGFRIED].[TIPOS_CANCELACION] ";
+            DBConn.openConnection();
+            SqlCommand cmd = new SqlCommand(Sql, DBConn.Connection);
+            cmd.CommandType = CommandType.Text;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            DBConn.closeConnection();
+            return ds.Tables[0];
+        }
+
     }
 }
+

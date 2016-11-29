@@ -150,6 +150,7 @@ namespace ClinicaFrba.Pedir_Turno
             {
                 int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
                 ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value),Convert.ToInt32(tbxAfiliado.Text));
+                CargarDias();
             }
         }
     }

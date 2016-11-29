@@ -771,7 +771,7 @@ BEGIN
 	WHILE @desde <= @hasta
 	BEGIN
 		declare @horassemanales int
-		SET @horassemanales = (select count(*)/2 from SIEGFRIED.AGENDA where DATEPART(week,@desde) = DATEPART(week,dia_hora) and id_profesional = @idprofesional)
+		SET @horassemanales = (select count(*)/2 from SIEGFRIED.AGENDA where DATEPART(week,@desde) = DATEPART(week,dia_hora)and DATEPART(year,@desde) = DATEPART(year,dia_hora) and id_profesional = @idprofesional)
 		if @horassemanales >= 48
 		BEGIN
 			declare @msj varchar = 'El medico ya posee asignadas 48 horas semanales! No puede poseer mas para la semana del dia' + CONVERT(varchar(10),@desde, 20)
@@ -802,20 +802,20 @@ CREATE PROCEDURE SIEGFRIED.CANCELAR_TURNO
 	@id_turno numeric(18,0), 
 	@id_afiliado numeric(18,0),
 	@id_cancelacion numeric(18,0),
-	@explicacion varchar(255),
-	@id_agenda numeric(18,0)
+	@explicacion varchar(255)
 AS
 BEGIN
 	DECLARE @validaId int
+	DECLARE @id_agenda numeric(18,0)
 	SET  @validaId = (select t.id_afiliado from SIEGFRIED.TURNOS t where @id_turno =  t.id_turno )
-
+	SET @id_agenda = (select id_agemda from SIEGFRIED.AGENDA where id_turno = @id_turno)
 	IF @validaId != @id_afiliado
 		begin
 		RAISERROR('El turno no pertenece al afiliado', 18, 0)
 		end
 
 	INSERT INTO SIEGFRIED.CANCELACION VALUES(@id_turno,@id_agenda,@id_cancelacion,@explicacion);
-	UPDATE SIEGFRIED.AGENDA SET id_turno = NULL WHERE id_agenda = id_agenda;
+	UPDATE SIEGFRIED.AGENDA SET id_turno = NULL WHERE id_agenda = @id_agenda;
 END
 GO
 
@@ -843,7 +843,7 @@ BEGIN
 	WHILE @@FETCH_STATUS = 0  
 	BEGIN  
 	
-		EXEC SIEGFRIED.CANCELAR_TURNO @id_turno,@id_afiliado,@id_cancelacion,@explicacion,@id_agenda;
+		EXEC SIEGFRIED.CANCELAR_TURNO @id_turno,@id_afiliado,@id_cancelacion,@explicacion;
 		UPDATE SIEGFRIED.AGENDA SET cancelado = 1 WHERE id_agenda = id_agenda;
 		FETCH NEXT FROM turnos_cursor   
 	    INTO @id_turno, @id_afiliado, @id_agenda
