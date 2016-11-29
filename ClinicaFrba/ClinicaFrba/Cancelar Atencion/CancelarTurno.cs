@@ -104,25 +104,33 @@ namespace ClinicaFrba.Cancelar_Turno
                 }
                 foreach (DataGridView dgv in dgvs)
                 {
-                    dgv.Columns[0].Visible = false;
-                    dgv.Columns[1].Width = 40;
-                    dgv.Columns[2].Width = 150;
-                    dgv.Columns[3].Width = 80;
-
-
-                    if (dgv.Rows.Count > 0 && dgv.Columns.Count > 0)
+                    if (cbxUsuario.SelectedItem == "Afiliado")
                     {
-                        foreach (DataGridViewRow r in dgv.Rows)
-                        {
-                            if ((r.Cells["Turno"].Value).ToString() == "Disponible")
-                            {
-                                r.DefaultCellStyle.BackColor = Color.Green;
-                            }else
-                            {
-                                r.DefaultCellStyle.BackColor = Color.Red;
-                            }
-                        }
+                        
+                        dgv.Columns[0].Visible = false;
+                        dgv.Columns[1].Width = 40;
+                        dgv.Columns[2].Width = 150;
                     }
+                    else
+                    {
+                        dgv.Columns[0].Width = 40;
+                        dgv.Columns[1].Width = 150;
+                    }
+
+
+                    //if (dgv.Rows.Count > 0 && dgv.Columns.Count > 0)
+                    //{
+                    //    foreach (DataGridViewRow r in dgv.Rows)
+                    //    {
+                    //        if ((r.Cells["Turno"].Value).ToString() == "Disponible")
+                    //        {
+                    //            r.DefaultCellStyle.BackColor = Color.Green;
+                    //        }else
+                    //        {
+                    //            r.DefaultCellStyle.BackColor = Color.Red;
+                    //        }
+                    //    }
+//}
 
                 }
 
@@ -211,7 +219,7 @@ namespace ClinicaFrba.Cancelar_Turno
                     var hasta = hastaDTP.Value;
                     while (dia <= hasta)
                     {
-                        ageNegocio.CancelarDias(Convert.ToInt32(tbxUsuario.Text), desdeDTP.Value, hastaDTP.Value, cbxMotivo.SelectedItem, explictxb.Text);
+                        ageNegocio.CancelarDias(Convert.ToInt32(tbxUsuario.Text), desdeDTP.Value, hastaDTP.Value, Convert.ToInt32(cbxMotivo.SelectedValue), explictxb.Text);
 
                         dia = dia.AddDays(1);
                     }

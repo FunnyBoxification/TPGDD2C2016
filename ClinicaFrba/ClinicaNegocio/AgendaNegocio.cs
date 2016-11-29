@@ -56,6 +56,8 @@ namespace ClinicaNegocio
 
         }
 
+
+
         public DataTable getDiaAgenda(int idProfesional, DateTime dia, int idespecialidad)
         {
 
@@ -193,7 +195,7 @@ namespace ClinicaNegocio
             }
         }
 
-        public void CancelarDias(int id_profesional, DateTime fecha_desde, DateTime fecha_hasta, object id_cancelacion, string explicacion)
+        public void CancelarDias(int id_profesional, DateTime fecha_desde, DateTime fecha_hasta, int id_cancelacion, string explicacion)
         {
             try
             {
