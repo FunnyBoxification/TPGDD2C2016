@@ -200,7 +200,7 @@ namespace ClinicaNegocio
             try
             {
                 DBConn.openConnection();
-                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CANCELAR_TURNO", DBConn.Connection))
+                using (SqlCommand cmd = new SqlCommand("SIEGFRIED.CANCELAR_DIAS", DBConn.Connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@id_profesional", id_profesional);

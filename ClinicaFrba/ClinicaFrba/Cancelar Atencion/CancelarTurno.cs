@@ -251,6 +251,7 @@ namespace ClinicaFrba.Cancelar_Turno
 
             if (dia < diapermitido)
             {
+                MessageBox.Show("No se puede cancelar el dia actual");
                 return false;
             }
             if (Convert.ToString(cbxMotivo.SelectedValue) == "")
@@ -279,6 +280,11 @@ namespace ClinicaFrba.Cancelar_Turno
                 return false;
             }
             return true;
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
         
 

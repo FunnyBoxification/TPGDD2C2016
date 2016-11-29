@@ -821,8 +821,8 @@ GO
 
 CREATE PROCEDURE SIEGFRIED.CANCELAR_DIAS
 	@id_profesional numeric(18,0), 
-	@fecha_desde numeric(18,0),
-	@fecha_hasta numeric(18,0),	
+	@fecha_desde datetime,
+	@fecha_hasta datetime,	
 	@id_cancelacion numeric(18,0),
 	@explicacion varchar(255)
 AS
@@ -844,10 +844,11 @@ BEGIN
 	BEGIN  
 	
 		EXEC SIEGFRIED.CANCELAR_TURNO @id_turno,@id_afiliado,@id_cancelacion,@explicacion;
-		UPDATE SIEGFRIED.AGENDA SET cancelado = 1 WHERE id_agenda = id_agenda;
 		FETCH NEXT FROM turnos_cursor   
 	    INTO @id_turno, @id_afiliado, @id_agenda
-	END   
+	END
+
+	UPDATE SIEGFRIED.AGENDA SET cancelado = 1 WHERE id_profesional = @id_profesional and dia_hora between @fecha_desde and @fecha_hasta;   
 	CLOSE turnos_cursor;  
 	DEALLOCATE turnos_cursor;  
 

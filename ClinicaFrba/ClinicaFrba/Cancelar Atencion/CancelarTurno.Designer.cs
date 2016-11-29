@@ -49,11 +49,6 @@
             this.MartesDGV = new System.Windows.Forms.DataGridView();
             this.lunesDGV = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tbxExpli2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cbxMotivo2 = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.explictxb = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -63,6 +58,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.hastaDTP = new System.Windows.Forms.DateTimePicker();
             this.desdeDTP = new System.Windows.Forms.DateTimePicker();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tbxExpli2 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbxMotivo2 = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sabadoDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viernesDGV)).BeginInit();
@@ -342,50 +342,6 @@
             this.panel1.Size = new System.Drawing.Size(381, 95);
             this.panel1.TabIndex = 44;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.tbxExpli2);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.cbxMotivo2);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Location = new System.Drawing.Point(373, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(375, 95);
-            this.panel2.TabIndex = 45;
-            // 
-            // tbxExpli2
-            // 
-            this.tbxExpli2.Location = new System.Drawing.Point(81, 48);
-            this.tbxExpli2.Name = "tbxExpli2";
-            this.tbxExpli2.Size = new System.Drawing.Size(246, 20);
-            this.tbxExpli2.TabIndex = 32;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 51);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Explicacion";
-            // 
-            // cbxMotivo2
-            // 
-            this.cbxMotivo2.FormattingEnabled = true;
-            this.cbxMotivo2.Location = new System.Drawing.Point(81, 18);
-            this.cbxMotivo2.Name = "cbxMotivo2";
-            this.cbxMotivo2.Size = new System.Drawing.Size(246, 21);
-            this.cbxMotivo2.TabIndex = 9;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(41, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 13);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Motivo";
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(314, 16);
@@ -463,11 +419,56 @@
             this.desdeDTP.Size = new System.Drawing.Size(79, 20);
             this.desdeDTP.TabIndex = 4;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tbxExpli2);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.cbxMotivo2);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Location = new System.Drawing.Point(373, 12);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(375, 95);
+            this.panel2.TabIndex = 45;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // tbxExpli2
+            // 
+            this.tbxExpli2.Location = new System.Drawing.Point(81, 48);
+            this.tbxExpli2.Name = "tbxExpli2";
+            this.tbxExpli2.Size = new System.Drawing.Size(246, 20);
+            this.tbxExpli2.TabIndex = 32;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Explicacion";
+            // 
+            // cbxMotivo2
+            // 
+            this.cbxMotivo2.FormattingEnabled = true;
+            this.cbxMotivo2.Location = new System.Drawing.Point(81, 18);
+            this.cbxMotivo2.Name = "cbxMotivo2";
+            this.cbxMotivo2.Size = new System.Drawing.Size(246, 21);
+            this.cbxMotivo2.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(41, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(39, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Motivo";
+            // 
             // CancelarTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 786);
+            this.ClientSize = new System.Drawing.Size(766, 750);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblSabado);
