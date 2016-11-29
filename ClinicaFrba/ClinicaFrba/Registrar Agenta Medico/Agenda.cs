@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Collections.Specialized;
 using ClinicaNegocio;
 
 namespace ClinicaFrba.Registrar_Agenta_Medico
@@ -26,7 +28,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             hastaHP.Format = DateTimePickerFormat.Custom;
             hastaHP.CustomFormat = "HH mm";
             IdProfesional = idProfesional;
-            Fecha = DateTime.Now;
+            Fecha = DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]);
 
         }
 

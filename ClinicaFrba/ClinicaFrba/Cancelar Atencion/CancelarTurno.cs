@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Collections.Specialized;
 using ClinicaNegocio;
 
 namespace ClinicaFrba.Cancelar_Turno
@@ -156,7 +158,7 @@ namespace ClinicaFrba.Cancelar_Turno
         private void PedirTurno_Load(object sender, EventArgs e)
         {
             ageNegocio = new AgendaNegocio(instance = new SqlServerDBConnection());
-            Fecha = DateTime.Now;
+            Fecha = DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]);
 
             if ((UsuarioLogueado.Instance().rol == "Profesional"))
             {
@@ -241,14 +243,12 @@ namespace ClinicaFrba.Cancelar_Turno
 
         private bool ValidarCancelar(DateTime dia, DateTime hasta)
         {
-            
-            var diapermitido = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day+1,0, 0, 0);
+             var diapermitido = new DateTime(DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Year, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Month, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Day+1,0, 0, 0);
             if (dia > hasta)
             {
                 MessageBox.Show("desde debe ser menor a hasta");
                 return false;
             }
-
 
             if (dia < diapermitido)
             {

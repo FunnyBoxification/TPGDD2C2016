@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Collections.Specialized;
 using ClinicaNegocio;
 
 namespace ClinicaFrba.Pedir_Turno
@@ -103,7 +105,7 @@ namespace ClinicaFrba.Pedir_Turno
         private void PedirTurno_Load(object sender, EventArgs e)
         {
             ageNegocio = new AgendaNegocio(instance = new SqlServerDBConnection());
-            Fecha = DateTime.Now;
+            Fecha = DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]);
             if ((UsuarioLogueado.Instance().rol == "Profesional"))
             {
                 tbxProfesional.Text = UsuarioLogueado.Instance().userId;
