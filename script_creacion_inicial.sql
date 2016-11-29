@@ -771,11 +771,19 @@ BEGIN
 	WHILE @desde <= @hasta
 	BEGIN
 		declare @horassemanales int
+		declare @disp numeric(18,0)
 		SET @horassemanales = (select count(*)/2 from SIEGFRIED.AGENDA where DATEPART(week,@desde) = DATEPART(week,dia_hora)and DATEPART(year,@desde) = DATEPART(year,dia_hora) and id_profesional = @idprofesional)
 		if @horassemanales >= 48
 		BEGIN
-			declare @msj varchar = 'El medico ya posee asignadas 48 horas semanales! No puede poseer mas para la semana del dia' + CONVERT(varchar(10),@desde, 20)
+			declare @msj varchar(255) = 'El medico ya posee asignadas 48 horas semanales! No puede poseer mas para la semana del dia' + CONVERT(varchar(10),@desde, 20)
 			RAISERROR(@msj, 18, 0)
+			RETURN 
+		END
+		SET @disp = (select count(id_agenda) from SIEGFRIED.AGENDA where @desde = dia_hora)
+		if @disp > 0
+		BEGIN
+			declare @msj2 varchar(255) = 'Ya hay una agenda para el dia y hora: ' + CONVERT(varchar(10),@desde, 20)
+			RAISERROR(@msj2, 18, 0)
 			RETURN 
 		END
 		INSERT INTO SIEGFRIED.AGENDA VALUES(@idprofesional, @desde, @especialidad,0, null); 

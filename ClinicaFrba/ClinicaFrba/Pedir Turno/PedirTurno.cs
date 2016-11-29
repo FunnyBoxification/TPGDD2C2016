@@ -47,6 +47,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             try
             {
+                if(validar()){
                 int dia = (int)Fecha.DayOfWeek;
                 var idesp = Convert.ToInt32(cbxEspecialidad.SelectedValue);
                 var lunes = Fecha.AddDays(-dia + 1);
@@ -93,7 +94,7 @@ namespace ClinicaFrba.Pedir_Turno
 
                 }
 
-
+                }
 
             }
             catch (Exception ex)
@@ -145,14 +146,37 @@ namespace ClinicaFrba.Pedir_Turno
             Fecha = Fecha.AddDays(7);
             CargarDias();
         }
+        private bool validar()
+        {
+            if (tbxProfesional.Text == "")
+            {
+                MessageBox.Show("Debe ingresar un Profesional");
+                return false;
+            }
+            return true;
+        }
+
+        private bool validar2()
+        {
+            if (tbxAfiliado.Text == "")
+            {
+                MessageBox.Show("Debe ingresar un Afiliado");
+                return false;
+            }
+            return true;
+        }
+
 
         private void lunesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (MessageBox.Show("Desea solicitar este turno?", "Solicitar Turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
-                ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value),Convert.ToInt32(tbxAfiliado.Text));
-                CargarDias();
+                if (validar2())
+                {
+                    int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
+                    ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value), Convert.ToInt32(tbxAfiliado.Text));
+                    CargarDias();
+                }
             }
         }
     }

@@ -125,7 +125,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al cargar datos");
+                    MessageBox.Show("Error al cargar datos. " +ex.Message);
                 }
             }
         }
