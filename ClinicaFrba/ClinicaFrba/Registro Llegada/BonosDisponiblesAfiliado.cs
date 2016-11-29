@@ -42,8 +42,7 @@ namespace ClinicaFrba.Registro_Llegada
             if (dialogResult == DialogResult.Yes)
             {
                 String idBono = dataGridView1.Rows[e.RowIndex].Cells["id_bono"].Value.ToString();
-                var horaActual = DateTime.Now.TimeOfDay;
-                DateTime fechaLlegada =  DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Add(horaActual);
+                DateTime fechaLlegada =  DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]);
                 regNegocio.generarConsulta(idTurno, idBono, fechaLlegada);
                 MessageBox.Show("Llegada registrada con exito");
                 this.Hide();
