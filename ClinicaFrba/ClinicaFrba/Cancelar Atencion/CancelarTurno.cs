@@ -219,22 +219,17 @@ namespace ClinicaFrba.Cancelar_Turno
 
         private void button3_Click(object sender, EventArgs e)
         {
+            var dia = new DateTime(desdeDTP.Value.Year, desdeDTP.Value.Month, desdeDTP.Value.Day, 0, 0, 0);
+
+            var hasta = new DateTime(hastaDTP.Value.Year, hastaDTP.Value.Month, hastaDTP.Value.Day, 23, 59, 0);
              
-            if (ValidarCancelar())
+            if (ValidarCancelar(dia,hasta))
             {
                 try
                 {
+                    
+                   ageNegocio.CancelarDias(Convert.ToInt32(tbxUsuario.Text), dia, hasta, Convert.ToInt32(cbxMotivo.SelectedValue), explictxb.Text);
 
-
-                    var dia = new DateTime(desdeDTP.Value.Year, desdeDTP.Value.Month, desdeDTP.Value.Day, 0, 0, 0);
-
-                    var hasta = hastaDTP.Value;
-                    while (dia <= hasta)
-                    {
-                        ageNegocio.CancelarDias(Convert.ToInt32(tbxUsuario.Text), desdeDTP.Value, hastaDTP.Value, Convert.ToInt32(cbxMotivo.SelectedValue), explictxb.Text);
-
-                        dia = dia.AddDays(1);
-                    }
                     CargarDias();
 
                 }
@@ -246,10 +241,14 @@ namespace ClinicaFrba.Cancelar_Turno
         
         }
 
-        private bool ValidarCancelar()
+        private bool ValidarCancelar(DateTime dia, DateTime hasta)
         {
-            var dia = new DateTime(desdeDTP.Value.Year, desdeDTP.Value.Month, desdeDTP.Value.Day,0, 0, 0);
-            var diapermitido = new DateTime(DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Year, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Month, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Day+1,0, 0, 0);
+             var diapermitido = new DateTime(DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Year, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Month, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Day+1,0, 0, 0);
+            if (dia > hasta)
+            {
+                MessageBox.Show("desde debe ser menor a hasta");
+                return false;
+            }
 
             if (dia < diapermitido)
             {
