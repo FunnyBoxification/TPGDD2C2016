@@ -808,7 +808,7 @@ BEGIN
 	DECLARE @validaId int
 	DECLARE @id_agenda numeric(18,0)
 	SET  @validaId = (select t.id_afiliado from SIEGFRIED.TURNOS t where @id_turno =  t.id_turno )
-	SET @id_agenda = (select id_agemda from SIEGFRIED.AGENDA where id_turno = @id_turno)
+	SET @id_agenda = (select id_agenda from SIEGFRIED.AGENDA where id_turno = @id_turno)
 	IF @validaId != @id_afiliado
 		begin
 		RAISERROR('El turno no pertenece al afiliado', 18, 0)
