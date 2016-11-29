@@ -35,8 +35,8 @@ namespace ClinicaFrba.Registro_Resultado
                 return;
             }
             int idConsulta = Int32.Parse(consulta.Cells["id_consulta"].Value.ToString());
-            var horaActual = DateTime.Now.TimeOfDay;
-            DateTime fechaAtencion =  DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]).Add(horaActual);
+            //var horaActual = DateTime.Now.TimeOfDay;
+            DateTime fechaAtencion = DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]);//.Add(horaActual);
             resultadoNegocio.guardarConsulta(idConsulta, rtbDiagnostico.Text, rtbSintomas.Text, fechaAtencion);
             this.Hide();
         }
