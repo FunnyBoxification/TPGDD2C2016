@@ -51,10 +51,18 @@ namespace ClinicaFrba.Compra_Bono
                 return;
             }
 
-            bonosNegocio.comprarBonos(textBox1.Text, cantidad, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]));
-            var precioBono = bonosNegocio.getPrecioBono(textBox1.Text);
-            MessageBox.Show(cantidad + " bonos comprados a $" + precioBono + " para el afiliado " + textBox1.Text);
-            this.Hide();
+            try
+            {
+                bonosNegocio.comprarBonos(textBox1.Text, cantidad, DateTime.Parse(ConfigurationManager.AppSettings["FechaDelDia"]));
+                var precioBono = bonosNegocio.getPrecioBono(textBox1.Text);
+                MessageBox.Show(cantidad + " bonos comprados a $" + precioBono + " para el afiliado " + textBox1.Text);
+                this.Hide();
+            }
+            catch
+            {
+                MessageBox.Show("A ocurrido un error intentando realizar la compra de bonos, por favor chequee que el ID de afiliado sea valido y que la cantidad sea mayor a cero");
+                return;
+            }
         }
     }
 }

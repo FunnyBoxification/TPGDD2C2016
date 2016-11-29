@@ -46,7 +46,7 @@ namespace ClinicaFrba.Cancelar_Turno
                 cbxMotivo.ValueMember = "id_tipo";
             foreach (DataGridView dgv in dgvs)
             {
-                dgv.Enabled = false;
+                //dgv.Enabled = false;
             }
 
             }
@@ -78,6 +78,16 @@ namespace ClinicaFrba.Cancelar_Turno
         {
             try
             {
+                if (cbxUsuario.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Seleccione el tipo de usuario");
+                    return;
+                }
+                if (tbxUsuario.Text == "" || !tbxUsuario.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Ingrese un ID de usuario valido");
+                    return;
+                }
                 int dia = (int)Fecha.DayOfWeek;
                 var idesp = Convert.ToInt32(cbxUsuario.SelectedValue);
                 var lunes = Fecha.AddDays(-dia + 1);
