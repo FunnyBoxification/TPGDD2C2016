@@ -127,12 +127,12 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void button1_Click(object sender, EventArgs e)
         {
-            lunesDGV.Rows.Clear();
-            MartesDGV.Rows.Clear();
-            miercolesDGV.Rows.Clear();
-            juevesDGV.Rows.Clear();
-            viernesDGV.Rows.Clear();
-            sabadoDGV.Rows.Clear();
+            lunesDGV.DataSource = null;
+            MartesDGV.DataSource = null;
+            miercolesDGV.DataSource = null;
+            juevesDGV.DataSource = null;
+            viernesDGV.DataSource = null;
+            sabadoDGV.DataSource = null;
         }
 
         private void anteriorBtn_Click(object sender, EventArgs e)
@@ -148,7 +148,7 @@ namespace ClinicaFrba.Pedir_Turno
         }
         private bool validar()
         {
-            if (tbxProfesional.Text == "")
+            if (tbxProfesional.Text == "" || !tbxProfesional.Text.All(char.IsDigit))
             {
                 MessageBox.Show("Debe ingresar un Profesional");
                 return false;
@@ -158,9 +158,9 @@ namespace ClinicaFrba.Pedir_Turno
 
         private bool validar2()
         {
-            if (tbxAfiliado.Text == "")
+            if (tbxAfiliado.Text == "" || !tbxAfiliado.Text.All(char.IsDigit))
             {
-                MessageBox.Show("Debe ingresar un Afiliado");
+                MessageBox.Show("Debe ingresar un ID de Afiliado valido");
                 return false;
             }
             return true;
@@ -169,13 +169,25 @@ namespace ClinicaFrba.Pedir_Turno
 
         private void lunesDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (MessageBox.Show("Desea solicitar este turno?", "Solicitar Turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if ((((DataGridView)sender).Rows[e.RowIndex].Cells["Turno"].Value).ToString() == "Disponible")
             {
-                if (validar2())
+                if (MessageBox.Show("Desea solicitar este turno?", "Solicitar Turno", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    int rowindex = (int)((DataGridView)sender).SelectedCells[0].RowIndex;
-                    ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value), Convert.ToInt32(tbxAfiliado.Text));
-                    CargarDias();
+                    if (validar2())
+                    {
+                        try
+                        {
+                            int rowindex = e.RowIndex;
+                            ageNegocio.GrabarTurno(Convert.ToInt32(((DataGridView)sender).Rows[rowindex].Cells[0].Value), Convert.ToInt32(tbxAfiliado.Text));
+                            CargarDias();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("{0} Exception caught.", ex);
+                            MessageBox.Show("Hubo un error al intentar grabar el turno, por favor verifique que el id de afiliado sea valido");
+                            return;
+                        }
+                    }
                 }
             }
         }
