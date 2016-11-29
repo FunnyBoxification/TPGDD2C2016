@@ -181,12 +181,12 @@ namespace ClinicaFrba.Cancelar_Turno
 
         private void button1_Click(object sender, EventArgs e)
         {
-            lunesDGV.Rows.Clear();
-            MartesDGV.Rows.Clear();
-            miercolesDGV.Rows.Clear();
-            juevesDGV.Rows.Clear();
-            viernesDGV.Rows.Clear();
-            sabadoDGV.Rows.Clear();
+            lunesDGV.DataSource = null;
+            MartesDGV.DataSource = null;
+            miercolesDGV.DataSource = null;
+            juevesDGV.DataSource = null;
+            viernesDGV.DataSource = null;
+            sabadoDGV.DataSource = null;
         }
 
         private void anteriorBtn_Click(object sender, EventArgs e)
