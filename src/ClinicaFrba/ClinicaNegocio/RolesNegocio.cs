@@ -274,32 +274,31 @@ namespace ClinicaNegocio
 
         public DataTable getAllFuncionalidades()
         {
-
-            //int ID_ROL_COLUMN = 0;
-            //List<decimal> listRolIds = new List<decimal>();
-            var dt = new DataTable();
-
             try
             {
+                var dt = new DataTable();
                 DBConn.openConnection();
-                String sqlRequest = "SELECT * FROM SIEGFRIED.FUNCIONALIDADES WHERE Id_Funcionalidad IS NOT NULL";
+                String sqlRequest;
+                sqlRequest = "SELECT * FROM SIEGFRIED.FUNCIONALIDADES WHERE Id_Funcionalidad IS NOT NULL";
+
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
-                //command.Parameters.Add("@idUser", SqlDbType.Int).Value = idUser;
+
+
                 using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                 {
                     adapter.Fill(dt);
-                    return dt;
                 }
+
                 command.Dispose();
                 DBConn.closeConnection();
+                return dt;
 
             }
             catch (Exception ex)
             {
                 DBConn.closeConnection();
-                throw (new Exception("Error en ObtenerRoles" + ex.Message));
+                throw (new Exception("Error en Error en ObtenerRoles: " + ex.Message));
             }
-
         }
     }
 }

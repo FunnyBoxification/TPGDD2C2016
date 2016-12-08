@@ -1,2 +1,0 @@
-Para saber si un turno esta cancelado, hay que chequear si o si sobre la tabla cancelaciones, la tabla turnos 
-no dice si el turno se cancelo o no!
