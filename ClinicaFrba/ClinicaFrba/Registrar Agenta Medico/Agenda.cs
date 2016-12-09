@@ -98,6 +98,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         private void button1_Click(object sender, EventArgs e)
         {
+            hastaHP.Value.AddMinutes(-30);
             if (ValidarInsertar())
             {
                 try
@@ -121,10 +122,12 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                         dia = dia.AddDays(1);
                     }
                     CargarDias();
+                    hastaHP.Value.AddMinutes(30);
 
                 }
                 catch (Exception ex)
                 {
+                    hastaHP.Value.AddMinutes(30);
                     MessageBox.Show("Error al cargar datos. " +ex.Message);
                 }
             }
@@ -152,7 +155,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 return false;
             }
 
-            if (hastaHP.Value > Convert.ToDateTime("01/01/2015 19:59:00"))
+            if (hastaHP.Value > Convert.ToDateTime("01/01/2015 20:00:00"))
             {
                 MessageBox.Show("Hora no puede ser menor a las 20 para de Lunes a Viernes");
                 return false;
