@@ -178,6 +178,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 MessageBox.Show("La hora desde debe ser en punto o y media");
                 return false;
             }
+            if ((int)hastaHP.Value.Minute != 30 && (int)hastaHP.Value.Minute != 0)
+            {
+                MessageBox.Show("La hora hasta debe ser en punto o y media");
+                return false;
+            }
 
 
             return true;
