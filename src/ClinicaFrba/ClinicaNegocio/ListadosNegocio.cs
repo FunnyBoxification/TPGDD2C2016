@@ -130,11 +130,11 @@ namespace ClinicaNegocio
                 String sqlRequest;
                 sqlRequest = "SELECT descripcion from SIEGFRIED.ESPECIALIDADES where id_especialidad IN (";
                 sqlRequest += "SELECT TOP 5 a.id_especialidad ";
-                sqlRequest += "from SIEGFRIED.TURNOS t, SIEGFRIED.AGENDA a ";
-                sqlRequest += "where t.id_turno = a.id_turno AND t.id_turno in (SELECT c.id_turno FROM SIEGFRIED.CANCELACION c) ";
+                sqlRequest += "from SIEGFRIED.AGENDA a ";
+                sqlRequest += "where a.cancelado = 1 ";
                 sqlRequest += "AND YEAR(a.dia_hora) = @anio AND MONTH(a.dia_hora) = @mes ";
                 sqlRequest += "GROUP BY a.id_especialidad ";
-                sqlRequest += "ORDER BY COUNT(t.id_turno) desc)";
+                sqlRequest += "ORDER BY COUNT(a.id_turno) desc)";
 
                 SqlCommand command = new SqlCommand(sqlRequest, DBConn.Connection);
                 command.Parameters.Add("@anio", SqlDbType.Int).Value = anio;
