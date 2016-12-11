@@ -1,3 +1,0 @@
-1) La compra de bonos se hace bien
-2) Lo de las fechas de los bonos esta bien analizado y utilizado en el script
-3) Empezar con los abms y los SP de insercion y triggers necesarios

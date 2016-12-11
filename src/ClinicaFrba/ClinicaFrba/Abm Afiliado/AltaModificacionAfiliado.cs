@@ -150,7 +150,7 @@ namespace ClinicaFrba.Abm_Afiliado
             password = tbxPassword.Text;
             direccion = tbxDireccion.Text;
             documento = Int32.Parse(tbxDni.Text);
-            if (usuariosNegocio.documentoRepetido(documento))
+            if (usuariosNegocio.documentoRepetido(documento) && Tipo == 1)
             {
                 MessageBox.Show("Este nro de documento ya existe en el sistema");
                 return;
